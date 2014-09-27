@@ -23,3 +23,7 @@ unzipped tomcat.
 
 7) Unzip the mysql-connector zip file and add the .jar file within to the /lib folder that is within the tomat directory.
 This JAR file is the java database connector, so we will need it for our database.
+
+Hopefully that should be all that is required to get the project up and running. 
+
+This is a big ole change to the project
