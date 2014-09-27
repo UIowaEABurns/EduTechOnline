@@ -1,0 +1,1 @@
+This directory will contain jsp files that can only be accessed by users that are logged in
