@@ -1,0 +1,16 @@
+Hello $$USER$$,
+
+Thank you for registering for the EduTechOnline service? To confirm your
+email address, please click on the link below.
+
+Registration Confirmation
+$$CONFIRMATION_URL$$
+
+
+If you did not sign up for the service and believe you are receiving this
+message in error, you do not need to take any other steps. If you accidentally
+clicked on the link above and would like to remove your confirmation, please
+click on the link below.
+
+Registration Cancellation
+$$CANCEL_USER$$

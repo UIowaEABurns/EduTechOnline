@@ -10,7 +10,7 @@
   </welcome-file-list>
   <listener>
   	<listener-class>
-  		application.EduTechOnline
+  		edutechonline.application.EduTechOnline
   	</listener-class>
   </listener>
 </web-app>

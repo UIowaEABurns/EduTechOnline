@@ -23,3 +23,21 @@ unzipped tomcat.
 
 7) Unzip the mysql-connector zip file and add the .jar file within to the /lib folder that is within the tomat directory.
 This JAR file is the java database connector, so we will need it for our database.
+
+8) Install MySQL community server from the following URL. Simply choose the most recent version for your platform.
+
+http://dev.mysql.com/downloads/mysql/
+
+
+9) Tomcat has a build in feature for managing logins. To use it, you need to add the following line of XML to your server.xml file.
+To find server.xml, first go to your Eclipse workspace. Then, go into the "Servers" directory. Select the Tomcat directory
+you are using for the project and open "server.xml". Inside server.xml, you will find the following realm.
+
+<Realm className="org.apache.catalina.realm.LockOutRealm">
+</Realm>
+
+You must modify the realm to look like this, but with your own mysql username and password
+
+<Realm className="org.apache.catalina.realm.LockOutRealm">
+	<Realm className="org.apache.catalina.realm.JDBCRealm" connectionName="root" connectionPassword="ceufpxj1" connectionURL="jdbc:mysql://localhost/starexec" digest="SHA-512" driverName="com.mysql.jdbc.Driver" roleNameCol="role" userCredCol="password" userNameCol="email" userRoleTable="user_roles" userTable="users"/>
+</Realm>
