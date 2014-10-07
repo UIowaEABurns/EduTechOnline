@@ -15,4 +15,15 @@ public class Constants {
 	public static String MYSQL_PASSWORD=null;
 	public static String MYSQL_URL=null;
 	public static String URL_PREFIX =null;
+	public static String SERVERNAME=null;
+	public static String WEB_APP_ROOT="EduTechOnline";
+	
+	//length maxima
+	public static int EMAIL_LENGTH=64;
+	public static int NAME_LENGTH=32;
+	public static int PASS_LENGTH=255;
+	
+	//regular expressions
+	public static String NAME_REGEX = "^[\\w\\s'-]$";
+	public static String EMAIL_REGEX = "^[\\w-%+\\.]+@[a-zA-Z0-9]+\\.[\\w]{2,4}$";
 }

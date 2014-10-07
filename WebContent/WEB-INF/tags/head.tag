@@ -10,7 +10,7 @@
 	<title>EduTechOnline</title>
 	<meta charset="utf-8" />
 	<link rel="stylesheet" href="/edutechonline/css/lib/jquery-ui.css" />
-		<link rel="stylesheet" href="/edutechonline/css/lib/jquery-ui.theme.css" />
+	<link rel="stylesheet" href="/edutechonline/css/lib/jquery-ui.theme.css" />
 	
 	<link rel="stylesheet" href="/edutechonline/css/master.css" />
 	

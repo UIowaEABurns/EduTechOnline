@@ -9,7 +9,7 @@ public class User extends IDEntity {
 	private String firstName=null;
 	private String lastName=null;
 	private String email=null;
-	
+	private String password=null; // may be either plaintext or hash depending on context!
 	public User() {
 		
 	}
@@ -36,5 +36,13 @@ public class User extends IDEntity {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

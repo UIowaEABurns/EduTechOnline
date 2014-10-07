@@ -10,6 +10,7 @@ import org.apache.commons.mail.SimpleEmail;
 import org.apache.log4j.Logger;
 
 import edutechonline.application.Constants;
+import edutechonline.database.entity.User;
 
 
 /**
@@ -18,20 +19,34 @@ import edutechonline.application.Constants;
 public class Mail {
 	private static final Logger log = Logger.getLogger(Mail.class);
 	
+	
+	private static String getConfirmationURLWithId(String code) {
+		String url=Util.getAbsoluteURL("secure/confirmation");
+		url=url+("?id="+code);
+		return url;
+	}
+	
 	/**
 	 * Sends a registration confirmation email to the given 
 	 * @param userId
 	 * @param uniqueID
 	 */
-	public static void sendConfirmationEmail(String name, String uniqueID) {
+	public static void sendConfirmationEmail(User u, String uniqueID) {
 		try {
 			String message=FileUtils.readFileToString(new File(Constants.APP_ROOT,Constants.CONFIRM_EMAIL_PATH));
-			message.replace("$$USER$$", name);
-			
+			message=message.replace("$$USER$$", u.getFirstName());
+			message=message.replace("$$CONFIRMATION_URL$$", getConfirmationURLWithId(uniqueID));
+			mail(message,"EduTechOnline Registration",u.getEmail());
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
 		}
 		
+	}
+	
+	public static void mail(String message, String subject, String address) {
+		String [] addrs=new String[1];
+		addrs[0]=address;
+		mail(message,subject,addrs);
 	}
 	
 	/**

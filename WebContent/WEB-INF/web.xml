@@ -4,6 +4,71 @@
   <!-- Application Configuration -->
   <display-name>EduTechOnline</display-name>
  <description>Online Courses and Student Progress Management</description>
+ 
+   <error-page> 
+    <error-code>400</error-code> 
+    <location>/public/error.jsp</location> 
+  </error-page>
+  <error-page> 
+    <error-code>403</error-code> 
+    <location>/public/error.jsp</location> 
+  </error-page>
+  <error-page> 
+    <error-code>404</error-code> 
+    <location>/public/error.jsp</location> 
+  </error-page>
+  <error-page> 
+    <error-code>405</error-code> 
+    <location>/public/error.jsp</location> 
+  </error-page>
+  <error-page> 
+    <error-code>500</error-code> 
+    <location>/public/error.jsp</location> 
+  </error-page>  
+ 
+ 
+   <!-- Security Roles -->  
+  <security-role>
+    <role-name>admin</role-name>    
+  </security-role>  
+  <security-role>
+    <role-name>user</role-name>    
+  </security-role>
+  <security-role>
+  	<role-name>manager</role-name>
+  </security-role>
+  <security-role>
+  	<role-name>unverified</role-name>
+  </security-role>
+
+  
+  <!-- Form based authentication configuration -->
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <form-login-config>
+      <form-login-page>/public/home.jsp</form-login-page>
+      <form-error-page>/public/home.jsp?result=failed</form-error-page>
+    </form-login-config>	  
+  </login-config>  
+ 
+ 	<!-- Servlets -->
+  <servlet>
+  	<servlet-name>Registration</servlet-name>
+  	<servlet-class>edutechonline.servlets.Registration</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Registration</servlet-name>
+  	<url-pattern>/secure/registration</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>RegistrationConfirmation</servlet-name>
+  	<servlet-class>edutechonline.servlets.RegistrationConfirmation</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>RegistrationConfirmation</servlet-name>
+  	<url-pattern>/secure/confirmation</url-pattern>
+  </servlet-mapping>
+ 
   <!-- Default pages to load -->
   <welcome-file-list>
     <welcome-file>jsp/public/home.jsp</welcome-file>

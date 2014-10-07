@@ -2,6 +2,7 @@ package edutechonline.application;
 
 
 import java.io.File;
+import java.util.UUID;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -12,6 +13,7 @@ import org.apache.log4j.PropertyConfigurator;
 import edutechonline.database.ConnectionPool;
 import edutechonline.database.Users;
 import edutechonline.util.Mail;
+import edutechonline.util.Util;
 import edutechonline.configuration.*;
 public class EduTechOnline implements ServletContextListener {
 		private static final Logger log=Logger.getLogger(EduTechOnline.class);
@@ -45,8 +47,7 @@ public class EduTechOnline implements ServletContextListener {
 			// Initialize the datapool after properties are loaded
 			ConnectionPool.initialize();
 			
-			
-			System.out.println(Users.getUser(1).getFirstName());
+			//Mail.sendConfirmationEmail(Users.getUser(1),UUID.randomUUID().toString());
 		}	
 
 }

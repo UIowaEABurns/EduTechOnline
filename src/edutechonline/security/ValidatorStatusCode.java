@@ -1,4 +1,4 @@
-package eduttechonline.security;
+package edutechonline.security;
 
 import com.google.gson.annotations.Expose;
 
