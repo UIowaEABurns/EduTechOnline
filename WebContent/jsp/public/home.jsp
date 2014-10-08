@@ -8,7 +8,8 @@
 %>
 <edutech:template css="public/home" js="">
 	<form id="loginForm">
-		<label>email:</label><input type="text" name="email"/>
+		<label title="this is some text">email:</label><input type="text" name="email"/>
 		<label>password:</label><input type="text" name="password"/>
+		<button>button</button>
 	</form>	
 </edutech:template>

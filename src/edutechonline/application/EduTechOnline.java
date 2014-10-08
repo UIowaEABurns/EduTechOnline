@@ -41,9 +41,7 @@ public class EduTechOnline implements ServletContextListener {
 			Constants.APP_ROOT=root;
 			PropertyConfigurator.configure(new File(Constants.APP_ROOT, Constants.LOG4J_PATH).getAbsolutePath());
 
-			// Setup the path to starexec's configuration files
 			Constants.CONFIG_PATH = new File(Constants.APP_ROOT, "/WEB-INF/classes/edutechonline/configuration/").getAbsolutePath();
-			// Load all properties from the starexec-config file
 			ConfigUtil.loadProperties(new File(Constants.CONFIG_PATH, "config.xml"));
 			Validator.compilePatterns();
 			// Before we do anything we must configure log4j!
@@ -51,6 +49,8 @@ public class EduTechOnline implements ServletContextListener {
 			ConnectionPool.initialize();
 			ConfigUtil.loadUsersFromConfig(new File(Constants.CONFIG_PATH, "config.xml"));
 			TestManager.executeAllTestSequences();
+			
+			
 		}	
 
 }

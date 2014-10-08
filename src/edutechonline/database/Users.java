@@ -190,7 +190,7 @@ public class Users {
 			log.error(e.getMessage(),e);
 		} finally {
 			ConnectionPool.safeClose(con);
-			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
 			ConnectionPool.safeClose(results);
 		}
 		return null;

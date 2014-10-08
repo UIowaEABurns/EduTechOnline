@@ -1,0 +1,18 @@
+--Eric:
+Write backend support for a "forgot password" button including generating a random pass and sending an email to the usr
+Write "print test report" function
+Write an error page
+
+Shubham
+Write tests covering User classes
+Write tests covering Util classes
+Test front end including registration, login, admin features
+
+Kiran
+Design following pages
+Home page
+Registration page
+confirmation of registration page
+Account details page
+About us page / contact page
+Admin page for promotion / deletion of users

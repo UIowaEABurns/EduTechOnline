@@ -60,6 +60,7 @@
   	<servlet-name>Registration</servlet-name>
   	<url-pattern>/secure/registration</url-pattern>
   </servlet-mapping>
+  
   <servlet>
   	<servlet-name>RegistrationConfirmation</servlet-name>
   	<servlet-class>edutechonline.servlets.RegistrationConfirmation</servlet-class>

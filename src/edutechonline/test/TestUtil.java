@@ -20,6 +20,11 @@ public class TestUtil {
 		}
 		return name;
 	}
+	
+	public static String getRandomPassword() {
+		return getRandomAlphaString(16);
+	}
+	
 	public static String getErrorTrace(Throwable error) {
 		if (error==null) {
 			return "no error";

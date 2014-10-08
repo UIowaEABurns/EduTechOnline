@@ -28,7 +28,6 @@ public class TestManager {
 	//all test sequences need to be initialized here
 	public static void initializeTests() {
 		tests.add(new UserTests());
-		
 	}
 	
 	public static boolean areTestsRunning() {
