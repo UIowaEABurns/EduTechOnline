@@ -12,8 +12,10 @@ import org.apache.log4j.PropertyConfigurator;
 
 import edutechonline.database.ConnectionPool;
 import edutechonline.database.Users;
+import edutechonline.test.TestManager;
 import edutechonline.util.Mail;
 import edutechonline.util.Util;
+import edutechonline.util.Validator;
 import edutechonline.configuration.*;
 public class EduTechOnline implements ServletContextListener {
 		private static final Logger log=Logger.getLogger(EduTechOnline.class);
@@ -43,11 +45,12 @@ public class EduTechOnline implements ServletContextListener {
 			Constants.CONFIG_PATH = new File(Constants.APP_ROOT, "/WEB-INF/classes/edutechonline/configuration/").getAbsolutePath();
 			// Load all properties from the starexec-config file
 			ConfigUtil.loadProperties(new File(Constants.CONFIG_PATH, "config.xml"));
+			Validator.compilePatterns();
 			// Before we do anything we must configure log4j!
 			// Initialize the datapool after properties are loaded
 			ConnectionPool.initialize();
-			
-			//Mail.sendConfirmationEmail(Users.getUser(1),UUID.randomUUID().toString());
+			ConfigUtil.loadUsersFromConfig(new File(Constants.CONFIG_PATH, "config.xml"));
+			TestManager.executeAllTestSequences();
 		}	
 
 }

@@ -13,4 +13,17 @@
 											
 		</class>
 	</configuration>
+	
+	<user>
+		<fname>Test</fname>
+		<lname>User</lname>
+		<pass>fakepass</pass>
+		<email>test@uiowa.edu</email>
+		<!-- Role must be 'user' 'admin' or 'manager' -->
+		<role>admin</role>
+		
+	</user>
+	
+	
+	
 </edutech-configuration>

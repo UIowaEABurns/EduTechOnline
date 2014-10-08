@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import edutechonline.database.entity.User;
+import edutechonline.util.Util;
 
 public class Users {
 	private static Logger log=Logger.getLogger(Users.class);
@@ -35,6 +36,58 @@ public class Users {
 			ConnectionPool.safeClose(results);
 		}
 		return -1;
+	}
+	
+	/**
+	 * Sets a user's role to a new value
+	 * @param userID the ID of the user to update
+	 * @param role The new role to give the user
+	 * @return
+	 */
+	public static boolean updateRole(int userId, String role) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		
+		try {
+			User u=Users.getUser(userId);
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL updateRole(?,?)}");
+			procedure.setString(1,  u.getEmail());
+			procedure.setString(2,role);
+			procedure.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+		}
+		return false;
+	}
+	
+	/**
+	 * Permanently removes a user from the database. Used by administrators
+	 * @param userId The ID of the user to remove.
+	 * @return
+	 */
+	public static boolean deleteUser(int userId) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		
+		try {
+			User u=Users.getUser(userId);
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL deleteUser(?)}");
+			procedure.setInt(1, u.getID());
+			procedure.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+		}
+		return false;
 	}
 	
 	/**
@@ -171,6 +224,43 @@ public class Users {
 		return null;
 	}
 	
+	//TODO: Better handling of password hashing
+	
+	/**
+	 * This is for adding users directly to the database through the config file.
+	 * For new users, you need to call registerUser!
+	 * @param u The user to add
+	 * @param role The role to give the user
+	 * @return The int id of the new user
+	 */
+	public static int addUser(User u) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL addUser(?,?,?,?,?,?)}");
+			procedure.setString(1, u.getFirstName());
+			procedure.setString(2, u.getLastName());
+			procedure.setString(3, u.getEmail());
+			// encoder used to hash password for storage
+			String hashedPass=Util.hashPassword(u.getPassword());
+			
+			procedure.setString(4, hashedPass);
+			procedure.setString(5, u.getRole());
+			procedure.registerOutParameter(6, java.sql.Types.INTEGER);
+			procedure.executeUpdate();
+			
+			u.setID(procedure.getInt(6));
+			System.out.println(u.getID());
+			
+			return u.getID();
+		} catch (Exception e) {
+			ConnectionPool.doRollback(con);
+			log.error(e.getMessage(),e);
+		} 
+		return -1;
+	}
+	
 	/**
 	 * Registers a new user in the database. 
 	 * @param u A User object representing the user to be added. Every field except the ID must be set!
@@ -182,17 +272,13 @@ public class Users {
 		CallableStatement procedure=null;
 		try {
 			con=ConnectionPool.getConnection();
-			ConnectionPool.beginTransaction(con);
-			procedure=con.prepareCall("{CALL AddUser(?,?,?,?,?,?)}");
+			procedure=con.prepareCall("{CALL registerNewUser(?,?,?,?,?,?)}");
 			procedure.setString(1, u.getFirstName());
 			procedure.setString(2, u.getLastName());
 			procedure.setString(3, u.getEmail());
 			// encoder used to hash password for storage
-			MessageDigest hasher = MessageDigest.getInstance("sha-512");
-			hasher.update(u.getPassword().getBytes());
-			// get the hashed version of the password
-			
-			String hashedPass = new String(hasher.digest());
+			String hashedPass=Util.hashPassword(u.getPassword());
+
 			procedure.setString(4, hashedPass);
 			procedure.setString(5, verificationCode);
 			procedure.registerOutParameter(6, java.sql.Types.INTEGER);

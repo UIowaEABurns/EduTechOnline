@@ -24,6 +24,6 @@ public class Constants {
 	public static int PASS_LENGTH=255;
 	
 	//regular expressions
-	public static String NAME_REGEX = "^[\\w\\s'-]$";
+	public static String NAME_REGEX = "^[\\w\\s]+$";
 	public static String EMAIL_REGEX = "^[\\w-%+\\.]+@[a-zA-Z0-9]+\\.[\\w]{2,4}$";
 }

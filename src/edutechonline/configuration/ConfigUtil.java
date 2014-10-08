@@ -4,6 +4,9 @@ import java.io.File;
 import java.lang.reflect.Field;
 
 
+
+
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -13,6 +16,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import edutechonline.database.Users;
+import edutechonline.database.entity.User;
+import edutechonline.util.Validator;
 
 /**
  * Class originally written for the StarExec project
@@ -31,10 +38,22 @@ public class ConfigUtil {
 	private static String ATTR_VALUE = "value";
 	private static String ATTR_NAME = "name";
 	private static String ATTR_DEFAULT = "default";
+
 	
-	// The configuration in use
-	private static String configName = "";
-	
+	public static Document getDoc(File configFile) {
+		try {
+			// Open the config xml file and parse it into a dom			
+			DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();			 			
+			Document configDoc = db.parse(configFile);
+			configDoc.getDocumentElement().normalize();			   			
+			return configDoc;
+
+			
+		} catch (Exception e) {
+			log.fatal(e.getMessage(), e);
+		}
+		return null;
+	}
 	/**
 	 * Loads resources from the config.xml file into the static resource classes
 	 * specified in the config file using reflection. The property file keys must match the
@@ -42,10 +61,7 @@ public class ConfigUtil {
 	 */
 	public static void loadProperties(File configFile){
 		try {
-			// Open the config xml file and parse it into a dom			
-			DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();			 			
-			Document configDoc = db.parse(configFile);
-			configDoc.getDocumentElement().normalize();			   			
+			Document configDoc=getDoc(configFile);		   			
 			
 			if(configDoc.getDocumentElement().getAttributes().getNamedItem(ATTR_DEFAULT) == null) {
 				// Check if the default configuration is specified! We explicitly require it
@@ -64,10 +80,97 @@ public class ConfigUtil {
 			}
 
 			loadPropertiesFromNode(configDoc, defaultConfigNode);
-			ConfigUtil.configName = defaultConfigName;
 		} catch (Exception e) {
 			log.fatal(e.getMessage(), e);
 		}
+	}
+	
+	/**
+	 * Tries to get the text content of a singleton child of an Element with the given name.
+	 * Returns empty string on error
+	 * @param node
+	 * @param childName
+	 * @return
+	 */
+	public static String safeGetStringFromChildNode(Element node, String childName) {
+		try {
+			return node.getElementsByTagName(childName).item(0).getTextContent();
+		} catch (Exception e){
+			log.error(e.getMessage(),e);
+		}
+		return "";
+	}
+	
+	public static boolean loadUserFromNode(Node userNode) {
+		log.debug("loadUserFromNode called");
+		try {
+			//this should always be the case
+			Element node=(Element) userNode;
+			String fName=safeGetStringFromChildNode(node, "fname");
+			String lName=safeGetStringFromChildNode(node, "lname");
+			String role=safeGetStringFromChildNode(node, "role");
+			String pass=safeGetStringFromChildNode(node, "pass");
+			String email=safeGetStringFromChildNode(node, "email");
+			System.out.println(1);
+			User u=new User();
+			if (!Validator.isValidName(fName) || !Validator.isValidName(lName)) {
+				log.error("invalid name for user-- not adding to database "+fName+" "+lName);
+				return false;
+			}
+			if (!Validator.isValidEmail(email)) {
+				log.error("invalid email for user-- not adding to database "+email);
+
+				return false;
+			}
+			if (!Validator.isValidPassword(pass)) {
+				log.error("invalid password for user-- not adding to database");
+				return false;
+			}
+			if (!Validator.isValidRole(role)) {
+				log.error("invalid role for user-- not adding to database");
+				return false;
+			}
+			System.out.println("two");
+			u.setFirstName(fName);
+			u.setLastName(lName);
+			u.setPassword(pass);
+			u.setEmail(email);
+			u.setRole(role);
+			if (Users.getUser(email)!=null) {
+				return true; //this user already exists, which is fine.
+			}
+			System.out.println("three");
+ 			int id=Users.addUser(u);
+			if (id<0) {
+				log.error("unable to add new user to the database due to a database error");
+				return false;
+			}
+			System.out.println("four");
+			return true;
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		}
+		return false;
+	}
+	
+	/**
+	 * Given an XML document, finds all the specified users and loads them into the databse
+	 * @return
+	 */
+	public static boolean loadUsersFromConfig(File configFile) {
+		try {
+			Document xmlDoc=getDoc(configFile);
+			NodeList userNodes=xmlDoc.getElementsByTagName("user");
+			for (int x=0;x<userNodes.getLength();x++) {
+				boolean success=loadUserFromNode(userNodes.item(x));
+				if (!success) {
+					log.error("failure adding a user from the config.xml!");
+				}
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} 
+		return false;
 	}
 	
 	/**
@@ -196,14 +299,5 @@ public class ConfigUtil {
 				}
 			}				
 		}	
-	}
-	
-	/**
-	 * @return The name of the currently loaded configuration
-	 */
-	public static String getConfigName() {						
-		return ConfigUtil.configName;
-	}
-	
-	
+	}	
 }

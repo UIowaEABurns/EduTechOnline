@@ -2,15 +2,18 @@ package edutechonline.util;
 
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 import edutechonline.application.Constants;
 
 public class Validator {
+	private static Logger log =Logger.getLogger(Validator.class);
 	private static Pattern namePattern;
 	private static Pattern emailPattern;
 	
 	public static void compilePatterns() {
-		namePattern=Pattern.compile(Constants.NAME_REGEX);
-		emailPattern=Pattern.compile(Constants.EMAIL_REGEX);
+		namePattern=Pattern.compile(Constants.NAME_REGEX,Pattern.CASE_INSENSITIVE);
+		emailPattern=Pattern.compile(Constants.EMAIL_REGEX, Pattern.CASE_INSENSITIVE);
 	}
 	
 	
@@ -27,9 +30,10 @@ public class Validator {
 	
 	public static boolean isValidName(String name) {
 		if (!namePattern.matcher(name).matches()) {
+			log.debug("invalid name");
 			return false;
 		}
-		if (name.length() > Constants.EMAIL_LENGTH)  {
+		if (name.length() > Constants.NAME_LENGTH)  {
 			return false;
 		}
 		return true;
@@ -43,5 +47,12 @@ public class Validator {
 			return false;
 		}
 		return true;
+	}
+	
+	public static boolean isValidRole(String role) {
+		if (role.equals("admin") || role.equals("unverified") || role.equals("user") || role.equals("unverified")) {
+			return true;
+		}
+		return false;
 	}
 }
