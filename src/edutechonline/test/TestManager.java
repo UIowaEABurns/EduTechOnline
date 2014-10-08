@@ -66,6 +66,7 @@ public class TestManager {
 					t.execute();
 				}
 				isRunning.set(false);
+				reportResults();
 			}
 		});	
 		return true;
@@ -173,7 +174,7 @@ public class TestManager {
 	 * Writes out a report of every test sequence to the given file. File will be created if it doesn't exist.
 	 * @param outputFile
 	 */
-	public static void reportResults(File outputFile) {
+	private static void reportResults() {
 		
 	}
 }
