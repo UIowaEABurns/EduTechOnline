@@ -13,6 +13,19 @@
 											
 		</class>
 	</configuration>
+	<configuration name="kiran">
+		<class name="edutechonline.application.Constants">
+			<!-- MYSQL Configuration -->			
+			<property key="MYSQL_DATABASE" value="edutech" />
+			<property key="MYSQL_USERNAME" value="root" />
+			<property key="MYSQL_PASSWORD" value="root123" />
+			<property key="MYSQL_URL" value="jdbc:mysql://localhost/edutech?autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull" />	
+			<property key="URL_PREFIX" value="http"/>	
+			<property key="SERVERNAME" value="localhost:8080" />
+											
+		</class>
+	</configuration>
+	
 	
 	<user>
 		<fname>Test</fname>
