@@ -1,5 +1,4 @@
 --Eric:
-Write backend support for a "forgot password" button including generating a random pass and sending an email to the usr
 Write "print test report" function
 Write an error page
 

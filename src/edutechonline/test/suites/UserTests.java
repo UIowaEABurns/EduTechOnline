@@ -5,9 +5,9 @@ import org.junit.Assert;
 import edutechonline.database.Users;
 import edutechonline.database.entity.User;
 import edutechonline.test.Test;
-import edutechonline.test.TestSequence;
+import edutechonline.test.TestSets;
 
-public class UserTests extends TestSequence {
+public class UserTests extends TestSets {
 	
 	private User u=null;
 

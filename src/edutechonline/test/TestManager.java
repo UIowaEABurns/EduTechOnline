@@ -28,7 +28,7 @@ public class TestManager {
 	private final static AtomicBoolean isRunning=new AtomicBoolean(false);
 	private final static AtomicBoolean isRunningStress=new AtomicBoolean(false);
 	//this should never be modified outside of the initializeTests method
-	private final static List<TestSequence> tests=new ArrayList<TestSequence>();
+	private final static List<TestSets> tests=new ArrayList<TestSets>();
 	//all test sequences need to be initialized here
 	public static void initializeTests() {
 		tests.add(new UserTests());
@@ -61,11 +61,11 @@ public class TestManager {
 			public void run(){
 				
 				//we want to clear all the results first, so it's obvious to the user what is left to be run
-				for (TestSequence t : tests) {
+				for (TestSets t : tests) {
 					t.clearResults();
 				}
 				
-				for (TestSequence t : tests) {
+				for (TestSets t : tests) {
 					t.execute();
 				}
 				isRunning.set(false);
@@ -75,7 +75,7 @@ public class TestManager {
 		return true;
 	}
 	
-	public static List<TestSequence> getAllTestSequences() {
+	public static List<TestSets> getAllTestSequences() {
 		return tests;
 	}
 	public static List<TestResult> getAllTestResults(String sequenceName) {
@@ -101,7 +101,7 @@ public class TestManager {
 			public void run(){
 				
 				
-				TestSequence test = getTestSequence(t);
+				TestSets test = getTestSequence(t);
 				test.clearResults();
 
 				executeTest(test);
@@ -117,7 +117,7 @@ public class TestManager {
 	 * Executes the given test sequence
 	 * @param test
 	 */
-	public static void executeTest(TestSequence test) {
+	public static void executeTest(TestSets test) {
 		test.execute();
 	}
 	
@@ -127,7 +127,7 @@ public class TestManager {
 	 */
 	public static List<String> getTestNames() {
 		List<String> names=new ArrayList<String>();
-		for (TestSequence t : tests) {
+		for (TestSets t : tests) {
 			names.add(t.getName());
 		}
 		return names;
@@ -139,7 +139,7 @@ public class TestManager {
 	 * @return
 	 */
 	public static TestStatus getTestStatus(String testName) {
-		TestSequence t = getTestSequence(testName);
+		TestSets t = getTestSequence(testName);
 		if (t==null) {
 			return null;
 		}
@@ -152,7 +152,7 @@ public class TestManager {
 	 * @return
 	 */
 	public static String getTestMessage(String testName) {
-		TestSequence t = getTestSequence(testName);
+		TestSets t = getTestSequence(testName);
 		if (t==null) {
 			return null;
 		}
@@ -164,8 +164,8 @@ public class TestManager {
 	 * @param name
 	 * @return
 	 */
-	private static TestSequence getTestSequence(String name) {		
-		for (TestSequence t : tests) {
+	private static TestSets getTestSequence(String name) {		
+		for (TestSets t : tests) {
 			if (t.getName().equals(name)) {
 				return t;
 			}
