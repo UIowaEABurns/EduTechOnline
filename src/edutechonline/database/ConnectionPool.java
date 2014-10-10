@@ -1,5 +1,10 @@
 package edutechonline.database;
 
+/***
+ * Originally written for the Starexec project
+ * @author: Tyler Jensen
+ */
+
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -115,46 +120,6 @@ public class ConnectionPool {
 			}
 		}
 		
-		private static String getProc(String procName,Object[] args) {
-			StringBuilder procBuilder=new StringBuilder();
-			procBuilder.append("{CALL ");
-			procBuilder.append(procName);
-			procBuilder.append("(");
-			for (int i =0;i<args.length;i++) {
-				procBuilder.append("?");
-				if (i<args.length-1) {
-					procBuilder.append(",");
-				}
-			}
-			procBuilder.append(")}");
-			return procBuilder.toString();
-		}
-		
-		/**
-		 * Executes a database update
-		 * @param procName Name of the procedure to execute
-		 * @param args
-		 */
-		protected static void executeUpdate(String procName, Object... args) {
-			Connection con=null;
-			CallableStatement procedure=null;
-			try {
-				String proc=getProc(procName,args);
-				con=ConnectionPool.getConnection();
-				procedure=con.prepareCall(proc);
-				for (int i=0;i<args.length;i++) {
-					procedure.setObject(i+1, args[i]);
-				}
-				
-				procedure.executeUpdate();
-			} catch (Exception e) {
-				log.error("internal error calling procedure "+procName);
-				log.error(e.getMessage(),e);
-			} finally {
-				ConnectionPool.safeClose(con);
-				ConnectionPool.safeClose(procedure);
-			}
-		}
 		
 		
 		protected static void safeClose(CallableStatement statement) {
@@ -177,11 +142,6 @@ public class ConnectionPool {
 			try {
 				if(c != null && !c.isClosed()) {
 					c.close();
-					
-					//log.info("Connection Closed, Net connections opened = " + (connectionsOpened-connectionsClosed));
-					//String methodName1=Thread.currentThread().getStackTrace()[2].getMethodName();
-					//String methodName2=Thread.currentThread().getStackTrace()[2].getMethodName();
-					//log.info("stack trace info for the closed connection is "+methodName1+ " "+methodName2);
 				}
 			} catch (Exception e){
 				// Do nothing

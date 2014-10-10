@@ -11,6 +11,10 @@ import org.apache.log4j.Logger;
 
 import edutechonline.test.suites.UserTests;
 
+/***
+ * Originally written for the Starexec project
+ * @author: Eric Burns
+ */
 
 /**
  * This class maintains a list of all TestSequences and handles requests

@@ -1,5 +1,10 @@
 package edutechonline.test;
 
+/***
+ * Originally written for the Starexec project
+ * @author: Eric Burns
+ */
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

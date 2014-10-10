@@ -58,7 +58,7 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>Registration</servlet-name>
-  	<url-pattern>/secure/registration</url-pattern>
+  	<url-pattern>/public/registration</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -67,8 +67,18 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>RegistrationConfirmation</servlet-name>
-  	<url-pattern>/secure/confirmation</url-pattern>
+  	<url-pattern>/public/confirmation</url-pattern>
   </servlet-mapping>
+  
+   <servlet>
+  	<servlet-name>PasswordReset</servlet-name>
+  	<servlet-class>edutechonline.servlets.ResetPassword</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>PasswordReset</servlet-name>
+  	<url-pattern>/public/resetpass</url-pattern>
+  </servlet-mapping>
+  
  
   <!-- Default pages to load -->
   <welcome-file-list>

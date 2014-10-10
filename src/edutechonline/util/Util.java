@@ -2,6 +2,7 @@ package edutechonline.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 
 import edutechonline.application.Constants;
 
@@ -43,5 +44,19 @@ public class Util {
 		
 		return bytesToHex(hasher.digest());
 
+	}
+	
+	/**
+	 * Generates a random password that would be suitable as a temporary pass for a user
+	 * @return
+	 */
+	public static String getRandomPlaintextPassword() {
+		char[] chars = "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+		Random rand=new Random();
+		StringBuilder sb=new StringBuilder();
+		for (int x=0;x<16;x++) {
+			sb.append(rand.nextInt(chars.length));
+		}
+		return sb.toString();
 	}
 }

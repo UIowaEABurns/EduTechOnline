@@ -2,7 +2,11 @@ package edutechonline.application;
 
 
 import java.io.File;
+import java.util.Timer;
 import java.util.UUID;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -19,7 +23,9 @@ import edutechonline.util.Validator;
 import edutechonline.configuration.*;
 public class EduTechOnline implements ServletContextListener {
 		private static final Logger log=Logger.getLogger(EduTechOnline.class);
-		
+	    private ScheduledExecutorService schedule = Executors.newScheduledThreadPool(10);	
+
+	    
 
 		@Override
 		public void contextDestroyed(ServletContextEvent arg0) {
@@ -50,6 +56,19 @@ public class EduTechOnline implements ServletContextListener {
 			ConfigUtil.loadUsersFromConfig(new File(Constants.CONFIG_PATH, "config.xml"));
 			TestManager.executeAllTestSequences();
 			
+			
+			
+			
+			
+			
+			final Runnable clearOldPassResetRequests = new Runnable() {
+				@Override
+				public void run() {
+					
+				}
+			};
+			
+			schedule.scheduleAtFixedRate(clearOldPassResetRequests, 0, 8, TimeUnit.HOURS);
 			
 		}	
 

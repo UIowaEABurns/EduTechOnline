@@ -1,5 +1,10 @@
 package edutechonline.security;
 
+/***
+ * Originally written for the Starexec project
+ * @author: Eric Burns
+ */
+
 import com.google.gson.annotations.Expose;
 
 /**

@@ -1,5 +1,8 @@
 package edutechonline.test;
-
+/***
+ * Originally written for the Starexec project
+ * @author: Eric Burns
+ */
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;

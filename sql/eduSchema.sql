@@ -27,6 +27,15 @@ CREATE TABLE roles (
 CREATE TABLE confirmation (
 	user_id INT NOT NULL,
 	code CHAR(255) NOT NULL,
-	CONSTRAINT confirmation_email FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+	CONSTRAINT confirmation_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+
+-- Table holds temporary codes for password reset requests
+CREATE TABLE pass_reset (
+	user_id INT NOT NULL,
+	code CHAR(64) NOT NULL,
+	added TIMESTAMP NOT NULL,
+	PRIMARY KEY (user_id),
+	CONSTRAINT pass_reset_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);

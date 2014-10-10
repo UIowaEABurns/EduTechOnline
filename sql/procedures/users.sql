@@ -83,4 +83,36 @@ CREATE PROCEDURE delteUser(IN _userId INT)
 	BEGIN
 		DELETE FROM users WHERE id=_userId;
 	END //
+	
+-- Adds a new password reset to this user
+-- Author: Eric Burns
+DROP PROCEDURE IF EXISTS addUserPassReset;
+CREATE PROCEDURE addUserPassReset(IN _id INT, IN _code VARCHAR(64))
+	BEGIN
+		INSERT IGNORE INTO pass_reset (user_id, code, addded) VALUES (_id, _code, CURRENT_TIMESTAMP);	
+	END //
+	
+-- deletes teh pass_reset entry for the given user
+-- Author: Eric Burns
+DROP PROCEDURE IF EXISTS removeUserPassReset;
+CREATE PROCEDURE removeUserPassReset(IN _id INT)
+	BEGIN
+		DELETE FROM pass_reset WHERE user_id=_id;
+	END //
+	
+-- Gets the pass_reset entry for the given user
+-- Author: Eric Burns
+DROP PROCEDURE IF EXISTS getUserPassReset;
+CREATE PROCEDURE getUserPassReset(IN _id INT)
+	BEGIN
+		SELECT * FROM pass_reset WHERE user_id=_id;
+	END //
+	
+-- Removes entries from the password reset table older than the given date
+-- Author: Eric Burns
+DROP PROCEDURE IF EXISTS clearPassResetEntriesOlderThan;
+CREATE PROCEDURE clearPassResetEntriesOlderThan(IN _time TIMESTAMP)
+	BEGIN
+		DELETE FROM pass_reset WHERE added < _time;
+	END //
 DELIMITER ; --this must be at the end of the file

@@ -1,5 +1,10 @@
 package edutechonline.test;
 
+/***
+ * Originally written for the Starexec project
+ * @author: Eric Burns
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 

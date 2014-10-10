@@ -2,6 +2,11 @@ package edutechonline.test;
 
 import java.util.Random;
 
+/***
+ * Originally written for the Starexec project
+ * @author: Eric Burns
+ */
+
 public class TestUtil {
 	private static String[] letters={"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
 	private static Random rnd=new Random();

@@ -4,7 +4,9 @@ import java.security.MessageDigest;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -251,16 +253,117 @@ public class Users {
 			procedure.executeUpdate();
 			
 			u.setID(procedure.getInt(6));
-			System.out.println(u.getID());
 			
 			return u.getID();
 		} catch (Exception e) {
 			ConnectionPool.doRollback(con);
 			log.error(e.getMessage(),e);
-		} 
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+		}
 		return -1;
 	}
 	
+	public static boolean addPassResetToUser(int userId, String code) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure= con.prepareCall("{CALL addUserPassReset(?,?)}");
+			procedure.setInt(1, userId);
+			procedure.setString(2,code);
+			procedure.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+		}
+		return false;
+	}
+	
+	/**
+	 * Checks to see if there is a row with both the given user and the given row in the
+	 * pass_eset table
+	 * @param userId
+	 * @param code
+	 * @return
+	 */
+	public static boolean userInPassResetTable(int userId, String code) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		ResultSet results=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure= con.prepareCall("{CALL getUserPassReset(?)}");
+			procedure.setInt(1, userId);
+			
+			results=procedure.executeQuery();
+			if (results.next()) {
+				return results.getString("code").equals(code);
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+			ConnectionPool.safeClose(results);
+		}
+		return false;
+	}
+	
+	/**
+	 * Removes password reset requests more than a day old
+	 */
+	public static void clearOldPassResetRequests() {
+		Connection con=null;
+		CallableStatement procedure=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL clearPassResetEntriesOlderThan(?)}");
+			Date yesterday=new Date(System.currentTimeMillis()-86400000);
+			procedure.setTimestamp(1, new Timestamp(yesterday.getTime()));
+			procedure.executeUpdate();
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+		}
+	
+	}
+	
+	/**
+	 * Checks to see whether the given user has a request in the pass_reset table
+	 * @param userId
+	 * @return
+	 */
+	public static boolean userInPassResetTable(int userId) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		ResultSet results=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure= con.prepareCall("{CALL getUserPassReset(?)}");
+			procedure.setInt(1, userId);
+			
+			results=procedure.executeQuery();
+			if (results.next()) {
+				return true;
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+			ConnectionPool.safeClose(results);
+		}
+		return false;
+	}
+	
+
 	/**
 	 * Registers a new user in the database. 
 	 * @param u A User object representing the user to be added. Every field except the ID must be set!
@@ -293,5 +396,37 @@ public class Users {
 			log.error(e.getMessage(),e);
 		} 
 		return -1;
+	}
+	
+	/**
+	 * Updates the password of the current user. The password must be given in cleartext!
+	 * @param userId
+	 * @param newPass
+	 * @return
+	 */
+	public static boolean updatePassword(int userId, String newPass) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL updatePassword(?,?)}");
+			procedure.setInt(1, userId);
+			// encoder used to hash password for storage
+			String hashedPass=Util.hashPassword(newPass);
+			
+			procedure.setString(2, hashedPass);
+			procedure.executeUpdate();
+			
+		
+			
+			return true;
+		} catch (Exception e) {
+			ConnectionPool.doRollback(con);
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+		}
+		return false;
 	}
 }

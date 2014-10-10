@@ -43,6 +43,25 @@ public class Mail {
 		
 	}
 	
+	
+	/**
+	 * Sends a password reset message to the given user.
+	 * @param u
+	 * @param tempPass
+	 */
+	//TODO: insert the URL to the password reset page
+	public static void sendPasswordResetEmail(User u, String tempPass) {
+		try {
+			String message=FileUtils.readFileToString(new File(Constants.APP_ROOT,Constants.CONFIRM_EMAIL_PATH));
+			message=message.replace("$$USER$$", u.getFirstName());
+			message=message.replace("$$TEMP_PASS$$", tempPass);
+			mail(message,"EduTechOnline Password Reset",u.getEmail());
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		}
+		
+	}
+	
 	public static void mail(String message, String subject, String address) {
 		String [] addrs=new String[1];
 		addrs[0]=address;

@@ -1,0 +1,14 @@
+Hello $$USER$$,
+
+To reset your EduTechOnline password, please go to the following page, at which you can
+enter your username and new password. You will also need to enter a temporary password, which is below.
+
+The following temporary pass will expire in 24 hours, after which time you will need to
+request another password.
+
+password reset page: $$RESET_URL$$
+
+Temporary pass: $$TEMP_PASS$$
+
+If you did not request this email, no further action needs to be taken.
+You can continue using your account normally.
