@@ -106,7 +106,6 @@ public class ConfigUtil {
 			String role=safeGetStringFromChildNode(node, "role");
 			String pass=safeGetStringFromChildNode(node, "pass");
 			String email=safeGetStringFromChildNode(node, "email");
-			System.out.println(1);
 			User u=new User();
 			if (!Validator.isValidName(fName) || !Validator.isValidName(lName)) {
 				log.error("invalid name for user-- not adding to database "+fName+" "+lName);
@@ -125,7 +124,6 @@ public class ConfigUtil {
 				log.error("invalid role for user-- not adding to database");
 				return false;
 			}
-			System.out.println("two");
 			u.setFirstName(fName);
 			u.setLastName(lName);
 			u.setPassword(pass);
@@ -134,13 +132,11 @@ public class ConfigUtil {
 			if (Users.getUser(email)!=null) {
 				return true; //this user already exists, which is fine.
 			}
-			System.out.println("three");
  			int id=Users.addUser(u);
 			if (id<0) {
 				log.error("unable to add new user to the database due to a database error");
 				return false;
 			}
-			System.out.println("four");
 			return true;
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);

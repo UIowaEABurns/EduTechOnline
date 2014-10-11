@@ -28,7 +28,7 @@ public class TestManager {
 	private final static AtomicBoolean isRunning=new AtomicBoolean(false);
 	private final static AtomicBoolean isRunningStress=new AtomicBoolean(false);
 	//this should never be modified outside of the initializeTests method
-	private final static List<TestSets> tests=new ArrayList<TestSets>();
+	private final static List<TestSet> tests=new ArrayList<TestSet>();
 	//all test sequences need to be initialized here
 	public static void initializeTests() {
 		tests.add(new UserTests());
@@ -61,21 +61,22 @@ public class TestManager {
 			public void run(){
 				
 				//we want to clear all the results first, so it's obvious to the user what is left to be run
-				for (TestSets t : tests) {
+				for (TestSet t : tests) {
 					t.clearResults();
 				}
 				
-				for (TestSets t : tests) {
+				for (TestSet t : tests) {
 					t.execute();
 				}
 				isRunning.set(false);
+				
 				reportResults();
 			}
 		});	
 		return true;
 	}
 	
-	public static List<TestSets> getAllTestSequences() {
+	public static List<TestSet> getAllTestSequences() {
 		return tests;
 	}
 	public static List<TestResult> getAllTestResults(String sequenceName) {
@@ -101,7 +102,7 @@ public class TestManager {
 			public void run(){
 				
 				
-				TestSets test = getTestSequence(t);
+				TestSet test = getTestSequence(t);
 				test.clearResults();
 
 				executeTest(test);
@@ -117,7 +118,7 @@ public class TestManager {
 	 * Executes the given test sequence
 	 * @param test
 	 */
-	public static void executeTest(TestSets test) {
+	public static void executeTest(TestSet test) {
 		test.execute();
 	}
 	
@@ -127,7 +128,7 @@ public class TestManager {
 	 */
 	public static List<String> getTestNames() {
 		List<String> names=new ArrayList<String>();
-		for (TestSets t : tests) {
+		for (TestSet t : tests) {
 			names.add(t.getName());
 		}
 		return names;
@@ -139,7 +140,7 @@ public class TestManager {
 	 * @return
 	 */
 	public static TestStatus getTestStatus(String testName) {
-		TestSets t = getTestSequence(testName);
+		TestSet t = getTestSequence(testName);
 		if (t==null) {
 			return null;
 		}
@@ -152,7 +153,7 @@ public class TestManager {
 	 * @return
 	 */
 	public static String getTestMessage(String testName) {
-		TestSets t = getTestSequence(testName);
+		TestSet t = getTestSequence(testName);
 		if (t==null) {
 			return null;
 		}
@@ -164,8 +165,8 @@ public class TestManager {
 	 * @param name
 	 * @return
 	 */
-	private static TestSets getTestSequence(String name) {		
-		for (TestSets t : tests) {
+	private static TestSet getTestSequence(String name) {		
+		for (TestSet t : tests) {
 			if (t.getName().equals(name)) {
 				return t;
 			}
@@ -173,11 +174,43 @@ public class TestManager {
 		return null;
 	}
 	
+	
+	private static void logTestSet(TestSet s ){
+		try {
+			StringBuilder sb=new StringBuilder();
+			sb.append("\n");
+			sb.append("test run data for test set ");
+			sb.append(s.getName());
+			sb.append("\n");
+			
+			sb.append("tests | error | passed\n");
+			sb.append(s.getTestCount()+" | "+s.getTestsFailed()+" | "+s.getTestsPassed());
+			sb.append("\n");
+			for (TestResult result : s.getTestResults()) {
+				sb.append(result.getName() + " | "+result.getStatus().getStatus());
+				sb.append("\n");
+			}
+			log.debug(sb.toString());
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		}
+		
+	}
 	/**
 	 * Writes out a report of every test sequence to the given file. File will be created if it doesn't exist.
 	 * @param outputFile
 	 */
 	private static void reportResults() {
-		
+		log.debug("reporting all testing results");
+		int failedSum=0;
+		int successSum=0;
+		for (TestSet s : tests) {
+			failedSum+=s.getTestsFailed();
+			successSum+=s.getTestsPassed();
+		}
+		log.debug("Failing tests = "+failedSum+" | passing tests = "+successSum);
+		for (TestSet s : tests) {
+			logTestSet(s);
+		}
 	}
 }

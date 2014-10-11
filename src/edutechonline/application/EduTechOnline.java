@@ -53,13 +53,7 @@ public class EduTechOnline implements ServletContextListener {
 			// Before we do anything we must configure log4j!
 			// Initialize the datapool after properties are loaded
 			ConnectionPool.initialize();
-			ConfigUtil.loadUsersFromConfig(new File(Constants.CONFIG_PATH, "config.xml"));
-			TestManager.executeAllTestSequences();
-			
-			
-			
-			
-			
+			ConfigUtil.loadUsersFromConfig(new File(Constants.CONFIG_PATH, "config.xml"));			
 			
 			final Runnable clearOldPassResetRequests = new Runnable() {
 				@Override
@@ -69,6 +63,9 @@ public class EduTechOnline implements ServletContextListener {
 			};
 			
 			schedule.scheduleAtFixedRate(clearOldPassResetRequests, 0, 8, TimeUnit.HOURS);
+			TestManager.initializeTests();
+			TestManager.executeAllTestSequences();
+
 			
 		}	
 

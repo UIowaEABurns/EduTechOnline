@@ -12,8 +12,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-public abstract class TestSets {
-	private static final Logger log = Logger.getLogger(TestSets.class);	
+public abstract class TestSet {
+	private static final Logger log = Logger.getLogger(TestSet.class);	
 	protected String sequenceName="No Name";
 	protected TestStatus status=new TestStatus();
 	protected String message="No Message";
@@ -24,7 +24,7 @@ public abstract class TestSets {
 	HashMap<String,TestResult> testResults=new HashMap<String,TestResult>();
 	
 	
-	public TestSets() {
+	public TestSet() {
 		initTestResults();
 		sequenceName=getTestName(); //this method is implemented in every subclass
 	}
