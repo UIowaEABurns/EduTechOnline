@@ -1,6 +1,3 @@
---Eric:
-Write "print test report" function
-Write an error page
 
 Shubham
 Write tests covering User classes

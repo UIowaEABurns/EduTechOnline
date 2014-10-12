@@ -7,23 +7,27 @@
  
    <error-page> 
     <error-code>400</error-code> 
-    <location>/public/error.jsp</location> 
+    <location>/jsp/public/error.jsp</location> 
   </error-page>
   <error-page> 
     <error-code>403</error-code> 
-    <location>/public/error.jsp</location> 
+    <location>/jsp/public/error.jsp</location> 
   </error-page>
   <error-page> 
     <error-code>404</error-code> 
-    <location>/public/error.jsp</location> 
+    <location>/jsp/public/error.jsp</location> 
   </error-page>
   <error-page> 
     <error-code>405</error-code> 
-    <location>/public/error.jsp</location> 
+    <location>/jsp/public/error.jsp</location> 
+  </error-page>
+   <error-page> 
+    <error-code>408</error-code> 
+    <location>/jsp/public/error.jsp</location> 
   </error-page>
   <error-page> 
     <error-code>500</error-code> 
-    <location>/public/error.jsp</location> 
+    <location>/jsp/public/error.jsp</location> 
   </error-page>  
  
  
