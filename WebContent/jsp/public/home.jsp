@@ -25,19 +25,11 @@
 	<div id="whatsNew" class="box" >
 		<p class="caption" title="one more tooltip">What's new on EduTechOnline</p>
 		<ul>
-			<li>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-			Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris</li>
-			<li>Duis aute irure dolor in reprehenderit in voluptate velit esse 
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat 
-			cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</li>
-			<li>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque 
-			laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-			 architecto beatae vitae dicta sunt explicabo</li>
-			<li>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis 
-			suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur</li>
-			<li>Quis autem vel eum iure reprehenderit qui in ea voluptate
-			 velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum 
-			 fugiat quo voluptas nulla pariatur</li>
+			<li>"New course on Linux- Introduction to Linux</li>
+			<li>New courses on Verification - Formal methods in software engineering."</li>
+			<li>"Trouble in finding the formula in Microsoft excel- Excel in Microsoft excel</li>
+			<li>Interested in photoediting !!- Introduction to adobe photoshop</li>
+			<li>Website designing - Introduction to HTML and CSS</li>
 			<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
 			 incididunt ut labore et dolore magna aliqua</li>
 		
