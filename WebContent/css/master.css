@@ -3,5 +3,57 @@ p {
 }
 
 h1 {
+	font-family:Arial,Helvetica,Utkal,sans-serif;
+	color : Blue;
+	font-weight: bold;
+	font-size: 2em;
+	}
+h2
+{
+	font-family:Arial,Helvetica,Utkal,sans-serif;
+	color : Blue;
+	font-weight: bold;
+	font-size: 1.5em;
+}
+h3
+{
+	font-family:Arial,Helvetica,Utkal,sans-serif;
+	color : Blue;
+	font-weight: bold;
+	font-size: 1.17em;
 	
 }
+h4
+{
+	font-family:Arial,Helvetica,Utkal,sans-serif;
+	color : Blue;
+	font-weight: bold;
+	font-size: 0.94em;
+}
+body{
+	font-family:Arial,Helvetica,Utkal,sans-serif;
+	font-size:12px;color:#000;
+	background:#fafafa
+	}
+	
+.edutech_header
+{
+font-size: 10px;
+line-height: 14px;
+font-weight: 700;
+height: 50px;
+padding: 0 10px;
+}
+*{
+	padding:0;
+	margin:0
+ }
+ .navheader
+ {
+ padding:0.5em;
+color:white;
+background-color:gray;
+clear:left;
+ }
+
+ 

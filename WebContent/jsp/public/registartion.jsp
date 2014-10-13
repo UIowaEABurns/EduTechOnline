@@ -7,21 +7,28 @@
 
 %>
 <edutech:template css="public/home" js="">
-	
-<title>Edutechonline</title>
-<link rel="stylesheet" href="/EduTechOnline/WebContent/css/public/home.css" type="text/css"/>
-<div class="company_name">EduTechOnline</div>
-<div class="nav_top"><a href="/edutechonline/jss/public/registration.jsp" id="signup">Sign up</a> <a href="/edutechonline/jss/public/help.jsp" class="top_nav" id="helpedu">Enquiry</a>
-<div class="login">
-<form method="post" action="login.jsp">
+<div class="regis">
+<form method="post" action="registration.jsp">
             <center>
-            <table border="1" width="30%" cellpadding="3">
+            <table border="1" width="30%" cellpadding="5">
                 <thead>
                     <tr>
-                        <th colspan="2">Login</th>
+                        <th colspan="2">Enter Information Here</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td>First Name</td>
+                        <td><input type="text" name="fname" value="" /></td>
+                    </tr>
+                    <tr>
+                        <td>Last Name</td>
+                        <td><input type="text" name="lname" value="" /></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><input type="text" name="email" value="" /></td>
+                    </tr>
                     <tr>
                         <td>User Name</td>
                         <td><input type="text" name="uname" value="" /></td>
@@ -31,19 +38,15 @@
                         <td><input type="password" name="pass" value="" /></td>
                     </tr>
                     <tr>
-                        <td><input type="submit" value="Login" /></td>
+                        <td><input type="submit" value="Submit" /></td>
                         <td><input type="reset" value="Reset" /></td>
                     </tr>
                     <tr>
-                        <td colspan="2">Yet Not Registered!! <a href="registartion.jsp">Register Here</a></td>
+                        <td colspan="2">Already registered!! <a href="home.jsp">Login Here</a></td>
                     </tr>
                 </tbody>
             </table>
             </center>
         </form>
         </div>
-        
-	
-	
-	
 </edutech:template>
