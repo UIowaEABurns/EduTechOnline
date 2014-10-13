@@ -32,7 +32,8 @@ public class RegistrationConfirmation extends HttpServlet {
 		
 		boolean success=Users.verifyUser(request.getParameter(CONFIRMATION_ID), "user");
 		if (success) {
-			response.sendRedirect("TODO: redirect to success page");
+			String message="Congratulations, you have successfully registered for EduTechOnline!";
+			response.sendRedirect("/EduTechOnline/jsp/public/message.jsp?msg="+message);
 		} else {
 			response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 		}

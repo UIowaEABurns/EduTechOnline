@@ -21,7 +21,7 @@ public class Mail {
 	
 	
 	private static String getConfirmationURLWithId(String code) {
-		String url=Util.getAbsoluteURL("secure/confirmation");
+		String url=Util.getAbsoluteURL("public/confirmation");
 		url=url+("?id="+code);
 		return url;
 	}

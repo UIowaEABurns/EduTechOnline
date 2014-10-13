@@ -33,12 +33,14 @@ public class Registration extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		log.debug("incoming registration request");
 		try {
 			ValidatorStatusCode status=isValidRequest(request);
 			if (!status.isSuccess()) {
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, status.getMessage());
 				return;
 			}
+			log.debug("the request was valid");
 			User u=new User();
 			u.setFirstName(request.getParameter(FIRST_NAME));
 			u.setLastName(request.getParameter(LAST_NAME));
@@ -46,10 +48,14 @@ public class Registration extends HttpServlet {
 			u.setPassword(request.getParameter(PASSWORD));
 			String code=UUID.randomUUID().toString();
 			int id=Users.registerUser(u,code);
+			log.debug("id of new user = "+id);
 			if (id>0) {
 				//if we successfully added the user
 				Mail.sendConfirmationEmail(u,code);
-				response.sendRedirect("TODO: INSERT CONFIRMATION PAGE");
+				String message="Thank you for registering for the EduTechOnline service! You should receive"
+						+ " an email message at the address you registered with-- please follow the directions in that"
+						+ " message to continue the process";
+				response.sendRedirect("/EduTechOnline/jsp/public/message.jsp?msg="+message);
 			} else {
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}

@@ -22,7 +22,7 @@
 <edutech:template css="public/home" js="">
 	
 <title>Edutechonline</title>
-	<div id="whatsNew" >
+	<div id="whatsNew" class="box" >
 		<p class="caption" title="one more tooltip">What's new on EduTechOnline</p>
 		<ul>
 			<li>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -45,11 +45,11 @@
 		</ul>
 	
 	</div>
-<div id="loginDiv">
+<div id="loginDiv" class="box">
 
 	<c:if test="${!loggedIn}">
 	<form method="POST" action="j_security_check">
-            <table border="1">
+            <table id="loginTable">
                 <thead>
                     <tr>
                         <th colspan="2">Login</th>
@@ -79,9 +79,4 @@
         	<p>you logged in! yay!</p>
         </c:if>
     </div>
-   
-        
-	
-	
-	
 </edutech:template>

@@ -3,12 +3,12 @@ body {
 	font-size:12px;
 	color:#000;
 	background:#fafafa;
-	
+	background-color: #EEEEEE;
 	
 }
 
 #wrapper {
-	width: 900px;
+	width: 950px;
 	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
@@ -16,6 +16,8 @@ body {
  	border-color:black;
  	border-width: 1px;
  	overflow:hidden;
+ 	padding:10px;
+ 	background-color: White;
 }
 h1 {
 	color : Blue;
@@ -46,12 +48,19 @@ h4
  /* The following styles apply to the header.tag things */
  
  
- #pageHeader {
+#pageHeader {
  	margin-bottom: 10px;
  }
  
- #pageHeader * {
+#topHeader{
  	margin-bottom: 0px; /*Override unwanted margin on all children*/
+ 	color: inherit;
+ 	text-decoration: none;
+ }
+ #topHeaderLink{
+ 	margin-bottom: 0px; /*Override unwanted margin on all children*/
+ 	color: inherit;
+ 	text-decoration: none;
  }
  
  #headerNav {
@@ -81,4 +90,13 @@ h4
 
  }
 
- 
+/* Styles for classes we use broadly on the site */
+
+.box {
+	border: 2px solid gray;
+}
+
+.caption {
+	border-bottom: 1px solid gray;
+	text-align:center;
+}

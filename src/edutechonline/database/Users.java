@@ -226,7 +226,6 @@ public class Users {
 		return null;
 	}
 	
-	//TODO: Better handling of password hashing
 	
 	/**
 	 * This is for adding users directly to the database through the config file.
