@@ -49,12 +49,10 @@
 
 	<c:if test="${!loggedIn}">
 	<form method="POST" action="j_security_check">
+			<p class="caption" title="one more tooltip">Login</p>
+	
             <table id="loginTable">
-                <thead>
-                    <tr>
-                        <th colspan="2">Login</th>
-                    </tr>
-                </thead>
+                
                 <tbody>
                     <tr>
                         <td>User Name</td>

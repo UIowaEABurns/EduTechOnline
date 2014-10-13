@@ -56,6 +56,7 @@ h4
  	margin-bottom: 0px; /*Override unwanted margin on all children*/
  	color: inherit;
  	text-decoration: none;
+ 	float:left;
  }
  #topHeaderLink{
  	margin-bottom: 0px; /*Override unwanted margin on all children*/
@@ -63,8 +64,14 @@ h4
  	text-decoration: none;
  }
  
+ #slogan {
+ 
+ 	float:left;
+ }
+ 
  #headerNav {
  	width:100%; 	
+ 	clear:both;
  }
  
  #headerNav li {
@@ -87,7 +94,9 @@ h4
  
  #headerNav li:hover {
  	background-color:DarkBlue;
-
+ }
+ #searchField {
+ 	float:right;
  }
 
 /* Styles for classes we use broadly on the site */
@@ -99,4 +108,6 @@ h4
 .caption {
 	border-bottom: 1px solid gray;
 	text-align:center;
+	font-size:1.2em;
+	font-weight:bold;
 }
