@@ -15,6 +15,7 @@ body {
 	border-style:solid;
  	border-color:black;
  	border-width: 1px;
+ 	overflow:hidden;
 }
 h1 {
 	color : Blue;
@@ -40,59 +41,43 @@ h4
 	font-weight: bold;
 	font-size: 0.94em;
 }
-
-	
-.edutech_header
-{
-font-size: 10px;
-line-height: 14px;
-font-weight: 700;
-height: 50px;
-padding: 0 10px;
-}
-*{
-	padding:0;
-	margin:0
- }
- .navheader
- {
- padding:0.5em;
-color:white;
-background-color:gray;
-clear:left;
- }
  
  
  /* The following styles apply to the header.tag things */
  
  
+ #pageHeader {
+ 	margin-bottom: 10px;
+ }
+ 
+ #pageHeader * {
+ 	margin-bottom: 0px; /*Override unwanted margin on all children*/
+ }
  
  #headerNav {
- 	width:100%;
+ 	width:100%; 	
  }
  
  #headerNav li {
- 	display: inline;
+ 	display: inline-block;
 	list-style-type: none;
 	margin-right:-5px;
-	font-size: 2em;
+	font-size: 1.5em;
 	color: blue;
 	border-style:solid;
  	border-color:black;
  	border-width: 1px;
- 	
- 	padding-right:100px;
- 	padding-left:100px;
- 	padding-top:10px;
- 	padding-right:10px;
+ 	background-color:Blue;
+ 	width: 20%;
+ 	padding-top:2px;
+ 	padding-bottom:2px;
  	text-align:center;
  	cursor:pointer;
- 	background-color:Blue;
  	color:White;
  }
  
  #headerNav li:hover {
- 	background-color:Red;
+ 	background-color:DarkBlue;
 
  }
 

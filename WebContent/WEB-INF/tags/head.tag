@@ -11,7 +11,7 @@
 	<meta charset="utf-8" />
 	<link rel="stylesheet" href="/EduTechOnline/css/lib/jquery-ui.css" />
 	<link rel="stylesheet" href="/EduTechOnline/css/lib/jquery-ui.theme.css" />
-	
+	<link rel="stylesheet" href="/EduTechOnline/css/lib/jquery.qtip.css"/>
 	<link rel="stylesheet" href="/EduTechOnline/css/master.css" />
 	
 	<!-- Includes any other css files specified on the page -->
@@ -23,7 +23,12 @@
 	<script src="/EduTechOnline/js/lib/jquery-1.11.1.min.js"></script>	
 	
 	<script src="/EduTechOnline/js/lib/jquery-ui.min.js"></script>
-	    <script src="/EduTechOnline/js/lib/qunit-1.15.0.js"></script>
+	<script src="/EduTechOnline/js/lib/jquery.cookie.js"></script>
+		<script src="/EduTechOnline/js/lib/jquery.qtip.min.js"></script>
+		<script src="/EduTechOnline/js/lib/jquery.validate.min.js"></script>
+		<script src="/EduTechOnline/js/lib/jquery.dataTables.min.js"></script>
+	
+		    <script src="/EduTechOnline/js/master.js"></script>
 	
 	<!-- Includes any other javascript files that were specified on the individual page -->
 	<c:if test="${not empty js}">	

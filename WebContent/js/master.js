@@ -3,7 +3,11 @@
 
 $(document).ready(function() {
 	//use qtip Tooltips everywhere
-	$('[title]').qtip({});
+	$('[title]').qtip({
+		position: {
+        target: 'mouse' }
+	});
+	
 	
 	//use jQuery styled buttons everywhere
 	$("button").button();

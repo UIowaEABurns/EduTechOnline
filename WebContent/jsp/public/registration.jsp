@@ -1,19 +1,14 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="edutech" tagdir="/WEB-INF/tags" %>
 
-<%
-	int x=0;
-	request.setAttribute("temp",x);
 
-%>
 <edutech:template css="public/home" js="">
 <div class="regis">
 <form method="post" action="registration.jsp">
-            <center>
-            <table border="1" width="30%" cellpadding="5">
+            <table>
                 <thead>
                     <tr>
-                        <th colspan="2">Enter Information Here</th>
+                        <th >Enter Information Here</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,11 +37,10 @@
                         <td><input type="reset" value="Reset" /></td>
                     </tr>
                     <tr>
-                        <td colspan="2">Already registered!! <a href="home.jsp">Login Here</a></td>
+                        <td>Already registered? <a href="home.jsp">Login Here</a></td>
                     </tr>
                 </tbody>
             </table>
-            </center>
         </form>
         </div>
 </edutech:template>
