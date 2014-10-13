@@ -1,3 +1,6 @@
 1) Before you start writing code, be sure to sync the project. Never write anything without syncing the project first.
 
 2) When you're done coding for a session, again make sure you sync the project on GitHub.
+
+3) Do not include styles in JSP. No <center> tags, width, cellpadding, or so on. All of these things belong in CSS,
+and these things are not supported in HTML5.

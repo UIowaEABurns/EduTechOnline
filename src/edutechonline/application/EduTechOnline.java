@@ -30,8 +30,12 @@ public class EduTechOnline implements ServletContextListener {
 		@Override
 		public void contextDestroyed(ServletContextEvent arg0) {
 			try {
-			    
+			    schedule.shutdown();
 			    ConnectionPool.release();
+			    
+			    // Wait for the task scheduler to finish
+			    schedule.awaitTermination(10, TimeUnit.SECONDS);
+			    schedule.shutdownNow();
 			
 			} catch (Exception e) {
 			 

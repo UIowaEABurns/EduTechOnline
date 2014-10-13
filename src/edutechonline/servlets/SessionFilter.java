@@ -43,10 +43,12 @@ public class SessionFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		try {
+			System.out.println("hit this filter");
 			HttpServletRequest httpRequest=(HttpServletRequest) request;
 			//if the user is logged in
 			if (httpRequest.getUserPrincipal()!=null) {
 				String email = httpRequest.getUserPrincipal().getName();
+				System.out.println("found this email address "+email);
 				User u=Users.getUser(email);
 				httpRequest.getSession().setAttribute(USER_ID,u.getID());
 			}
