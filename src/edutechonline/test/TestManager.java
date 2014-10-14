@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.apache.log4j.Logger;
 
 import edutechonline.test.suites.UserTests;
+import edutechonline.test.suites.ValidationTests;
 
 /***
  * Originally written for the Starexec project
@@ -31,7 +32,10 @@ public class TestManager {
 	private final static List<TestSet> tests=new ArrayList<TestSet>();
 	//all test sequences need to be initialized here
 	public static void initializeTests() {
+		
 		tests.add(new UserTests());
+		tests.add(new ValidationTests());
+		
 	}
 	
 	public static boolean areTestsRunning() {

@@ -79,9 +79,10 @@ public abstract class TestSet {
 			
 			return true;
 		} catch (Throwable e) {
+			
 			status.setCode(TestStatus.TestStatusCode.STATUS_FAILED.getVal());
-			setMessage(e.getMessage());
 			log.error(e.getMessage(),e);
+			setMessage(e.getMessage());
 			error=e;
 			
 		}
@@ -122,6 +123,7 @@ public abstract class TestSet {
 					
 				} catch (Throwable e) {
 					t.setTime(System.currentTimeMillis()-a);
+					log.error(e.getMessage(),e);
 					e=e.getCause();
 					testsFailed++;
 					t.setError(e);

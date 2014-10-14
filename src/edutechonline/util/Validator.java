@@ -16,7 +16,11 @@ public class Validator {
 		emailPattern=Pattern.compile(Constants.EMAIL_REGEX, Pattern.CASE_INSENSITIVE);
 	}
 	
-	
+	/**
+	 * Checks to see whether the given email is valid
+	 * @param email
+	 * @return
+	 */
 	public static boolean isValidEmail(String email) {
 		
 		if (!emailPattern.matcher(email).matches()) {
@@ -41,6 +45,9 @@ public class Validator {
 	
 	public static boolean isValidPassword(String pass) {
 		if (pass==null) {
+			return false;
+		}
+		if (pass.length()<6) {
 			return false;
 		}
 		if (pass.length()>Constants.PASS_LENGTH) {
