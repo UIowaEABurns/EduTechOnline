@@ -62,7 +62,7 @@ public class EduTechOnline implements ServletContextListener {
 			final Runnable clearOldPassResetRequests = new Runnable() {
 				@Override
 				public void run() {
-					//TODO: fill this 
+					Users.clearOldPassResetRequests(); //gets rid of password reset requests older than one day
 				}
 			};
 			

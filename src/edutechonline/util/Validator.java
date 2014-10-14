@@ -22,7 +22,9 @@ public class Validator {
 	 * @return
 	 */
 	public static boolean isValidEmail(String email) {
-		
+		if (email==null) {
+			return false;
+		}
 		if (!emailPattern.matcher(email).matches()) {
 			return false;
 		}
@@ -33,6 +35,9 @@ public class Validator {
 	}
 	
 	public static boolean isValidName(String name) {
+		if (name==null) {
+			return false;
+		}
 		if (!namePattern.matcher(name).matches()) {
 			log.debug("invalid name");
 			return false;
@@ -44,12 +49,11 @@ public class Validator {
 	}
 	
 	public static boolean isValidPassword(String pass) {
+		
 		if (pass==null) {
 			return false;
 		}
-		if (pass.length()<6) {
-			return false;
-		}
+		
 		if (pass.length()>Constants.PASS_LENGTH) {
 			return false;
 		}
@@ -57,6 +61,9 @@ public class Validator {
 	}
 	
 	public static boolean isValidRole(String role) {
+		if (role==null) {
+			return false;
+		}
 		if (role.equals("admin") || role.equals("unverified") || role.equals("user") || role.equals("unverified")) {
 			return true;
 		}

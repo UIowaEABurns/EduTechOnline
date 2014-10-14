@@ -105,6 +105,16 @@
   </servlet-mapping>
   
   
+     <servlet>
+  	<servlet-name>RequestPasswordReset</servlet-name>
+  	<servlet-class>edutechonline.servlets.RequestPassReset</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>RequestPasswordReset</servlet-name>
+  	<url-pattern>/public/requestresetpass</url-pattern>
+  </servlet-mapping>
+  
+  
   <filter-mapping>
     <filter-name>SessionFilter</filter-name>
     <url-pattern>/jsp/*</url-pattern>    

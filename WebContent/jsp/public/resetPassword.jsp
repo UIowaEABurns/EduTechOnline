@@ -2,9 +2,9 @@
 <%@taglib prefix="edutech" tagdir="/WEB-INF/tags" %>
 
 
-<edutech:template css="public/home" js="public/registration">
+<edutech:template title="reset password" css="public/home" js="">
 <div class="regis">
-<form method="post" action="/EduTechOnline/public/registration" id="registerForm">
+<form method="post" action="/EduTechOnline/public/resetpass">
             <table>
                 <thead>
                     <tr>
@@ -13,32 +13,25 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>First Name</td>
-                        <td><input type="text" name="fname"/></td>
+                        <td>Temporary ID</td>
+                        <td><input type="text" name="id"/></td>
                     </tr>
-                    <tr>
-                        <td>Last Name</td>
-                        <td><input type="text" name="lname"  /></td>
-                    </tr>
+                    
                     <tr>
                         <td>Email</td>
                         <td><input type="text" name="email"  /></td>
                     </tr>
                    
                     <tr>
-                        <td>Password</td>
-                        <td><input id="pass" type="password" name="pass" /></td>
+                        <td>New Password</td>
+                        <td><input type="password" name="pass" /></td>
                     </tr>
                     <tr>
                         <td>Confirm Password</td>
                         <td><input type="password" name="passConfirm" /></td>
                     </tr>
                     <tr>
-                        <td><input type="submit" value="Submit" /></td>
-                        <td><input type="reset" value="Reset" /></td>
-                    </tr>
-                    <tr>
-                        <td>Already registered? <a href="/EduTechOnline/jsp/public/home.jsp">Login Here</a></td>
+                        <td colspan="2"><input type="submit" value="Submit" /></td>
                     </tr>
                 </tbody>
             </table>

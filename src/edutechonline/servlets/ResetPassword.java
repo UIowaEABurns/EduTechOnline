@@ -25,7 +25,13 @@ public class ResetPassword extends HttpServlet {
 	private static final String PASSWORD="pass";
 	private static final String PASSWORD_CONFIRM="passConfirm";
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		log.debug("confirming registration of a user");
+		response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+
+		
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		log.debug("got a request to reset a password");
 
 		ValidatorStatusCode status=isValidRequest(request);
 		if (!status.isSuccess()) {
@@ -37,14 +43,11 @@ public class ResetPassword extends HttpServlet {
 		//this is a valid request, so update the password
 		boolean success=Users.updatePassword(Users.getUser(request.getParameter(EMAIL)).getID(), request.getParameter(PASSWORD));
 		if (success) {
-			response.sendRedirect("TODO: redirect to success page");
+			String message="Thank you, your password was reset successfully!";
+			response.sendRedirect("/EduTechOnline/jsp/public/message.jsp?msg="+message);
 		} else {
 			response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 		}
-	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 	}
 	
 	

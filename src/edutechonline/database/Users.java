@@ -132,6 +132,7 @@ public class Users {
 			u.setLastName(results.getString("last_name"));
 			u.setEmail(results.getString("email"));
 			u.setPassword(results.getString("password"));
+			u.setID(results.getInt("id"));
 			return u;
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);

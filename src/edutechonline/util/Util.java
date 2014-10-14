@@ -55,7 +55,7 @@ public class Util {
 		Random rand=new Random();
 		StringBuilder sb=new StringBuilder();
 		for (int x=0;x<16;x++) {
-			sb.append(rand.nextInt(chars.length));
+			sb.append(chars[rand.nextInt(chars.length)]);
 		}
 		return sb.toString();
 	}

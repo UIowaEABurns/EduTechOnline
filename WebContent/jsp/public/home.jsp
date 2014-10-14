@@ -58,7 +58,9 @@
                         <td colspan="2"><button type="submit">Login</button></td>
                     </tr>
                     <tr>
-                        <td colspan="2"> <a href="/EduTechOnline/jsp/public/registration.jsp">Not Yet Registered? </a></td>
+                        <td> <a href="/EduTechOnline/jsp/public/registration.jsp">Not Yet Registered? </a></td>
+                        <td> <a href="/EduTechOnline/jsp/public/requestPassword.jsp">Forgot password?</a></td>
+                        
                     </tr>
                 </tbody>
             </table>

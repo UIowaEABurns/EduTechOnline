@@ -25,6 +25,10 @@ public class Mail {
 		url=url+("?id="+code);
 		return url;
 	}
+	private static String getResetURL() {
+		return Util.getAbsoluteURL("jsp/public/resetPassword.jsp");
+
+	}
 	
 	/**
 	 * Sends a registration confirmation email to the given 
@@ -52,9 +56,10 @@ public class Mail {
 	//TODO: insert the URL to the password reset page
 	public static void sendPasswordResetEmail(User u, String tempPass) {
 		try {
-			String message=FileUtils.readFileToString(new File(Constants.APP_ROOT,Constants.CONFIRM_EMAIL_PATH));
+			String message=FileUtils.readFileToString(new File(Constants.APP_ROOT,Constants.PASSWORD_RESET_EMAIL_PATH));
 			message=message.replace("$$USER$$", u.getFirstName());
 			message=message.replace("$$TEMP_PASS$$", tempPass);
+			message=message.replace("$$RESET_URL$$", getResetURL());
 			mail(message,"EduTechOnline Password Reset",u.getEmail());
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);

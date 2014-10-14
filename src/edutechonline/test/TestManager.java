@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.log4j.Logger;
 
+import edutechonline.test.TestStatus.TestStatusCode;
 import edutechonline.test.suites.UserTests;
 import edutechonline.test.suites.ValidationTests;
 
@@ -191,8 +192,12 @@ public class TestManager {
 			sb.append(s.getTestCount()+" | "+s.getTestsFailed()+" | "+s.getTestsPassed());
 			sb.append("\n");
 			for (TestResult result : s.getTestResults()) {
-				sb.append(result.getName() + " | "+result.getStatus().getStatus());
+				sb.append(result.getName() + " | "+result.getStatus().getStatus() + " | "+result.getTime());
 				sb.append("\n");
+				if (result.getStatus().getCode()==TestStatusCode.STATUS_FAILED) {
+					sb.append(result.getErrorTrace());
+					sb.append("\n");
+				}
 			}
 			log.debug(sb.toString());
 		} catch (Exception e) {

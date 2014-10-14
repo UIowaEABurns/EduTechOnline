@@ -79,7 +79,7 @@ CREATE PROCEDURE updateRole(IN _email VARCHAR(64), IN _role VARCHAR(16))
 -- Deletes the given user from the database permanently
 -- Author: Eric Burns
 DROP PROCEDURE IF EXISTS deleteUser;
-CREATE PROCEDURE delteUser(IN _userId INT)
+CREATE PROCEDURE deleteUser(IN _userId INT)
 	BEGIN
 		DELETE FROM users WHERE id=_userId;
 	END //
@@ -89,7 +89,7 @@ CREATE PROCEDURE delteUser(IN _userId INT)
 DROP PROCEDURE IF EXISTS addUserPassReset;
 CREATE PROCEDURE addUserPassReset(IN _id INT, IN _code VARCHAR(64))
 	BEGIN
-		INSERT IGNORE INTO pass_reset (user_id, code, addded) VALUES (_id, _code, CURRENT_TIMESTAMP);	
+		INSERT IGNORE INTO pass_reset (user_id, code, added) VALUES (_id, _code, CURRENT_TIMESTAMP);	
 	END //
 	
 -- deletes teh pass_reset entry for the given user
@@ -114,5 +114,11 @@ DROP PROCEDURE IF EXISTS clearPassResetEntriesOlderThan;
 CREATE PROCEDURE clearPassResetEntriesOlderThan(IN _time TIMESTAMP)
 	BEGIN
 		DELETE FROM pass_reset WHERE added < _time;
+	END //
+	
+DROP PROCEDURE IF EXISTS updatePassword;
+CREATE PROCEDURE updatePassword(IN _id INT, IN _pass VARCHAR(255))
+	BEGIN
+		UPDATE users SET password=_pass WHERE id=_id;
 	END //
 DELIMITER ; --this must be at the end of the file

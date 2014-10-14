@@ -123,7 +123,6 @@ public abstract class TestSet {
 					
 				} catch (Throwable e) {
 					t.setTime(System.currentTimeMillis()-a);
-					log.error(e.getMessage(),e);
 					e=e.getCause();
 					testsFailed++;
 					t.setError(e);

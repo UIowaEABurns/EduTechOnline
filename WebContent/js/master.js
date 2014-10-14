@@ -10,7 +10,6 @@ $(document).ready(function() {
 	
 	
 	//use jQuery styled buttons everywhere
-	$("button").button();
-	$("input [type='button']").button();
-	
+	$(":button").button();
+
 });
