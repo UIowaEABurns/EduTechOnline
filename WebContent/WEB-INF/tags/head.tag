@@ -12,6 +12,8 @@
 	<link rel="stylesheet" href="/EduTechOnline/css/lib/jquery-ui.css" />
 	<link rel="stylesheet" href="/EduTechOnline/css/lib/jquery-ui.theme.css" />
 	<link rel="stylesheet" href="/EduTechOnline/css/lib/jquery.qtip.css"/>
+		<link rel="stylesheet" href="/EduTechOnline/css/lib/dataTable.css"/>
+	
 	<link rel="stylesheet" href="/EduTechOnline/css/master.css" />
 	
 	<!-- Includes any other css files specified on the page -->

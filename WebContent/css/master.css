@@ -99,6 +99,13 @@ h4
  	float:right;
  }
 
+
+#pageFooter {
+	border-top: 1px solid black;
+	margin-top:10px;
+	clear:both;
+}
+
 /* Styles for classes we use broadly on the site */
 
 .box {

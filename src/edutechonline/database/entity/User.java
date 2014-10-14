@@ -30,6 +30,10 @@ public class User extends IDEntity {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	
+	public String getFullName() {
+		return firstName+" "+lastName;
+	}
 
 	public String getEmail() {
 		return email;

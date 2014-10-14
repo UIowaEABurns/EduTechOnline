@@ -19,7 +19,7 @@
 	
 
 %>
-<edutech:template css="public/home" js="">
+<edutech:template title="home" css="public/home" js="">
 	
 <title>Edutechonline</title>
 	<div id="whatsNew" class="box" >
@@ -68,7 +68,8 @@
         </form>
         </c:if>
         <c:if test="${loggedIn}">
-        	<p>you logged in! yay!</p>
+        	<p>Hello, ${user.getFullName()}</p>
+        	<p><a onclick="javascript:logout();">logout</a></p>
         </c:if>
     </div>
 </edutech:template>

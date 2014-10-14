@@ -8,8 +8,22 @@ $(document).ready(function() {
         target: 'mouse' }
 	});
 	
+	$(".dataTable").DataTable();
 	
 	//use jQuery styled buttons everywhere
 	$(":button").button();
 
 });
+
+/**
+ * Logs the current user out
+ */
+function logout() {
+	$.post(  
+	    "/EduTechOnline/services/session/logout",  
+	    function(returnData){  
+       	        window.location.href = "/EduTechOnline/jsp/secure/index.jsp";
+	     },  
+	     "json"  
+	)
+}

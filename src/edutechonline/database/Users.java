@@ -130,9 +130,10 @@ public class Users {
 			User u=new User();
 			u.setFirstName(results.getString("first_name"));
 			u.setLastName(results.getString("last_name"));
-			u.setEmail(results.getString("email"));
+			u.setEmail(results.getString("users.email"));
 			u.setPassword(results.getString("password"));
 			u.setID(results.getInt("id"));
+			u.setRole(results.getString("role"));
 			return u;
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
@@ -164,7 +165,7 @@ public class Users {
 			log.error(e.getMessage(),e);
 		} finally {
 			ConnectionPool.safeClose(con);
-			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
 			ConnectionPool.safeClose(results);
 		}
 		return null;
@@ -221,7 +222,7 @@ public class Users {
 			log.error(e.getMessage(),e);
 		} finally {
 			ConnectionPool.safeClose(con);
-			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
 			ConnectionPool.safeClose(results);
 		}
 		return null;
@@ -394,7 +395,10 @@ public class Users {
 		} catch (Exception e) {
 			ConnectionPool.doRollback(con);
 			log.error(e.getMessage(),e);
-		} 
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+		}
 		return -1;
 	}
 	
@@ -426,6 +430,14 @@ public class Users {
 		} finally {
 			ConnectionPool.safeClose(con);
 			ConnectionPool.safeClose(procedure);
+		}
+		return false;
+	}
+	
+	public static boolean isAdmin(int userId) {
+		User u=Users.getUser(userId);
+		if (u!=null && u.getRole().equals("admin")) {
+			return true;
 		}
 		return false;
 	}

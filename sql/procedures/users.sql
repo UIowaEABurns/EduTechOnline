@@ -7,7 +7,9 @@ DELIMITER // -- this goes at the end of every procedure
 DROP PROCEDURE IF EXISTS getUser;
 CREATE PROCEDURE getUser(IN _id INT)
 	BEGIN
-		SELECT * FROM users WHERE id=_id;
+		SELECT * FROM users
+		JOIN roles ON roles.email=users.email
+		WHERE id=_id;
 	END //
 	
 -- Gets every user from the database
@@ -15,7 +17,8 @@ CREATE PROCEDURE getUser(IN _id INT)
 DROP PROCEDURE IF EXISTS getAllUsers;
 CREATE PROCEDURE getAllUsers()
 	BEGIN
-		SELECT * FROM users;
+		SELECT * FROM users
+		JOIN roles ON roles.email=users.email;
 	END //
 	
 -- Gets a user by their email address
@@ -23,7 +26,10 @@ CREATE PROCEDURE getAllUsers()
 DROP PROCEDURE IF EXISTS getUserByEmail;
 CREATE PROCEDURE getUserByEmail(IN _email VARCHAR(64))
 	BEGIN
-		SELECT * FROM users WHERE email=_email;
+		SELECT * FROM users 
+		JOIN roles ON roles.email=users.email
+
+		WHERE users.email=_email;
 	END //
 	
 	

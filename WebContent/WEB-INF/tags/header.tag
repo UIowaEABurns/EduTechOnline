@@ -12,10 +12,10 @@
 	<!-- This is the header that will be present on every page -->
 	<nav id="headerNav">
 		<ul>
-			<li>account</li>
+			<li><a href="/EduTechOnline/jsp/secure/index.jsp">home</a></li>
+			<li><a href="/EduTechOnline/jsp/secure/accounts/details.jsp">account</a></li>
+			<li><a href="/EduTechOnline/jsp/public/aboutus.jsp">about</a></li>
 			<li>courses</li>
-			<li>about</li>
-			<li>video</li>
 			<li>help</li>
 		</ul>
 	</nav>
