@@ -22,87 +22,48 @@
 <edutech:template title="home" css="public/home" js="">
 	
 <title>Edutechonline</title>
-		
-		<div id="whatsNew" style="class="mainbox col-md-3">
-		<div class="panel panel-info">
-  <div class="panel-heading">
-  <h5 class="panel-title">What's New</h5>
-  </div>
-  <div class="panel-body">
+	<div id="whatsNew" class="box" >
+		<p class="caption" title="one more tooltip">What's new on EduTechOnline</p>
 		<ul>
-			<li>New course on Linux- Introduction to Linux</li>
-			<li>New courses on Verification - Formal methods in software engineering.</li>
-			<li>Trouble in finding the formula in Microsoft excel- Excel in Microsoft excel</li>
+			<li>"New course on Linux- Introduction to Linux</li>
+			<li>New courses on Verification - Formal methods in software engineering."</li>
+			<li>"Trouble in finding the formula in Microsoft excel- Excel in Microsoft excel</li>
 			<li>Interested in photoediting !!- Introduction to adobe photoshop</li>
 			<li>Website designing - Introduction to HTML and CSS</li>
-			<li>New course on Animation</li>
+			<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+			 incididunt ut labore et dolore magna aliqua</li>
 		
 		
 		</ul>
+	
 	</div>
-	</div>
-	</div>
-	</div>
-
-<div class="container">
-<div id="loginDiv" style="class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 "> 
-<div class="panel panel-info">
-  <div class="panel-heading">
-  <h5 class="panel-title">Login</h5>
-  </div>
-  <div class="panel-body">
+<div id="loginDiv" class="box">
 
 	<c:if test="${!loggedIn}">
 	<form method="POST" action="j_security_check">
-			
-			<div style="padding-top:10px" class="panel-body" >
+			<p class="caption" title="one more tooltip">Login</p>
 	
-            <div style="margin-bottom: 25px" class="input-group">
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                        <input id="login-username" type="text" class="form-control" name="uname" value="" placeholder="username or email">                                        
-                                    </div>
-                                
-                            <div style="margin-bottom: 25px" class="input-group">
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                        <input id="login-password" type="password" class="form-control" name="pass" value="" placeholder="password">
-                                    </div>
-                                    
-
-                                
-                            <div class="input-group">
-                                      <div class="checkbox">
-                                        <label>
-                                          <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
-                                        </label>
-                                      </div>
-                                    </div>
-
-
-                                <div style="margin-top:10px" class="form-group">
-                                   
-                                    <div class="col-sm-12 controls">
-                                      <a id="btn-login" href="#" class="btn btn-primary">Login  </a>
-                                      
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group">
-                                    <div class="col-md-12 control">
-                                        <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
-                                            Not yet Registered! 
-                                        <a href="/EduTechOnline/jsp/public/registration.jsp">
-                                            Sign Up Here
-                                        </a>
-                                        </div>
-                                    </div>
-                                </div>    
-                                 
-
-
-
-                        </div>                     
-                    </div>  
+            <table id="loginTable">
+                
+                <tbody>
+                    <tr>
+                        <td>User Name</td>
+                        <td><input type="text" name="j_username" /></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><input type="password" name="j_password"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button type="submit">Login</button></td>
+                    </tr>
+                    <tr>
+                        <td> <a href="/EduTechOnline/jsp/public/registration.jsp">Not Yet Registered? </a></td>
+                        <td> <a href="/EduTechOnline/jsp/public/requestPassword.jsp">Forgot password?</a></td>
+                        
+                    </tr>
+                </tbody>
+            </table>
            
         </form>
         </c:if>
@@ -111,6 +72,4 @@
         	<p><a onclick="javascript:logout();">logout</a></p>
         </c:if>
     </div>
-    </div>
-</div>
 </edutech:template>
