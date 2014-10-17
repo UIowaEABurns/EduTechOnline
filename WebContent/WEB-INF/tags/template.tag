@@ -13,7 +13,7 @@
 		<div id="wrapper">
 			<edutech:header />
 			<div id="content" class="round">
-				<h1 style="width:100%; word-wrap:break-word;">${title}</h1>
+				
 				<jsp:doBody/>
 			</div>		
 		<edutech:footer />

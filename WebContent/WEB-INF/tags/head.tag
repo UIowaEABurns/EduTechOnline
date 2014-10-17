@@ -9,12 +9,15 @@
 	<!-- This tag defines the 'head' tag for every page on the website, which allows us to include important css and js files -->
 	<title>EduTechOnline</title>
 	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/EduTechOnline/css/lib/jquery-ui.css" />
 	<link rel="stylesheet" href="/EduTechOnline/css/lib/jquery-ui.theme.css" />
 	<link rel="stylesheet" href="/EduTechOnline/css/lib/jquery.qtip.css"/>
 		<link rel="stylesheet" href="/EduTechOnline/css/lib/dataTable.css"/>
 	
-	<link rel="stylesheet" href="/EduTechOnline/css/master.css" />
+	<link rel="stylesheet" href="/EduTechOnline/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/EduTechOnline/css/custom.css" />
+	<link rel="stylesheet" href="/EduTechOnline/css/font-awesome.min.css">
 	
 	<!-- Includes any other css files specified on the page -->
 	<c:if test="${not empty css}">	
