@@ -42,10 +42,11 @@
 					</div>
 			</div>
 		</div>
-		
-	<div class="container">	
+	
 	<c:if test="${!loggedIn}">
-	  <form method="POST" action="j_security_check">
+	 <form method="POST" action="j_security_check">	
+	   <div class="container">	
+	
 	
 			<div id="loginDiv" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 "> 
 				<div class="panel panel-info">
@@ -60,12 +61,12 @@
 		
 	            						<div style="margin-bottom: 25px" class="input-group">
 	                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	                                        <input id="login-username" type="text" class="form-control" name="uname" value="" placeholder="username or email">                                        
+	                                        <input id="login-username" type="text" class="form-control" name="j_username" value="" placeholder="username or email">                                        
 	                                    </div>
 	                                
 	                            		<div style="margin-bottom: 25px" class="input-group">
 	                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-	                                        <input id="login-password" type="password" class="form-control" name="pass" value="" placeholder="password">
+	                                        <input id="login-password" type="password" class="form-control" name="j_password" value="" placeholder="password">
 	                                    </div>
 	                                    
 	
@@ -82,7 +83,7 @@
 	                                	<div style="margin-top:10px" class="form-group">
 	                                   
 	                                    	<div class="col-sm-12 controls">
-	                                      		<a id="btn-login" class="btn btn-primary">Login</a>
+	                                      		<input type="submit" value="Login" class="btn btn-primary" id="loggedIn">
 	                                      
 	                                    	</div>
 	                                	</div>
@@ -103,6 +104,7 @@
 	     			</div>                     
 	 			</div> 
 	 		</div>
+	 	 </div>
 	 	</form>
 	 </c:if> 
 	           
@@ -111,7 +113,7 @@
 	        	<p>Hello, ${user.getFullName()}</p>
 	        	<p><a onclick="javascript:logout();">logout</a></p>
 	        </c:if>
-	    </div>
+	    
 	  
 	
 	</edutech:template>
