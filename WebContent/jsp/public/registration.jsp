@@ -5,9 +5,9 @@
 <edutech:template css="public/home" js="public/registration">
 
 
-<form role="form" method="post" action="/EduTechOnline/public/registration" id="registerForm">
+<form role="form" method="post" action="/EduTechOnline/public/registration" id="registerForm" class="form-horizontal">
 	<div class="container">
-		<div class="row"><h3>Please Enter The Below Fields</h3></div>
+		<div class="row"><legend>Please Enter The Below Fields</legend></div>
 				<div class="col-lg-8">
 			 	
 					<div class="formgroup"> 
