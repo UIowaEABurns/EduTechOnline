@@ -39,7 +39,7 @@
         
       			<form class="navbar-form" role="search">
         			<div class="form-group">
-          				<input type="text" class="form-control" placeholder="Search">
+          				<input type="text" class="input-medium search-query" placeholder="Search">
         			</div>
         				<button type="submit" class="btn-group btn-group-sm">Go</button>
       			</form>

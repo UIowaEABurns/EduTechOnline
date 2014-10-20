@@ -22,8 +22,11 @@
 	<edutech:template title="home" css="public/home" js="">
 		
 	<title>Edutechonline</title>
+<div class="container">
+	<div class="row equal">
+	  	
 	
-		<div id="whatsNew" class="mainbox col-md-3">
+		<div id="whatsNew">
 			<div class="panel panel-info">
 	  			<div class="panel-heading">
 	 		 		<h5 class="panel-title">What's New</h5>
@@ -42,22 +45,24 @@
 					</div>
 			</div>
 		</div>
+		
+		
+	
+	
 	
 	<c:if test="${!loggedIn}">
-	 <form method="POST" action="j_security_check">	
-	   <div class="container">	
+	 <form method="POST" action="j_security_check" class="form-horizontal">	
+	   	
 	
 	
-			<div id="loginDiv" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 "> 
+			<div id="loginDiv">
+			 
 				<div class="panel panel-info">
 	 				 <div class="panel-heading">
 	  				<h5 class="panel-title">Login</h5>
-	  			</div>
-	 					 <div class="panel-body">
-	
-		
-				
-							<div style="padding-top:10px" class="panel-body" >
+	  				</div>
+	 					 		
+										<div style="padding-top:10px" class="panel-body" >
 		
 	            						<div style="margin-bottom: 25px" class="input-group">
 	                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -103,11 +108,16 @@
 							</div>
 	     			</div>                     
 	 			</div> 
-	 		</div>
-	 	 </div>
+	 		
+	 	 
 	 	</form>
 	 </c:if> 
+	 
+	</div> 
+	 </div>
 	           
+	
+
 	        
 	        <c:if test="${loggedIn}">
 	        	<p>Hello, ${user.getFullName()}</p>
