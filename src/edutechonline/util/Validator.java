@@ -64,7 +64,7 @@ public class Validator {
 		if (role==null) {
 			return false;
 		}
-		if (role.equals("admin") || role.equals("unverified") || role.equals("user") || role.equals("unverified")) {
+		if (role.equals("admin") || role.equals("unverified") || role.equals("user") || role.equals("manager")) {
 			return true;
 		}
 		return false;

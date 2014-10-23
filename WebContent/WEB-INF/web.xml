@@ -97,6 +97,16 @@
   </servlet-mapping>
   
   <servlet>
+  	<servlet-name>AddCourse</servlet-name>
+  	<servlet-class>edutechonline.servlets.AddCourse</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AddCourse</servlet-name>
+  	<url-pattern>/secure/addCourse</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
   	<servlet-name>RegistrationConfirmation</servlet-name>
   	<servlet-class>edutechonline.servlets.RegistrationConfirmation</servlet-class>
   </servlet>

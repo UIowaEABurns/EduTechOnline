@@ -1,9 +1,29 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@tag import="edutechonline.servlets.SessionFilter, edutechonline.database.*"%>	
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%@attribute name="title" %>
 <%@attribute name="css" %>
 <%@attribute name="js" %>
+
+<%
+		try {
+			int userId=SessionFilter.getUserId(request);
+			boolean loggedIn=false;
+			//if the ID was valid
+			if (userId>=0) {
+				loggedIn=true;
+				
+				request.setAttribute("user", Users.getUser(userId));
+			}
+			request.setAttribute("loggedIn", loggedIn);
+		} catch (Exception e) {
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "error loading page");
+		}
+		
+	
+	%>
 
 <head>
 	<!-- This tag defines the 'head' tag for every page on the website, which allows us to include important css and js files -->

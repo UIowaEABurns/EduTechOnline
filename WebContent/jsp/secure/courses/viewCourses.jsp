@@ -4,8 +4,7 @@
 
 <%
 	try {
-		int ownerId=SessionFilter.getUserId(request);
-		List<Course> courses=Courses.getCoursesByManager(ownerId);
+		List<Course> courses=Courses.getAllOpenCourses();
 		
 		request.setAttribute("courses", courses);
 	} catch (Exception e) {

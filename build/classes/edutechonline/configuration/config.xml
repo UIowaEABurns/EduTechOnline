@@ -36,6 +36,16 @@
 		<role>admin</role>
 		
 	</user>
+	<user>
+		<fname>Eric</fname>
+		<lname>Burns</lname>
+		<pass>test</pass>
+		<email>eric-burns@uiowa.edu</email>
+		<!-- Role must be 'user' 'admin' or 'manager' -->
+		<role>manager</role>
+		
+	</user>
+	
 	
 
 </edutech-configuration>

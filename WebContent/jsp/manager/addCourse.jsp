@@ -2,10 +2,10 @@
 <%@taglib prefix="edutech" tagdir="/WEB-INF/tags" %>
 
 
-<edutech:template title="Add Course" css="public/home" js="public/registration">
+<edutech:template title="Add Course" css="public/home" js="manager/addCourse">
 
 <legend>Please Complete The Fields Below</legend>
-<form role="form" method="post" action="/EduTechOnline/public/registration" id="registerForm">
+<form role="form" method="post" action="/EduTechOnline/secure/addCourse" id="courseForm">
 	
 	<div class="container">
 		<div class="row"></div>
@@ -26,30 +26,16 @@
 						<div class="form-group">
 							<label for="description" class="col-md-5">Description</label>
 				
-							<input  type="text"  name="desc" id="desc" class="formcontrol" placeholder="Enter Description">
+							<textarea name="desc" id="desc" class="formcontrol" placeholder="Enter Description"></textarea>
 						</div>	
 				
 					
 						<div class="form-group">
 							<label title="The amount of money, in dollars and cents, that it will cost to enroll in this course" for="confemail" class="col-md-5">Cost</label>
 				
-							<input type="email"  name="cemail" id="confemail" class="formcontrol" placeholder="Confirm Email">
+							<input type="text"  name="cost" id="cost" class="formcontrol" placeholder="Enter Cost">
                 		</div>
-            
-            
-            			<div class="form-group">
-							<label for="passw"class="col-md-5">Enter Password</label>
-				
-							<input type="password" name="pass" id="passw" class="formcontrol" placeholder="Enter password">
-						</div>	
-				
-					
-						<div class="form-group">
-							<label for="confpwd"class="col-md-5">Confirm Password </label>
-				
-							<input type="password" name="password" id="confpwd" class="formcontrol" placeholder="Confirm Password">
-            			</div>
-            
+                		
             			<input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-left">
              	</div>
             </div>

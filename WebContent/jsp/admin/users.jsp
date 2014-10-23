@@ -35,7 +35,6 @@
 					<td><button value="${u.getID()}" class="deleteButton">delete</button></td>
 				</tr>
 			</c:forEach>
-		
 		</tbody>
 	
 	

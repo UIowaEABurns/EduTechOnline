@@ -9,9 +9,30 @@ CREATE PROCEDURE getCourse(IN _id INT)
 		SELECT * FROM courses WHERE id=_id;
 	END //
 	
+-- Retrieves the given course from the database
+DROP PROCEDURE IF EXISTS getCoursesByManager;
+CREATE PROCEDURE getCoursesByManager(IN _id INT)
+	BEGIN
+		SELECT * FROM courses WHERE owner=_id;
+	END //
+	
+-- Retrieves the given course from the database
+DROP PROCEDURE IF EXISTS getAllCourses;
+CREATE PROCEDURE getAllCourses()
+	BEGIN
+		SELECT * FROM courses;
+	END //
+	
+-- Retrieves the given course from the database
+DROP PROCEDURE IF EXISTS getAllOpenCourses;
+CREATE PROCEDURE getAllOpenCourses()
+	BEGIN
+		SELECT * FROM courses where open=true;
+	END //
+	
 -- Removes the given course from the database
 DROP PROCEDURE IF EXISTS deleteCourse;
-CREATE PROCEDURE getCourse(IN _id INT)
+CREATE PROCEDURE deleteCourse(IN _id INT)
 	BEGIN
 		DELETE FROM courses WHERE id=_id;
 	END //

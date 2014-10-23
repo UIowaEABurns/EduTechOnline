@@ -3,6 +3,8 @@ package edutechonline.database;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -121,4 +123,94 @@ public class Courses {
 		return null;
 		
 	}
+	
+	
+	/**
+	 * Retrieves all courses created by the given manager from the database
+	 * @param id
+	 * @return
+	 */
+	public static List<Course> getCoursesByManager(int ownerId) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		ResultSet results=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL getCoursesByManager(?)}");
+			procedure.setInt(1,ownerId);
+			results=procedure.executeQuery();
+			List<Course> courses=new ArrayList<Course>();
+			while (results.next()) {
+				courses.add(resultSetToCourse(results));
+			}
+			return courses;
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+			ConnectionPool.safeClose(results);
+		}
+		return null;
+		
+	}
+	
+	/**
+	 * Retrieves all courses from the database
+	 * @param id
+	 * @return
+	 */
+	public static List<Course> getAllCourses() {
+		Connection con=null;
+		CallableStatement procedure=null;
+		ResultSet results=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL getAllCourses()}");
+			results=procedure.executeQuery();
+			List<Course> courses=new ArrayList<Course>();
+			while (results.next()) {
+				courses.add(resultSetToCourse(results));
+			}
+			return courses;
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+			ConnectionPool.safeClose(results);
+		}
+		return null;
+		
+	}
+	
+	/**
+	 * Retrieves all open courses from the database
+	 * @param id
+	 * @return
+	 */
+	public static List<Course> getAllOpenCourses() {
+		Connection con=null;
+		CallableStatement procedure=null;
+		ResultSet results=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL getAllOpenCourses()}");
+			results=procedure.executeQuery();
+			List<Course> courses=new ArrayList<Course>();
+			while (results.next()) {
+				courses.add(resultSetToCourse(results));
+			}
+			return courses;
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+			ConnectionPool.safeClose(results);
+		}
+		return null;
+		
+	}
+	
 }

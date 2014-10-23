@@ -1,24 +1,8 @@
-	<%@page contentType="text/html" pageEncoding="UTF-8" import="edutechonline.servlets.SessionFilter, edutechonline.database.*"%>	
-	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	<%@taglib prefix="edutech" tagdir="/WEB-INF/tags" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" import="edutechonline.servlets.SessionFilter, edutechonline.database.*"%>	
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="edutech" tagdir="/WEB-INF/tags" %>
 	
-	<%
-		try {
-			int userId=SessionFilter.getUserId(request);
-			boolean loggedIn=false;
-			//if the ID was valid
-			if (userId>=0) {
-				loggedIn=true;
-				
-				request.setAttribute("user", Users.getUser(userId));
-			}
-			request.setAttribute("loggedIn", loggedIn);
-		} catch (Exception e) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "error loading page");
-		}
-		
 	
-	%>
 	<edutech:template title="home" css="public/home" js="">
 		
 	<title>Edutechonline</title>
@@ -93,10 +77,10 @@
 	                                	<div class="form-group">
 	                                    	<div class="col-md-12 control">
 	                                        	<div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
+	                                            	<a href="/EduTechOnline/jsp/public/registration.jsp">
 	                                            			Not Registered? 
-	                                        		<a href="/EduTechOnline/jsp/public/registration.jsp">
-	                                            			Sign Up Here
 	                                        		</a>
+	                                        		<a href="/EduTechOnline/jsp/public/requestPassword.jsp">Forgot Password?</a>
 	                                       		</div>
 	                                    	</div>
 	                                	</div>    
@@ -117,7 +101,7 @@
 	        
 	        <c:if test="${loggedIn}">
 	        	<p>Hello, ${user.getFullName()}</p>
-	        	<p><a onclick="javascript:logout();">logout</a></p>
+	        	<p><a href="#" onclick="javascript:logout();">logout</a></p>
 	        </c:if>
 	    
 	  

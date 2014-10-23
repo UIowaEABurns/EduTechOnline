@@ -26,7 +26,7 @@
                       			   				    
       			
       					<li><a class="active"href="/EduTechOnline/jsp/public/home.jsp">Home</a></li>
-        				<li><a href="#">Courses</a></li>
+        				<li><a href="/EduTechOnline/jsp/secure/courses/viewCourses.jsp">Courses</a></li>
         				<li><a href="/EduTechOnline/jsp/public/aboutus.jsp">About Us</a></li>
         				<li><a href="#">Videos</a></li>
         			
