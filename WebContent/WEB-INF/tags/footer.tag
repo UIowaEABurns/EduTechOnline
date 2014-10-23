@@ -1,3 +1,4 @@
+	<!-- This defines a footer for the project -->
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -5,12 +6,54 @@
 
 
 <footer id="pageFooter">
-	<!-- This defines a footer for the project -->
-	<c:if test="${not empty user && user.role == 'admin'}">
-		<ul id="adminLinks">
-			<li><a href="/EduTechOnline/jsp/admin/users.jsp">users</a></li>
+	<c:if test="${empty user}">
+	
+		<nav class="navbar navbar-default" role="navigation">
+	
+			<div class="collapse navbar-collapse" id="navbar-collapse-1">
+      		<div id="headerli">
+     				<ul class="navbar-nav nav nav-pills">
+                      			   				    
+      			
+
+        			
+        			</ul>
+        	</div>		
+     		 
+      
+      	</div>
+      	</nav>
 		
-		</ul>
+	</c:if>
+	<c:if test="${not empty user && user.role == 'admin'}">
+		<nav class="navbar navbar-default" role="navigation">
+	
+			<div class="collapse navbar-collapse" id="navbar-collapse-1">
+      		<div id="headerli">
+     				<ul class="navbar-nav nav nav-pills">
+                      			   				    
+      			
+      					<li><a href="/EduTechOnline/jsp/admin/users.jsp">Manage Users</a></li>
+
+        			
+        			</ul>
+        	</div>		
+     		 
+      
+      	</div>
+      	</nav>
+	</c:if>
+	<c:if test="${not empty user && user.role == 'manager'}">
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="collapse navbar-collapse" id="navbar-collapse-1">
+      		<div id="headerli">
+     				<ul class="navbar-nav nav nav-pills">
+      					<li><a href="/EduTechOnline/jsp/manager/addCourse.jsp">Add Course</a></li>
+      					<li><a href="/EduTechOnline/jsp/manager/viewCourses.jsp">Add Course</a></li>
+        			</ul>
+        	</div>		
+      	</div>
+      	</nav>
 	</c:if>
 </footer>
 

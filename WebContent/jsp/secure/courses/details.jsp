@@ -4,9 +4,12 @@
 
 <%
 	try {
+		int courseId=Integer.parseInt(request.getParameter("cid"));
 		int userId=SessionFilter.getUserId(request);
+		Course c=Courses.getCourse(courseId);
 		User u=Users.getUser(userId);
 		request.setAttribute("user", u);
+		request.setAttribute("course",c);
 		
 	} catch (Exception e) {
 		response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -17,8 +20,9 @@
 
 %>
 
-<edutech:template css="public/home">
+<edutech:template css="public/home" >
 <div class="regis">
+<form method="post" action="/EduTechOnline/public/registration" id="registerForm">
             <table>
                 <thead>
                     <tr>
@@ -44,10 +48,6 @@
                     </tr>
                 </tbody>
             </table>
-	<fieldset class="actions">
-	
-		<a href="/EduTechOnline/jsp/secure/accounts/edit.jsp"><button id="editAccount" ></button></a>
-	
-	</fieldset>
-</div>
+        </form>
+        </div>
 </edutech:template>

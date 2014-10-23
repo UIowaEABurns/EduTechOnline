@@ -22,7 +22,7 @@
       		</div>
       	<div class="collapse navbar-collapse" id="navbar-collapse-1">
       		<div id="headerli">
-     				<ul class="nav navbar-nav nav nav-pills">
+     				<ul class="navbar-nav nav nav-pills">
                       			   				    
       			
       					<li><a class="active"href="/EduTechOnline/jsp/public/home.jsp">Home</a></li>

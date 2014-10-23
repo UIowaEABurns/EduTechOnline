@@ -45,11 +45,7 @@
 					</div>
 			</div>
 		</div>
-		
-		
-	
-	
-	
+
 	<c:if test="${!loggedIn}">
 	 <form method="POST" action="j_security_check" class="form-horizontal">	
 	   	
@@ -97,7 +93,7 @@
 	                                	<div class="form-group">
 	                                    	<div class="col-md-12 control">
 	                                        	<div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
-	                                            			Not yet Registered! 
+	                                            			Not Registered? 
 	                                        		<a href="/EduTechOnline/jsp/public/registration.jsp">
 	                                            			Sign Up Here
 	                                        		</a>

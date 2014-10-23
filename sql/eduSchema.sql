@@ -46,6 +46,8 @@ CREATE TABLE courses (
 	description TEXT,
 	cost DOUBLE NOT NULL, -- how much does it cost, in dollars, to enroll in the course
 	owner_id INT, -- course manager that created this course
+	open BOOLEAN NOT NULL,
+	category VARCHAR(64),
 	PRIMARY KEY (id),
 	CONSTRAINT courses_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE SET NULL 
 
@@ -55,6 +57,7 @@ CREATE TABLE content_topics (
 	id INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(64),
 	description TEXT,
+	url VARCHAR(255),
 	course_id INT, -- course manager that created this course
 	path TEXT, -- path to the data for this content topic on disk
 	PRIMARY KEY (id),
