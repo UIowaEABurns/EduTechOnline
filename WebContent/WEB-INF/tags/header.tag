@@ -37,11 +37,11 @@
       	<div class="navbar-right">
         
         
-      			<form class="navbar-form" role="search">
+      			<form class="navbar-form" role="search" method="get" action ="http://www.google.com/search">
         			<div class="form-group">
           				<input type="text" class="input-medium search-query" placeholder="Search">
         			</div>
-        				<button type="submit" class="btn-group btn-group-sm">Go</button>
+        				<button type="submit" class="btn-group btn-group-sm"><span class="glyphicon glyphicon-search"></span> GO</button>
       			</form>
       
      	 </div>
