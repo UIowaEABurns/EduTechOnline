@@ -153,6 +153,24 @@
   	<url-pattern>/public/requestresetpass</url-pattern>
   </servlet-mapping>
   
+ <servlet>
+  	<servlet-name>EditAccount</servlet-name>
+  	<servlet-class>edutechonline.servlets.EditAccount</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>EditAccount</servlet-name>
+  	<url-pattern>/secure/editAccount</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+  	<servlet-name>EditPassword</servlet-name>
+  	<servlet-class>edutechonline.servlets.EditPassword</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>EditPassword</servlet-name>
+  	<url-pattern>/secure/editPassword</url-pattern>
+  </servlet-mapping>
+  
   
   <filter-mapping>
     <filter-name>SessionFilter</filter-name>

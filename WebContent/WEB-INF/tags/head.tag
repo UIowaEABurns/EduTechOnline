@@ -36,6 +36,8 @@
 		<link rel="stylesheet" href="/EduTechOnline/css/lib/dataTable.css"/>
 	
 	<link rel="stylesheet" href="/EduTechOnline/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/EduTechOnline/css/master.css" />
+	
 	<link rel="stylesheet" href="/EduTechOnline/css/custom.css" />
 	<link rel="stylesheet" href="/EduTechOnline/css/font-awesome.min.css">
 	

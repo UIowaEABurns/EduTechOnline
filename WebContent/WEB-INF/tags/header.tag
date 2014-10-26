@@ -28,21 +28,26 @@
       					<li><a class="active"href="/EduTechOnline/jsp/public/home.jsp">Home</a></li>
         				<li><a href="/EduTechOnline/jsp/secure/courses/viewCourses.jsp">Courses</a></li>
         				<li><a href="/EduTechOnline/jsp/public/aboutus.jsp">About Us</a></li>
-        				<li><a href="#">Videos</a></li>
+        				<li><a href="/EduTechOnline/jsp/secure/accounts/details.jsp">Account</a></li>
         			
         			</ul>
         	</div>		
      		 
       
       	<div class="navbar-right">
-        
-        
-      			<form class="navbar-form" role="search" method="get" action ="http://www.google.com/search">
-        			<div class="form-group">
-          				<input type="text" class="input-medium search-query" placeholder="Search">
-        			</div>
-        				<button type="submit" class="btn-group btn-group-sm"><span class="glyphicon glyphicon-search"></span> GO</button>
-      			</form>
+<script>
+  (function() {
+    var cx = '013636592991520040445:mcodauuhghu';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:searchbox-only></gcse:searchbox-only>
       
      	 </div>
       

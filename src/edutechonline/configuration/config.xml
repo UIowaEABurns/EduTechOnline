@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<edutech-configuration default="kiran">
+<edutech-configuration default="eaburns">
     
 	<configuration name="eaburns">
 		<class name="edutechonline.application.Constants">
@@ -36,6 +36,16 @@
 		<role>admin</role>
 		
 	</user>
+	<user>
+		<fname>Eric</fname>
+		<lname>Burns</lname>
+		<pass>test</pass>
+		<email>eric-burns@uiowa.edu</email>
+		<!-- Role must be 'user' 'admin' or 'manager' -->
+		<role>manager</role>
+		
+	</user>
+	
 	
 
 </edutech-configuration>

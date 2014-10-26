@@ -11,14 +11,11 @@
 	} catch (Exception e) {
 		response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	}
-
-
-
-
 %>
 
 <edutech:template css="public/home">
-<div class="regis">
+<div class="editAccount">
+	<form method="POST" action="/EduTechOnline/secure/editPassword" id="editForm">
             <table>
                 <thead>
                     <tr>
@@ -27,28 +24,17 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>First Name</td>
-                        <td>${user.getFirstName()}</td>
+                        <td>New Password</td>
+                        <td><input id="pass" name="pass" type="password"/></td>
                     </tr>
                     <tr>
-                        <td>Last Name</td>
-                        <td>${user.getLastName()}</td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td>${user.getEmail()}</td>
-                    </tr>
-                    <tr>
-                    	<td>Role</td>
-                    	<td>${user.getRole()}</td>
+                        <td>Confirm Password</td>
+                        <td><input id="cpass" name="cpass" type="password"/></td>
                     </tr>
                 </tbody>
             </table>
-	<fieldset class="actions">
-	
-		<a href="/EduTechOnline/jsp/secure/accounts/edit.jsp"><button id="editAccount" >Edit Account</button></a>
-		<a href="/EduTechOnline/jsp/secure/accounts/editPassword.jsp"><button id="editAccount" >Edit Password</button></a>
-	
-	</fieldset>
+            <input type="submit" name="submit" id="submit" value="Save Changes" class="btn btn-info pull-left">
+            
+           </form>
 </div>
 </edutech:template>

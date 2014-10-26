@@ -4,6 +4,7 @@ import org.junit.Assert;
 
 import edutechonline.database.Users;
 import edutechonline.database.entity.User;
+import edutechonline.test.ResourceLoader;
 import edutechonline.test.Test;
 import edutechonline.test.TestSet;
 
@@ -21,13 +22,13 @@ public class UserTests extends TestSet {
 	
 	@Test
 	private void getUserByEmail() {
-		
+		User tempUser=Users.getUser(u.getEmail());
+		Assert.assertNotNull(tempUser);
+		Assert.assertNull(Users.getUser(-48484));
+		Assert.assertEquals(u.getFirstName(),tempUser.getFirstName());
 	}
 	
-	@Test
-	private void whatever() {
-		
-	}
+	
 	
 	@Override
 	protected String getTestName() {
@@ -36,13 +37,13 @@ public class UserTests extends TestSet {
 
 	@Override
 	protected void setup() throws Exception {
-		u=new User();
+		u=ResourceLoader.loadUserIntoDatabase();
 		
 	}
 
 	@Override
 	protected void teardown() throws Exception {
-		// TODO Auto-generated method stub
+		Assert.assertTrue(Users.deleteUser(u.getID()));
 		
 	}
 
