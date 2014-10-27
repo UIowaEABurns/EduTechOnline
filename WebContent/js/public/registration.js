@@ -3,13 +3,17 @@ $(document).ready(function() {
 	$("#registerForm").validate({
 		rules: {
 			fname: {
-				required: true
+				required: true,
+				regex : getNameRegex()
+
 			},
 			lname: {
-				required: true
+				required: true,
+				regex : getNameRegex()
 			},
 			email: {
-				required: true
+				required: true,
+				regex : getEmailRegex()
 			},
 			pass: {
 				required: true
@@ -22,13 +26,17 @@ $(document).ready(function() {
 		},
 		messages: {
 			fname: {
-				required: "enter a first name"
+				required: "enter a first name",
+				regex: "names can contain only letters, hyphens, and spaces"
 			},
 			lname: {
-				required: "enter a last name"
+				required: "enter a last name",
+				regex: "names can contain only letters, hyphens, and spaces"
+
 			},
 			email: {
-				required: "enter an email address"
+				required: "enter an email address",
+				regex: "invalid email format"
 			},
 			pass: {
 				required: "enter a password"
