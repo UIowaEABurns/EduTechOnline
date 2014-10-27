@@ -1,112 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:javaee="http://xmlns.jcp.org/xml/ns/javaee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.4">
-  <javaee:display-name>EduTechOnline</javaee:display-name>
-  <javaee:description>Online Courses and Student Progress Management</javaee:description>
-  <error-page>
-    <error-code>400</error-code>
-    <location>/jsp/public/error.jsp</location>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:javaee="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" version="2.4">
+  
+  <!-- Application Configuration -->
+  <display-name>EduTechOnline</display-name>
+ <description>Online Courses and Student Progress Management</description>
+ 
+   <error-page> 
+    <error-code>400</error-code> 
+    <location>/jsp/public/error.jsp</location> 
   </error-page>
-  <error-page>
-    <error-code>403</error-code>
-    <location>/jsp/public/error.jsp</location>
+  <error-page> 
+    <error-code>403</error-code> 
+    <location>/jsp/public/error.jsp</location> 
   </error-page>
-  <error-page>
-    <error-code>404</error-code>
-    <location>/jsp/public/error.jsp</location>
+  <error-page> 
+    <error-code>404</error-code> 
+    <location>/jsp/public/error.jsp</location> 
   </error-page>
-  <error-page>
-    <error-code>405</error-code>
-    <location>/jsp/public/error.jsp</location>
+  <error-page> 
+    <error-code>405</error-code> 
+    <location>/jsp/public/error.jsp</location> 
   </error-page>
-  <error-page>
-    <error-code>408</error-code>
-    <location>/jsp/public/error.jsp</location>
+   <error-page> 
+    <error-code>408</error-code> 
+    <location>/jsp/public/error.jsp</location> 
   </error-page>
-  <error-page>
-    <error-code>500</error-code>
-    <location>/jsp/public/error.jsp</location>
-  </error-page>
+  <error-page> 
+    <error-code>500</error-code> 
+    <location>/jsp/public/error.jsp</location> 
+  </error-page>  
+ 
+ 
+   <!-- Security Roles -->  
   <security-role>
-    <javaee:role-name>admin</javaee:role-name>
+    <role-name>admin</role-name>    
+  </security-role>  
+  <security-role>
+    <role-name>user</role-name>    
   </security-role>
   <security-role>
-    <javaee:role-name>user</javaee:role-name>
+  	<role-name>manager</role-name>
   </security-role>
   <security-role>
-    <javaee:role-name>manager</javaee:role-name>
+  	<role-name>unverified</role-name>
   </security-role>
-  <security-role>
-    <javaee:role-name>unverified</javaee:role-name>
-  </security-role>
-  <security-constraint>
+  
+  <security-constraint>	
     <web-resource-collection>
-      <web-resource-name>Registered Only</web-resource-name>
-      <url-pattern>/jsp/secure/*</url-pattern>
+	  <web-resource-name>Registered Only</web-resource-name>
+	  <url-pattern>/jsp/secure/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
-      <role-name>user</role-name>
-      <role-name>admin</role-name>
-      <role-name>manager</role-name>
-    </auth-constraint>
+	  <role-name>user</role-name>
+	  <role-name>admin</role-name>
+	  <role-name>manager</role-name>
+    </auth-constraint>			
   </security-constraint>
-  <security-constraint>
+
+  <security-constraint>	
     <web-resource-collection>
-      <web-resource-name>Admins Only</web-resource-name>
-      <url-pattern>/jsp/admin/*</url-pattern>
+	  <web-resource-name>Admins Only</web-resource-name>
+	  <url-pattern>/jsp/admin/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
-      <role-name>admin</role-name>
-    </auth-constraint>
+	  <role-name>admin</role-name>
+    </auth-constraint>			
   </security-constraint>
-  <security-constraint>
+  
+  <security-constraint>	
     <web-resource-collection>
-      <web-resource-name>Managers Only</web-resource-name>
-      <url-pattern>/jsp/manager/*</url-pattern>
+	  <web-resource-name>Managers Only</web-resource-name>
+	  <url-pattern>/jsp/manager/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
-      <role-name>manager</role-name>
-    </auth-constraint>
+	  <role-name>manager</role-name>
+    </auth-constraint>			
   </security-constraint>
+  
+  <!-- Form based authentication configuration -->
   <login-config>
     <auth-method>FORM</auth-method>
     <form-login-config>
       <form-login-page>/jsp/public/home.jsp</form-login-page>
       <form-error-page>/jsp/public/home.jsp?result=failed</form-error-page>
-    </form-login-config>
-  </login-config>
+    </form-login-config>	  
+  </login-config>  
+ 
+ 	<!-- Servlets -->
   <servlet>
-    <servlet-name>Registration</servlet-name>
-    <servlet-class>edutechonline.servlets.Registration</servlet-class>
+  	<servlet-name>Registration</servlet-name>
+  	<servlet-class>edutechonline.servlets.Registration</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Registration</servlet-name>
-    <url-pattern>/public/registration</url-pattern>
+  	<servlet-name>Registration</servlet-name>
+  	<url-pattern>/public/registration</url-pattern>
   </servlet-mapping>
+  
   <servlet>
-    <servlet-name>AddCourse</servlet-name>
-    <servlet-class>edutechonline.servlets.AddCourse</servlet-class>
+  	<servlet-name>AddCourse</servlet-name>
+  	<servlet-class>edutechonline.servlets.AddCourse</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>AddCourse</servlet-name>
-    <url-pattern>/secure/addCourse</url-pattern>
+  	<servlet-name>AddCourse</servlet-name>
+  	<url-pattern>/secure/addCourse</url-pattern>
   </servlet-mapping>
+  
+  
   <servlet>
-    <servlet-name>RegistrationConfirmation</servlet-name>
-    <servlet-class>edutechonline.servlets.RegistrationConfirmation</servlet-class>
+  	<servlet-name>RegistrationConfirmation</servlet-name>
+  	<servlet-class>edutechonline.servlets.RegistrationConfirmation</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>RegistrationConfirmation</servlet-name>
-    <url-pattern>/public/confirmation</url-pattern>
+  	<servlet-name>RegistrationConfirmation</servlet-name>
+  	<url-pattern>/public/confirmation</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>PasswordReset</servlet-name>
-    <servlet-class>edutechonline.servlets.ResetPassword</servlet-class>
+  
+   <servlet>
+  	<servlet-name>PasswordReset</servlet-name>
+  	<servlet-class>edutechonline.servlets.ResetPassword</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>PasswordReset</servlet-name>
-    <url-pattern>/public/resetpass</url-pattern>
+  	<servlet-name>PasswordReset</servlet-name>
+  	<url-pattern>/public/resetpass</url-pattern>
   </servlet-mapping>
-  <servlet>
+  
+  <servlet>  	
     <servlet-name>Resteasy</servlet-name>
     <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
   </servlet>
@@ -115,38 +133,43 @@
     <url-pattern>/services/*</url-pattern>
   </servlet-mapping>
   <context-param>
-    <javaee:param-name>resteasy.resources</javaee:param-name>
-    <javaee:param-value>edutechonline.servlets.RESTServices</javaee:param-value>
+    <param-name>resteasy.resources</param-name>
+    <param-value>edutechonline.servlets.RESTServices</param-value>
   </context-param>
   <context-param>
-    <javaee:param-name>resteasy.servlet.mapping.prefix</javaee:param-name>
-    <javaee:param-value>/services</javaee:param-value>
+    <param-name>resteasy.servlet.mapping.prefix</param-name>
+    <param-value>/services</param-value>
   </context-param>
   <listener>
-    <javaee:listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</javaee:listener-class>
-  </listener>
-  <servlet>
-    <servlet-name>RequestPasswordReset</servlet-name>
-    <servlet-class>edutechonline.servlets.RequestPassReset</servlet-class>
+    <listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
+  </listener>  
+  
+     <servlet>
+  	<servlet-name>RequestPasswordReset</servlet-name>
+  	<servlet-class>edutechonline.servlets.RequestPassReset</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>RequestPasswordReset</servlet-name>
-    <url-pattern>/public/requestresetpass</url-pattern>
+  	<servlet-name>RequestPasswordReset</servlet-name>
+  	<url-pattern>/public/requestresetpass</url-pattern>
   </servlet-mapping>
+  
+  
   <filter-mapping>
     <filter-name>SessionFilter</filter-name>
-    <url-pattern>/jsp/*</url-pattern>
-  </filter-mapping>
+    <url-pattern>/jsp/*</url-pattern>    
+  </filter-mapping>       
   <filter>
-    <filter-name>SessionFilter</filter-name>
-    <filter-class>edutechonline.servlets.SessionFilter</filter-class>
+  	<filter-name>SessionFilter</filter-name>
+    <filter-class>edutechonline.servlets.SessionFilter</filter-class>    
   </filter>
+ 
+  <!-- Default pages to load -->
   <welcome-file-list>
     <welcome-file>jsp/secure/index.jsp</welcome-file>
   </welcome-file-list>
   <listener>
-    <javaee:listener-class>
+  	<listener-class>
   		edutechonline.application.EduTechOnline
-  	</javaee:listener-class>
+  	</listener-class>
   </listener>
 </web-app>
