@@ -3,10 +3,8 @@
 <%@taglib prefix="edutech" tagdir="/WEB-INF/tags" %>
 	
 	
-	<edutech:template title="home" css="public/home" js="">
+<edutech:template title="EduTechOnline" css="public/home" js="">
 		
-	<title>Edutechonline</title>
-<div class="container">
 	<div class="row equal">
 	  	
 	
@@ -38,7 +36,7 @@
 			<div id="loginDiv">
 			 
 				<div class="panel panel-info">
-	 				 <div class="panel-heading">
+	 				<div class="panel-heading">
 	  				<h5 class="panel-title">Login</h5>
 	  				</div>
 	 					 		
@@ -93,17 +91,27 @@
 	 	</form>
 	 </c:if> 
 	 
-	</div> 
-	 </div>
-	           
 	
-
-	        
+	 		
 	        <c:if test="${loggedIn}">
-	        	<p>Hello, ${user.getFullName()}</p>
-	        	<p><a href="#" onclick="javascript:logout();">logout</a></p>
+	        	 <form method="POST" action="j_security_check" class="form-horizontal">	
+	        
+		        <div id="loginDiv">
+		        <div class="panel panel-info">
+		 				<div class="panel-heading">
+		  				<h5 class="panel-title">Login</h5>
+		  		</div>
+		  			
+		        	<p>Hello, ${user.getFullName()}</p>
+		        	<ul>
+		        		<li><a href="/EduTechOnline/jsp/secure/accounts/details.jsp">view account details</a></li>
+		        		<li><a href="#" onclick="javascript:logout();">logout</a></li>
+		        	</ul>
+		        </div>
+		        </div>
+		        </form>
 	        </c:if>
 	    
-	  
+	  </div> 
 	
 	</edutech:template>

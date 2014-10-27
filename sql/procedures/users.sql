@@ -127,4 +127,11 @@ CREATE PROCEDURE updatePassword(IN _id INT, IN _pass VARCHAR(255))
 	BEGIN
 		UPDATE users SET password=_pass WHERE id=_id;
 	END //
+	
+DROP PROCEDURE IF EXISTS updateUser;
+CREATE PROCEDURE updateUser(IN _id INT, IN _fname VARCHAR(32), IN  _lname VARCHAR(32))
+	BEGIN
+		UPDATE users SET first_name=_fname, last_name=_lname
+		WHERE id=_id;
+	END //
 DELIMITER ; --this must be at the end of the file

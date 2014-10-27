@@ -364,6 +364,35 @@ public class Users {
 		return false;
 	}
 	
+	
+	/**
+	 * Updates the personal information of a user. Does not update the users password or their role!
+	 * Those attributes need to be modified separately. Email is currently immutable
+	 * @param u A User object with all of its fields set
+	 * @return True on success and false otherwise
+	 */
+	public static boolean updateUser(User u) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL updateUser(?,?,?)}");
+			procedure.setInt(1,u.getID());
+			procedure.setString(2, u.getFirstName());
+			procedure.setString(3, u.getLastName());
+			
+			procedure.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			ConnectionPool.doRollback(con);
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+		}
+		return  false;
+	}
+	
 
 	/**
 	 * Registers a new user in the database. 
@@ -389,8 +418,6 @@ public class Users {
 			procedure.executeUpdate();
 			
 			u.setID(procedure.getInt(6));
-
-			
 			return u.getID();
 		} catch (Exception e) {
 			ConnectionPool.doRollback(con);

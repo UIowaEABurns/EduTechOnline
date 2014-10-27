@@ -26,6 +26,18 @@ public class TestUtil {
 		return name;
 	}
 	
+	/**
+	 * Gets a random name for a user
+	 * @return
+	 */
+	public static String getRandomUserName() {
+		return getRandomAlphaString(8);
+	}
+	
+	public static String getRandomEmail() {
+		return getRandomAlphaString(20)+"@test.edu";
+	}
+	
 	public static String getRandomPassword() {
 		return getRandomAlphaString(16);
 	}
