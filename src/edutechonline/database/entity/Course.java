@@ -6,7 +6,7 @@ public class Course extends IDEntity {
 	private String description=null; //description of the course
 	private int ownerId=-1; //the content manager of the course
 	private float cost=-1; //how much does it cost to take the course
-	private boolean open=false; // is this course currently visible to the pulblic
+	private boolean open=false; // is this course currently visible to the public
 	private String category;
 	public Course() {
 		
