@@ -1,5 +1,6 @@
 package edutechonline.database;
 
+import java.io.File;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,7 +9,14 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+
+
+
+import edutechonline.application.Constants;
+import edutechonline.database.entity.ContentTopic;
+import edutechonline.database.entity.ContentTopic.ContentType;
 import edutechonline.database.entity.Course;
+import edutechonline.util.Util;
 
 /**
  * This class contains functions for reading and writing courses from the database
@@ -30,7 +38,7 @@ public class Courses {
 			c.setID(results.getInt("id"));
 			c.setName(results.getString("name"));
 			c.setDescription(results.getString("description"));
-			c.setOwnerId(results.getInt("id"));
+			c.setOwnerId(results.getInt("owner_id"));
 			c.setOpen(results.getBoolean("open"));
 			c.setCategory(results.getString("category"));
 			return c;
@@ -38,6 +46,48 @@ public class Courses {
 			log.error(e.getMessage(),e);
 		}
 		return null;
+	}
+	
+	private static ContentTopic resultSetToTopic(ResultSet results) {
+		try {
+			ContentTopic c=new ContentTopic();
+			c.setID(results.getInt("id"));
+			c.setName(results.getString("name"));
+			c.setDescription(results.getString("description"));
+			c.setCourseId(results.getInt("course_id"));
+			c.setUrl(results.getString("url"));
+			c.setType(ContentType.toStatusCode(results.getInt("topic_type")));
+			return c;
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		}
+		return null;
+	}
+	
+	
+	public static int addContentTopic(ContentTopic c) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL addContentTopic(?,?,?,?,?,?)}");
+			procedure.setString(1,c.getName());
+			procedure.setString(2, c.getDescription());
+			procedure.setInt(3,c.getCourseId());
+			procedure.setString(4, c.getUrl());
+			procedure.setInt(5, c.getType().getValue());
+			procedure.registerOutParameter(6, java.sql.Types.INTEGER);
+			procedure.executeUpdate();
+
+			return procedure.getInt(6);
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+		}
+		return -1;
+		
 	}
 	
 	/**
@@ -51,16 +101,17 @@ public class Courses {
 		CallableStatement procedure=null;
 		try {
 			con=ConnectionPool.getConnection();
-			procedure=con.prepareCall("{CALL addCourse(?,?,?,?,?,?)}");
+			procedure=con.prepareCall("{CALL addCourse(?,?,?,?,?,?,?)}");
 			procedure.setString(1,c.getName());
 			procedure.setString(2, c.getDescription());
 			procedure.setInt(3,c.getOwnerId());
 			procedure.setFloat(4, c.getCost());
-			procedure.setBoolean(5, c.isOpen());
-			procedure.registerOutParameter(6, java.sql.Types.INTEGER);
+			procedure.setString(5, c.getCategory());
+			procedure.setBoolean(6, c.isOpen());
+			procedure.registerOutParameter(7, java.sql.Types.INTEGER);
 			procedure.executeUpdate();
 
-			return procedure.getInt(6);
+			return procedure.getInt(7);
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
 		} finally {
@@ -93,6 +144,60 @@ public class Courses {
 			ConnectionPool.safeClose(procedure);
 		}
 		return false;
+		
+	}
+	
+	
+	public static List<ContentTopic> getContentTopicsForCourse(int id) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		ResultSet results=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL getCourseTopics(?)}");
+			procedure.setInt(1,id);
+			results=procedure.executeQuery();
+			List<ContentTopic> topics=new ArrayList<ContentTopic>();
+			while (results.next()) {
+				topics.add(resultSetToTopic(results));
+			}
+			return topics;
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+			ConnectionPool.safeClose(results);
+		}
+		return null;
+		
+	}
+	
+	/**
+	 * Retrieves the given course from the database
+	 * @param id
+	 * @return
+	 */
+	public static ContentTopic getContentTopic(int id) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		ResultSet results=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL getContentTopic(?)}");
+			procedure.setInt(1,id);
+			results=procedure.executeQuery();
+			if (results.next()) {
+				return resultSetToTopic(results);
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+			ConnectionPool.safeClose(results);
+		}
+		return null;
 		
 	}
 	
@@ -184,6 +289,32 @@ public class Courses {
 		
 	}
 	
+	public static boolean editCourseVisibility(int id, boolean visible) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL editCourseVisibility(?,?)}");
+			procedure.setInt(1,id);
+			procedure.setBoolean(2,visible);
+			procedure.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+		}
+		return false;
+	}
+	
+	public static boolean openCourse(int id){
+		return editCourseVisibility(id,true);
+	}
+	public static boolean hideCourse(int id){
+		return editCourseVisibility(id,false);
+	}
+	
 	/**
 	 * Retrieves all open courses from the database
 	 * @param id
@@ -211,6 +342,37 @@ public class Courses {
 		}
 		return null;
 		
+	}
+	
+	/**
+	 * Gets the URL to the given content topic
+	 * @return
+	 */
+	
+	public static String getTopicURL(int topicId) {
+		ContentTopic c=Courses.getContentTopic(topicId);
+		String url=Util.getAbsoluteURL("jsp/secure/content/"+c.getCourseId()+"/"+c.getID());
+		url=url+"/"+c.getName()+".pdf"; //todo: change
+		System.out.println(url);
+		return url;
+	}
+	
+	
+	
+	/**
+	 * Returns the file for this content topic, relative to whatever directory
+	 * we are storing content topics
+	 * @param topicId
+	 * @return
+	 */
+	public static String getAbsolutePathForTopic(int topicId) {
+		ContentTopic c=Courses.getContentTopic(topicId);
+		if (c==null) {
+			return null;
+		}
+		File f=new File(Constants.contentTopicDirectory,c.getCourseId()+"/"+c.getID());
+		f=new File(f, c.getName()+".pdf"); //todo: change based on type
+		return f.getAbsolutePath();
 	}
 	
 }

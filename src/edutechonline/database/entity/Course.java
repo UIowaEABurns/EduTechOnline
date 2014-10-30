@@ -1,5 +1,7 @@
 package edutechonline.database.entity;
 
+import java.util.List;
+
 public class Course extends IDEntity {
 	
 	private String name=null;  //what is the name of this course
@@ -8,6 +10,7 @@ public class Course extends IDEntity {
 	private float cost=-1; //how much does it cost to take the course
 	private boolean open=false; // is this course currently visible to the public
 	private String category;
+	private List<ContentTopic> topics;
 	public Course() {
 		
 	}
@@ -46,5 +49,15 @@ public class Course extends IDEntity {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public List<ContentTopic> getTopics() {
+		return topics;
+	}
+	
+	public void addTopic(ContentTopic tp) {
+		topics.add(tp);
+	}
+	public void setTopics(List<ContentTopic> topics) {
+		this.topics = topics;
 	}
 }

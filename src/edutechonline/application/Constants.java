@@ -1,5 +1,7 @@
 package edutechonline.application;
 
+import java.io.File;
+
 public class Constants {
 	public static String APP_ROOT=null; //represents the absolute path to the root of this web application
 	
@@ -19,12 +21,18 @@ public class Constants {
 	public static String SERVERNAME=null;
 	public static String WEB_APP_ROOT="EduTechOnline";
 	
+	
+	//file that will point to our content topic containing directory
+	public static File contentTopicDirectory=null;
+	
 	//length maxima
 	public static int EMAIL_LENGTH=64;
 	public static int NAME_LENGTH=32;
 	public static int PASS_LENGTH=255;
-	
+	public static int DESC_LENGTH=1024;
+	public static int CATEGORY_LENGTH=32;
 	//regular expressions
 	public static String NAME_REGEX = "^[\\w\\s]+$";
 	public static String EMAIL_REGEX = "^[\\w-%+\\.]+@[a-zA-Z0-9]+\\.[\\w]{2,4}$";
+	public static String DESC_REGEX=".+";
 }

@@ -98,11 +98,20 @@
   
   <servlet>
   	<servlet-name>AddCourse</servlet-name>
-  	<servlet-class>edutechonline.servlets.AddCourse</servlet-class>
+  	<servlet-class>edutechonline.servlets.CoursesAdd</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>AddCourse</servlet-name>
   	<url-pattern>/secure/addCourse</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+  	<servlet-name>AddTopic</servlet-name>
+  	<servlet-class>edutechonline.servlets.AddTopic</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AddTopic</servlet-name>
+  	<url-pattern>/secure/addTopic</url-pattern>
   </servlet-mapping>
   
   

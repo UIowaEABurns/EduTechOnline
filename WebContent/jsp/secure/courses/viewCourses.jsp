@@ -22,8 +22,6 @@
 				<th>Description</th>
 				<th title="cost, in dollars and cents, of enrolling in this course">Cost</th>
 				<th>Category</th>
-				<th title="is this course currently visible to students?">Open</th>
-				<th title="edit the details of this course">Edit</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -31,10 +29,9 @@
 				<tr>
 					<td>${c.getName()}</td>
 					<td>${c.getDescription()}</td>
-					<td>${c.getCost()}</td>
+					<td>$ ${c.getCost()}</td>
 					<td>${c.getCategory()}</td>
-					<td>${c.isOpen()}</td>
-					<td><button value="${c.getID()}" class="editButton">edit</button></td>
+					
 				</tr>
 			</c:forEach>
 		

@@ -125,3 +125,14 @@ h4
   width: 100%;
   text-align: left;
 }
+
+.descField {
+	width:90%;
+	height:200px;
+	
+}
+
+input.gsc-search-button, input.gsc-search-button:hover, input.gsc-search-button:focus {
+background-image: inherit;
+box-sizing: content-box;
+}

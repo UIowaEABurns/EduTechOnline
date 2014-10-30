@@ -47,7 +47,7 @@ CREATE TABLE courses (
 	cost DOUBLE NOT NULL, -- how much does it cost, in dollars, to enroll in the course
 	owner_id INT, -- course manager that created this course
 	open BOOLEAN NOT NULL,
-	category VARCHAR(64),
+	category VARCHAR(32),
 	PRIMARY KEY (id),
 	CONSTRAINT courses_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE SET NULL 
 
@@ -57,13 +57,36 @@ CREATE TABLE content_topics (
 	id INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(64),
 	description TEXT,
-	url VARCHAR(255),
-	course_id INT, -- course manager that created this course
-	path TEXT, -- path to the data for this content topic on disk
+	course_id INT, -- course this topic belongs to
+	url TEXT, -- url to this content, which may or may not be set
+	topic_type INT,
 	PRIMARY KEY (id),
 	CONSTRAINT content_topics_course_id FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 
 );
+
+-- these are the questions we will present during a quiz
+CREATE TABLE question(
+	id INT AUTO_INCREMENT,
+	topic_id INT,
+	points INT,
+	text TEXT,
+	correctAnswer TEXT,
+	PRIMARY KEY(id),
+	CONSTRAINT qustion_topic_id FOREIGN KEY (topic_id) REFERENCES content_topics(id) ON DELETE CASCADE
+);
+
+-- these are the multiple choice answers that we will present to users during quizzes
+CREATE TABLE answer(
+	id INT AUTO_INCREMENT,
+	question_id INT,
+	text TEXT,
+	val TEXT,
+	PRIMARY KEY(id),
+	CONSTRAINT answer_question_id FOREIGN KEY (question_id) REFERENCES question(id) ON DELETE CASCADE
+
+);
+
 
 -- represents a user taking a course
 CREATE TABLE course_assoc (

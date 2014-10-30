@@ -13,7 +13,13 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
 
+
+
+
 import org.apache.log4j.Logger;
+
+
+
 
 
 
@@ -22,7 +28,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
+import edutechonline.database.Courses;
 import edutechonline.database.Users;
+import edutechonline.security.CourseSecurity;
+import edutechonline.security.UserSecurity;
 import edutechonline.security.ValidatorStatusCode;
 
 /**
@@ -42,13 +51,40 @@ public class RESTServices {
 	public String deleteUser(@PathParam("userId") int userId, @Context HttpServletRequest request) {					
 		int requestUserId = SessionFilter.getUserId(request);
 		log.debug("got a request to delete user ID = "+userId);
-		//TODO: validate here
-		ValidatorStatusCode status=new ValidatorStatusCode(true);
+		ValidatorStatusCode status=UserSecurity.canUserDeleteUser(userId, requestUserId);
 		if (!status.isSuccess()) {
 			return gson.toJson(status);
 		}
 		boolean success=Users.deleteUser(userId);
-		return success ? gson.toJson(new ValidatorStatusCode(true, "recompilation successful")) :  gson.toJson(DATABASE_ERROR);
+		return success ? gson.toJson(new ValidatorStatusCode(true, "user deleted successfully")) :  gson.toJson(DATABASE_ERROR);
+	}
+	
+	@POST
+	@Path("/delete/course/{courseId}")
+	@Produces("application/json")	
+	public String deleteCourse(@PathParam("courseId") int courseId, @Context HttpServletRequest request) {					
+		int userId = SessionFilter.getUserId(request);
+		ValidatorStatusCode status=CourseSecurity.canUserModifyCourse(courseId, userId);
+		if (!status.isSuccess()) {
+			log.debug("rejected attempt to change the visibility of a course");
+			return gson.toJson(status);
+		}
+		boolean success=Courses.deleteCourse(courseId);
+		return success ? gson.toJson(new ValidatorStatusCode(true, "course deleted successfully")) :  gson.toJson(DATABASE_ERROR);
+	}
+	
+	@POST
+	@Path("/course/{courseId}/{visible}")
+	@Produces("application/json")	
+	public String editCourseVisibility(@PathParam("courseId") int courseId,@PathParam("visible") boolean visible, @Context HttpServletRequest request) {					
+		int userId = SessionFilter.getUserId(request);
+		ValidatorStatusCode status=CourseSecurity.canUserModifyCourse(courseId, userId);
+		if (!status.isSuccess()) {
+			log.debug("rejected attempt to delete course");
+			return gson.toJson(status);
+		}
+		boolean success=Courses.editCourseVisibility(courseId, visible);
+		return success ? gson.toJson(new ValidatorStatusCode(true, "course deleted successfully")) :  gson.toJson(DATABASE_ERROR);
 	}
 	
 	@POST

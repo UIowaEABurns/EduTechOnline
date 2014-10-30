@@ -26,7 +26,7 @@
 						<div class="form-group">
 							<label for="description" class="col-md-5">Description</label>
 				
-							<textarea name="desc" id="desc" class="formcontrol" placeholder="Enter Description"></textarea>
+							<textarea name="desc" id="desc" class="formcontrol descField" placeholder="Enter Description"></textarea>
 						</div>	
 				
 					

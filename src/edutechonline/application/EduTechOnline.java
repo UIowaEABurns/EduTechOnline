@@ -49,6 +49,7 @@ public class EduTechOnline implements ServletContextListener {
 		public void contextInitialized(ServletContextEvent event) {		
 			String root = event.getServletContext().getRealPath("/");
 			Constants.APP_ROOT=root;
+			Constants.contentTopicDirectory=new File(root, "jsp/secure/content");
 			PropertyConfigurator.configure(new File(Constants.APP_ROOT, Constants.LOG4J_PATH).getAbsolutePath());
 
 			Constants.CONFIG_PATH = new File(Constants.APP_ROOT, "/WEB-INF/classes/edutechonline/configuration/").getAbsolutePath();

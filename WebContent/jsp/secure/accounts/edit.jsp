@@ -13,7 +13,7 @@
 	}
 %>
 
-<edutech:template css="public/home">
+<edutech:template>
 <div class="editAccount">
 	<form method="POST" action="/EduTechOnline/secure/editAccount" id="editForm">
             <table>

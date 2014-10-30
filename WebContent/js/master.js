@@ -46,3 +46,7 @@ function logout() {
 	     "json"  
 	)
 }
+
+function toBoolean(str) {
+	return str=="true";
+}
