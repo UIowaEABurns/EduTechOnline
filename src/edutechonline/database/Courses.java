@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+
 
 
 
@@ -41,6 +43,7 @@ public class Courses {
 			c.setOwnerId(results.getInt("owner_id"));
 			c.setOpen(results.getBoolean("open"));
 			c.setCategory(results.getString("category"));
+			c.setDeprecated(results.getBoolean("deprecated"));
 			return c;
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
@@ -68,6 +71,8 @@ public class Courses {
 	public static int addContentTopic(ContentTopic c) {
 		Connection con=null;
 		CallableStatement procedure=null;
+		System.out.println(c.getCourseId());
+		System.out.println(Courses.getCourse(c.getCourseId()).getName());
 		try {
 			con=ConnectionPool.getConnection();
 			procedure=con.prepareCall("{CALL addContentTopic(?,?,?,?,?,?)}");
@@ -79,7 +84,9 @@ public class Courses {
 			procedure.registerOutParameter(6, java.sql.Types.INTEGER);
 			procedure.executeUpdate();
 
-			return procedure.getInt(6);
+			int id=procedure.getInt(6);
+			c.setID(id);
+			return id;
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
 		} finally {
@@ -101,17 +108,19 @@ public class Courses {
 		CallableStatement procedure=null;
 		try {
 			con=ConnectionPool.getConnection();
-			procedure=con.prepareCall("{CALL addCourse(?,?,?,?,?,?,?)}");
+			procedure=con.prepareCall("{CALL addCourse(?,?,?,?,?,?,?,?)}");
 			procedure.setString(1,c.getName());
 			procedure.setString(2, c.getDescription());
 			procedure.setInt(3,c.getOwnerId());
 			procedure.setFloat(4, c.getCost());
 			procedure.setString(5, c.getCategory());
 			procedure.setBoolean(6, c.isOpen());
-			procedure.registerOutParameter(7, java.sql.Types.INTEGER);
+			procedure.setBoolean(7,c.isDeprecated());
+			procedure.registerOutParameter(8, java.sql.Types.INTEGER);
 			procedure.executeUpdate();
-
-			return procedure.getInt(7);
+			int id=procedure.getInt(8);
+			c.setID(id);
+			return id;
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
 		} finally {
@@ -122,13 +131,49 @@ public class Courses {
 		
 	}
 	
+	/**
+	 * Deletes a content topic both on disk and from the database
+	 * @param id
+	 * @return
+	 */
+	public static boolean deleteContentTopic(int id) {
+		
+		//first, delete the content on disk
+		String filepath=Courses.getAbsolutePathForTopic(id);
+		File f=new File(filepath);
+		FileUtils.deleteQuietly(f);
+		
+		Connection con=null;
+		CallableStatement procedure=null;
+		try {
+			
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL deleteContentTopic(?)}");
+			procedure.setInt(1,id);
+			procedure.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+		}
+		return false;
+		
+	}
+	
 	
 	/**
-	 * Retrieves the given course from the database
+	 * Deletes the given course from the database, including deleting all of its
+	 * content topics
 	 * @param id
 	 * @return
 	 */
 	public static boolean deleteCourse(int id) {
+		List<ContentTopic> topics=Courses.getContentTopicsForCourse(id);
+		for (ContentTopic tp : topics) {
+			Courses.deleteContentTopic(tp.getID());
+		}
 		Connection con=null;
 		CallableStatement procedure=null;
 		try {
@@ -297,6 +342,25 @@ public class Courses {
 			procedure=con.prepareCall("{CALL editCourseVisibility(?,?)}");
 			procedure.setInt(1,id);
 			procedure.setBoolean(2,visible);
+			procedure.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+		}
+		return false;
+	}
+	
+	public static boolean editCourseDeprecation(int id, boolean deprecated) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL editCourseDeprecation(?,?)}");
+			procedure.setInt(1,id);
+			procedure.setBoolean(2,deprecated);
 			procedure.executeUpdate();
 			return true;
 		} catch (Exception e) {

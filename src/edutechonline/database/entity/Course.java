@@ -11,6 +11,7 @@ public class Course extends IDEntity {
 	private boolean open=false; // is this course currently visible to the public
 	private String category;
 	private List<ContentTopic> topics;
+	private boolean deprecated;
 	public Course() {
 		
 	}
@@ -59,5 +60,17 @@ public class Course extends IDEntity {
 	}
 	public void setTopics(List<ContentTopic> topics) {
 		this.topics = topics;
+	}
+	public boolean isDeprecated() {
+		return deprecated;
+	}
+	public String isDeprecatedDisplay() {
+		if (deprecated) {
+			return "yes";
+		}
+		return "no";
+	}
+	public void setDeprecated(boolean deprecated) {
+		this.deprecated = deprecated;
 	}
 }

@@ -37,12 +37,20 @@ CREATE PROCEDURE deleteCourse(IN _id INT)
 		DELETE FROM courses WHERE id=_id;
 	END //
 	
+	
+-- Removes the given course from the database
+DROP PROCEDURE IF EXISTS deleteContentTopic;
+CREATE PROCEDURE deleteContentTopic(IN _id INT)
+	BEGIN
+		DELETE FROM content_topics WHERE id=_id;
+	END //
+	
 -- adds a new course into the database
 -- Author: Eric Burns
 DROP PROCEDURE IF EXISTS addCourse;
-CREATE PROCEDURE addCourse(IN _n VARCHAR(64), IN _d TEXT, IN _o INT, IN _c DOUBLE, IN _r VARCHAR(32), IN _op BOOLEAN, OUT _id INT)
+CREATE PROCEDURE addCourse(IN _n VARCHAR(64), IN _d TEXT, IN _o INT, IN _c DOUBLE, IN _r VARCHAR(32), IN _op BOOLEAN,IN _deprecated BOOLEAN, OUT _id INT)
 BEGIN
-	INSERT INTO courses (name,description,owner_id,cost,open,category) VALUES (_n, _d, _o, _c, _op,_r);
+	INSERT INTO courses (name,description,owner_id,cost,open,category,deprecated) VALUES (_n, _d, _o, _c, _op,_r,_deprecated);
 	SELECT LAST_INSERT_ID() INTO _id;
 
 END //
@@ -50,7 +58,7 @@ END //
 -- adds a new course into the database
 -- Author: Eric Burns
 DROP PROCEDURE IF EXISTS addContentTopic;
-CREATE PROCEDURE addContentTopic(IN _n VARCHAR(64), IN _d TEXT, IN _cid INT, IN _url DOUBLE, IN _t INT, OUT _id INT)
+CREATE PROCEDURE addContentTopic(IN _n VARCHAR(64), IN _d TEXT, IN _cid INT, IN _url TEXT, IN _t INT, OUT _id INT)
 BEGIN
 	INSERT INTO content_topics (name,description,course_id,url,topic_type) VALUES (_n, _d, _cid, _url,_t);
 	SELECT LAST_INSERT_ID() INTO _id;
@@ -63,6 +71,13 @@ CREATE PROCEDURE editCourseVisibility(IN _id INT, IN _visible BOOLEAN)
 	BEGIN
 		UPDATE courses SET open=_visible WHERE id=_id;
 	END //
+	
+DROP PROCEDURE IF EXISTS editCourseDeprecation;
+CREATE PROCEDURE editCourseDeprecation(IN _id INT, IN _visible BOOLEAN)
+	BEGIN
+		UPDATE courses SET deprecated=_visible WHERE id=_id;
+	END //
+
 
 -- gets a single content topic
 DROP PROCEDURE IF EXISTS getContentTopic;

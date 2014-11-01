@@ -1,9 +1,12 @@
 
 var courseId;
 var visible;
+var deprecated;
 $(document).ready(function() {
 	courseId=$("#courseId").attr("value");
 	visible=toBoolean($("#toggleVisible").attr("value"));
+	deprecated=toBoolean($("#toggleDeprecation").attr("value"));
+
 	$("#deleteButton").click(function() {
 		
 		$.post(
@@ -18,9 +21,20 @@ $(document).ready(function() {
 	
 	$("#toggleVisible").click(function() {
 		$.post(
-				"/EduTechOnline/services/course/" + courseId+"/"+!visible,
+				"/EduTechOnline/services/course/open/" + courseId+"/"+!visible,
 				function(returnCode) {
 					visible=!visible;
+					setVisibilityButtonText();
+				},
+				"json"
+		);
+	});
+	
+	$("#toggleDeprecation").click(function() {
+		$.post(
+				"/EduTechOnline/services/course/deprecate/" + courseId+"/"+!deprecated,
+				function(returnCode) {
+					deprecated=!deprecated;
 					setVisibilityButtonText();
 				},
 				"json"
@@ -32,9 +46,16 @@ $(document).ready(function() {
 //sets the text of the button based on the current value of 'visible'
 function setVisibilityButtonText() {
 	if (visible) {
-		$("#toggleVisible span").text("Deprecate Course");
+		$("#toggleVisible span").text("Close Course");
 	} else {
-		$("#toggleVisible span").text("Open Course");
+		$("#toggleVisible span").text("Release Course");
+	}
+	if (deprecated) {
+		$("#toggleDeprecation span").text("Remove Deprecation");
+
+	} else {
+		$("#toggleDeprecation span").text("Deprecate Course");
+
 	}
 	
 }

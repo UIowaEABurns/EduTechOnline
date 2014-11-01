@@ -56,6 +56,7 @@ import edutechonline.util.Validator;
 			c.setDescription(request.getParameter(DESCRIPTION));
 			c.setCost(Float.parseFloat(request.getParameter(FEE)));
 			c.setOpen(false); //courses are always closed upon creation
+			c.setDeprecated(false);
 			c.setOwnerId(SessionFilter.getUserId(request));
 			int id= Courses.addCourse(c);
 			if (id>0) {

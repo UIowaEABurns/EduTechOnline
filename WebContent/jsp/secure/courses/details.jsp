@@ -62,7 +62,8 @@
 		<fieldset>
 			<legend>Actions</legend>
 			<button id="deleteButton">Delete Course</button>
-			<button id="toggleVisible" value="${c.isOpen()}"></button>
+			<button id="toggleVisible" value="${course.isOpen()}"></button>
+			<button id="toggleDeprecation" value="${course.isDeprecated()}"></button>
 			<a href="/EduTechOnline/jsp/manager/addTopic.jsp?cid=${course.getID()}"><button id="addContent">Add Content Topic</button></a>
 		</fieldset>
 	</c:if>

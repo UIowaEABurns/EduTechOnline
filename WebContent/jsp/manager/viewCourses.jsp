@@ -24,6 +24,7 @@
 				<th title="cost, in dollars and cents, of enrolling in this course">Cost</th>
 				<th>Category</th>
 				<th title="is this course currently visible to students?">Open</th>
+				<th title="has the course been marked as deprecated by the manager?">Deprecated</th>
 				<th title="View and edit details for this course">View</th>
 			</tr>
 		</thead>
@@ -35,6 +36,8 @@
 					<td>$ ${c.getCost()}</td>
 					<td>${c.getCategory()}</td>
 					<td>${c.isOpen()}</td>
+					<td>${c.isDeprecatedDisplay()}</td>
+					
 					<td><a href="/EduTechOnline/jsp/secure/courses/details.jsp?cid=${c.getID()}"><button value="${c.getID()}" class="editButton">View</button></a></td>
 				</tr>
 			</c:forEach>

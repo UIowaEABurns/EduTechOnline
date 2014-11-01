@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.apache.log4j.Logger;
 
 import edutechonline.test.TestStatus.TestStatusCode;
+import edutechonline.test.suites.CourseTests;
 import edutechonline.test.suites.UserTests;
 import edutechonline.test.suites.ValidationTests;
 
@@ -36,7 +37,7 @@ public class TestManager {
 		
 		tests.add(new UserTests());
 		tests.add(new ValidationTests());
-		
+		tests.add(new CourseTests());
 	}
 	
 	public static boolean areTestsRunning() {

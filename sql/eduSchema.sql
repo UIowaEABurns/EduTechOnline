@@ -47,6 +47,7 @@ CREATE TABLE courses (
 	cost DOUBLE NOT NULL, -- how much does it cost, in dollars, to enroll in the course
 	owner_id INT, -- course manager that created this course
 	open BOOLEAN NOT NULL,
+	deprecated BOOLEAN NOT NULL,
 	category VARCHAR(32),
 	PRIMARY KEY (id),
 	CONSTRAINT courses_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE SET NULL 

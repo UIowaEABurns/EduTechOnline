@@ -21,7 +21,8 @@
 				<th>Name</th>
 				<th>Description</th>
 				<th title="cost, in dollars and cents, of enrolling in this course">Cost</th>
-				<th>Category</th>
+				<th title="has the course been marked as deprecated by the manager?">Category</th>
+				<th>Deprecated</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -31,7 +32,7 @@
 					<td>${c.getDescription()}</td>
 					<td>$ ${c.getCost()}</td>
 					<td>${c.getCategory()}</td>
-					
+					<td>${c.isDeprecatedDisplay()}</td>
 				</tr>
 			</c:forEach>
 		
