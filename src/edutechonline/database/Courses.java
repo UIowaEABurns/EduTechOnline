@@ -71,8 +71,6 @@ public class Courses {
 	public static int addContentTopic(ContentTopic c) {
 		Connection con=null;
 		CallableStatement procedure=null;
-		System.out.println(c.getCourseId());
-		System.out.println(Courses.getCourse(c.getCourseId()).getName());
 		try {
 			con=ConnectionPool.getConnection();
 			procedure=con.prepareCall("{CALL addContentTopic(?,?,?,?,?,?)}");
@@ -417,7 +415,6 @@ public class Courses {
 		ContentTopic c=Courses.getContentTopic(topicId);
 		String url=Util.getAbsoluteURL("jsp/secure/content/"+c.getCourseId()+"/"+c.getID());
 		url=url+"/"+c.getName()+".pdf"; //todo: change
-		System.out.println(url);
 		return url;
 	}
 	

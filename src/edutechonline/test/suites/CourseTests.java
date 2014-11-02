@@ -47,7 +47,7 @@ public class CourseTests extends TestSet {
 		ContentTopic t1=ResourceLoader.loadTopicIntoDatabase(testCourse.getID());
 		ContentTopic t2=ResourceLoader.loadTopicIntoDatabase(testCourse.getID());
 		
-		Assert.assertTrue(Courses.deleteContentTopic(t1.getID()));
+		Assert.assertTrue(Courses.deleteCourse(testCourse.getID()));
 		Assert.assertNull(Courses.getContentTopic(t1.getID()));
 		Assert.assertNull(Courses.getContentTopic(t2.getID()));
 		Assert.assertNull(Courses.getCourse(testCourse.getID()));
@@ -118,7 +118,6 @@ public class CourseTests extends TestSet {
 	protected void setup() throws Exception {
 		manager=ResourceLoader.loadUserIntoDatabase();
 		course=ResourceLoader.loadCourseIntoDatabase(manager.getID());
-		System.out.println(course.getName());
 		c1=ResourceLoader.loadTopicIntoDatabase(course.getID());
 		c2=ResourceLoader.loadTopicIntoDatabase(course.getID());
 

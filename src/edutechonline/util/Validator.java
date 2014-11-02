@@ -42,6 +42,9 @@ public class Validator {
 		if (!descPattern.matcher(desc).matches()) {
 			return false;
 		}
+		if (desc.length()>Constants.DESC_LENGTH) {
+			return false;
+		}
 		return true;
 	}
 	
@@ -49,11 +52,10 @@ public class Validator {
 		if (name==null) {
 			return false;
 		}
-		if (!descPattern.matcher(name).matches()) {
-			log.debug("invalid name");
+		if (!namePattern.matcher(name).matches()) {
 			return false;
 		}
-		if (name.length() > Constants.CATEGORY_LENGTH)  {
+		if (name.length() > Constants.CATEGORY_LENGTH || name.length()==0)  {
 			return false;
 		}
 		return true;

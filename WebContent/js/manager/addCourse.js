@@ -10,7 +10,7 @@ $(document).ready(function() {
 			},
 			cost: {
 				required: true,
-				min: 0
+				regex: getMoneyRegex()
 			},
 			category: {
 				required: true
@@ -27,7 +27,7 @@ $(document).ready(function() {
 			},
 			cost: {
 				required: "enter a course cost",
-				min: "cost needs to be 0 or greater"
+				regex: "cost needs to be 0 or greater and must be in dollars and cents"
 			},
 			category: {
 				required: "enter a course category"

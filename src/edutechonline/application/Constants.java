@@ -32,7 +32,7 @@ public class Constants {
 	public static int DESC_LENGTH=1024;
 	public static int CATEGORY_LENGTH=32;
 	//regular expressions
-	public static String NAME_REGEX = "^[\\w\\s]+$";
+	public static String NAME_REGEX = "^[\\w\\s-]+$";
 	public static String EMAIL_REGEX = "^[\\w-%+\\.]+@[a-zA-Z0-9]+\\.[\\w]{2,4}$";
-	public static String DESC_REGEX=".+";
+	public static String DESC_REGEX=".*";
 }

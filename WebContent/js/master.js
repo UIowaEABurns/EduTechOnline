@@ -34,6 +34,10 @@ function getEmailRegex() {
 	return /^[\w-%+\.]+@[a-zA-Z0-9]+\.[\w]{2,4}$/i;
 }
 
+function getMoneyRegex() {
+	return /[0-9]+\.[0-9]{2}$/i
+}
+
 /**
  * Logs the current user out
  */
