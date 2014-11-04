@@ -136,3 +136,11 @@ input.gsc-search-button, input.gsc-search-button:hover, input.gsc-search-button:
 background-image: inherit;
 box-sizing: content-box;
 }
+
+#courseContentTopics {
+	float:left;
+	width:20%;
+	overflow-x:scroll;
+	
+	
+}

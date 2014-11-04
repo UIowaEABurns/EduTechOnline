@@ -106,6 +106,13 @@ public class Validator {
 		}
 	}
 	
+	public static boolean isValidFileExtension(String filePath) {
+		if (filePath.endsWith(".pdf") || filePath.endsWith(".txt")) {
+			return true;
+		}
+		return false;
+	}
+	
 	public static boolean isValidRole(String role) {
 		if (role==null) {
 			return false;

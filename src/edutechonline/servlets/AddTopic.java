@@ -43,7 +43,7 @@ import edutechonline.util.Validator;
 	private static final String NAME="name";
 	private static final String DESCRIPTION="desc";
 	private static final String  COURSE_ID="course";
-	private static final String TYPE="type";
+	//private static final String TYPE="type";
 	private static final String URL="url"; //TODO: actually use this
 	private static final String FILE="file";
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
@@ -71,7 +71,10 @@ import edutechonline.util.Validator;
 				c.setName((String)form.get(NAME));
 				c.setDescription((String)form.get(DESCRIPTION));
 				c.setCourseId(Integer.parseInt((String)form.get(COURSE_ID)));
-				c.setType(ContentType.toStatusCode(Integer.parseInt((String)form.get(TYPE))));
+				FileItem topicFile = (FileItem)form.get(FILE);
+
+				c.setType(topicFile.getName());
+				//c.setType(ContentType.toStatusCode(Integer.parseInt((String)form.get(TYPE))));
 				int id= Courses.addContentTopic(c);
 				log.debug("added the topic successfully");
 				if (id>0) {
@@ -81,7 +84,6 @@ import edutechonline.util.Validator;
 						outputFile.getParentFile().mkdirs();
 						log.debug(outputFile.getAbsolutePath());
 						// Save the uploaded file to disk
-						FileItem topicFile = (FileItem)form.get(FILE);
 						log.debug(topicFile);
 						topicFile.write(outputFile);
 					}
@@ -115,13 +117,13 @@ import edutechonline.util.Validator;
 			return new ValidatorStatusCode(false, "The given Description is not valid");
 		}
 		
-		if (!Validator.isValidInteger((String)request.get(TYPE))) {
-			return new ValidatorStatusCode(false, "the given cost is not a valid number");
-		}
-		int type=Integer.parseInt((String)request.get((TYPE)));
-		if (ContentType.toStatusCode(type)==null) {
-			return new ValidatorStatusCode(false, "the given type is not valid");
-		}
+		//if (!Validator.isValidInteger((String)request.get(TYPE))) {
+		//	return new ValidatorStatusCode(false, "the given cost is not a valid number");
+		//}
+		//int type=Integer.parseInt((String)request.get((TYPE)));
+		//if (ContentType.toStatusCode(type)==null) {
+		//	return new ValidatorStatusCode(false, "the given type is not valid");
+		//}
 		
 		if (!Validator.isValidInteger((String)request.get(COURSE_ID))) {
 			return new ValidatorStatusCode(false, "the given course id is not a valid number");
@@ -130,6 +132,14 @@ import edutechonline.util.Validator;
 		Course c=Courses.getCourse(course);
 		if (c==null || c.getOwnerId()!=userId) {
 			return new ValidatorStatusCode(false, "you can only add topics to courses you own");
+		}
+		
+		if (request.containsKey(FILE)) {
+			FileItem topicFile = (FileItem)request.get(FILE);
+			if (!Validator.isValidFileExtension(topicFile.getName())) {
+				return new ValidatorStatusCode(false, "The given file does not have a valid extension");
+			}
+
 		}
 		
 		

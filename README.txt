@@ -39,7 +39,7 @@ you are using for the project and open "server.xml". Inside server.xml, you will
 You must modify the realm to look like this, but with your own mysql username and password
 
 <Realm className="org.apache.catalina.realm.LockOutRealm">
-	<Realm className="org.apache.catalina.realm.JDBCRealm" connectionName="root" connectionPassword="ceufpxj1" connectionURL="jdbc:mysql://localhost/starexec" digest="SHA-512" driverName="com.mysql.jdbc.Driver" roleNameCol="role" userCredCol="password" userNameCol="email" userRoleTable="user_roles" userTable="users"/>
+	<Realm className="org.apache.catalina.realm.JDBCRealm" connectionName="root" connectionPassword="ceufpxj1" connectionURL="jdbc:mysql://localhost/starexec" digest="SHA-512" driverName="com.mysql.jdbc.Driver" roleNameCol="role" userCredCol="password" userNameCol="email" userRoleTable="roles" userTable="users"/>
 </Realm>
 
 10) You need to initialize your database with the edutech schema and procedures. To do this, run the edutech.sql

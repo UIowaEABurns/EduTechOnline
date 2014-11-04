@@ -30,8 +30,22 @@
 <edutech:template css="secure/courses/topic">
 <input type="hidden" id="courseId" value="${course.getID()}"/>
 <div >
-
-
+	<div id="courseContentTopics">
+			<div class="panel panel-info">
+	  			<div class="panel-heading">
+	 		 		<h5 class="panel-title">Content Topics</h5>
+	  			</div>
+	  				<div class="panel-body">
+						<ul class="contentTopicList">
+							<c:forEach var="topic" items="${course.getTopics()}">
+								<ul><a href="/EduTechOnline/jsp/secure/courses/topic.jsp?tid=${topic.getID()}">${topic.getName()}</a></ul>
+							</c:forEach>  
+						</ul>
+						
+					</div>
+			</div>
+		</div>
+	
 	<div id="topicDetails">
 			<div class="panel panel-info">
 	  			<div class="panel-heading">
@@ -42,7 +56,7 @@
  
   					<p>No reader! sorry!</p>
   
-</object>
+	</object>
 						
 					</div>
 			</div>

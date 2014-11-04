@@ -62,6 +62,18 @@ public class ContentTopic extends IDEntity {
 	public void setType(ContentType type) {
 		this.type = type;
 	}
+	public void setType(String filePath) throws Exception {
+		filePath=filePath.trim();
+		if (filePath.endsWith(".pdf")) {
+			setType(ContentType.PDF);
+			return;
+		} else if (filePath.endsWith(".txt")) {
+			setType(ContentType.TEXT);
+			return;
+
+		}
+		throw new Exception("invalid type");
+	}
 
 	public int getCourseId() {
 		return courseId;
