@@ -50,7 +50,7 @@
 		<fname>User</fname>
 		<lname>User</lname>
 		<pass>test</pass>
-		<email>user@uiowa.edu</email>
+		<email>student@uiowa.edu</email>
 		<!-- Role must be 'user' 'admin' or 'manager' -->
 		<role>user</role>
 		

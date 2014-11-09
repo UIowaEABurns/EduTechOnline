@@ -10,11 +10,14 @@
 		Course c=Courses.getCourse(courseId);
 		boolean isOwner=c.getOwnerId()==userId;
 		if (c.isOpen() || isOwner) {
+			//if we can see the course
 			User u=Users.getUser(userId);
 			c.setTopics(Courses.getContentTopicsForCourse(c.getID()));
 			request.setAttribute("user", u);
 			request.setAttribute("course",c);
+			
 			request.setAttribute("isOwner",isOwner);
+			request.setAttribute("topicsVisible", isOwner || Courses.isEnrolled(userId,courseId));
 		} else {
 			response.sendError(HttpServletResponse.SC_FORBIDDEN);
 		}
@@ -26,11 +29,18 @@
 	}
 %>
 
-<edutech:template js="manager/editCourse">
+<edutech:template js="manager/editCourse, secure/courses/details">
 <input type="hidden" id="courseId" value="${course.getID()}"/>
 <div >
-
-	<div id="courseContentTopics">
+	<c:if test="${course.isDeprecated()}">
+		<div class="banner">
+			<p>This course is deprecated and may be removed at any time. Please take that under consideration
+			when deciding whether to enroll</p>
+		</div>
+	
+	</c:if>
+	<c:if test="${topicsVisible}">
+		<div id="courseContentTopics">
 			<div class="panel panel-info">
 	  			<div class="panel-heading">
 	 		 		<h5 class="panel-title">Content Topics</h5>
@@ -45,7 +55,21 @@
 					</div>
 			</div>
 		</div>
-
+	</c:if>
+	<c:if test="${!topicsVisible}">
+		<div id="courseContentTopics">
+			<div class="panel panel-info">
+	  			<div class="panel-heading">
+	 		 		<h5 class="panel-title">Enroll</h5>
+	  			</div>
+	  				<div class="panel-body">
+						<p>Click below to enroll in this course! This course costs $ ${course.getCost()}.</p>
+						<button id="enrollButton">Enroll</button>
+					</div>
+			</div>
+		</div>
+	
+	</c:if>
 	<div id="courseDetails">
 			<div class="panel panel-info">
 	  			<div class="panel-heading">

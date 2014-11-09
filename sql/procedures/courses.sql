@@ -92,4 +92,17 @@ CREATE PROCEDURE getCourseTopics(IN _id INT)
 	BEGIN
 		SELECT * from content_topics WHERE course_id=_id ORDER BY id;
 	END //
+	
+-- enrolls a user in a course
+DROP PROCEDURE IF EXISTS enroll;
+CREATE PROCEDURE enroll(IN _u_id INT, IN _c_id INT)
+	BEGIN
+		INSERT IGNORE INTO course_assoc (user_id, course_id, rating) VALUES (_u_id, _c_id, null);
+	END //
+	
+DROP PROCEDURE IF EXISTS getUsersInCourse;
+CREATE PROCEDURE getUsersInCourse(IN _c_id INT)
+	BEGIN
+		SELECT user_id FROM course_assoc WHERE course_id=_c_id;
+	END //
 DELIMITER ; --this must be at the end of the file

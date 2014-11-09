@@ -139,8 +139,13 @@ box-sizing: content-box;
 
 #courseContentTopics {
 	float:left;
-	width:20%;
+	width:18%;
 	overflow-x:scroll;
+	margin-right:5px;
 	
+}
+
+.banner {
+	clear: both;
 	
 }

@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" import="edutechonline.servlets.SessionFilter, edutechonline.database.*, edutechonline.database.entity.*"%>	
+<%@page contentType="text/html" pageEncoding="UTF-8" import="edutechonline.security.*,edutechonline.database.entity.ContentTopic.ContentType, edutechonline.servlets.SessionFilter, edutechonline.database.*, edutechonline.database.entity.*"%>	
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="edutech" tagdir="/WEB-INF/tags" %>
 
@@ -8,16 +8,25 @@
 		int userId=SessionFilter.getUserId(request);
 		ContentTopic topic=Courses.getContentTopic(topicId);
 		Course c=Courses.getCourse(topic.getCourseId());
+		ValidatorStatusCode status=CourseSecurity.canUserSeeCourseTopics(c.getID(), userId);
 		boolean isOwner=c.getOwnerId()==userId;
-		if (c.isOpen() || isOwner) {
+		if (status.isSuccess()) {
 			User u=Users.getUser(userId);
 			c.setTopics(Courses.getContentTopicsForCourse(c.getID()));
 			request.setAttribute("user", u);
 			request.setAttribute("course",c);
+			request.setAttribute("topic",topic);
 			request.setAttribute("path",Courses.getTopicURL(topicId));
 			request.setAttribute("isOwner",isOwner);
+			
+			if (topic.getType()==ContentType.PDF) {
+				request.setAttribute("type", 1);
+			} else if (topic.getType()==ContentType.TEXT) {
+				request.setAttribute("type",2);
+			}
+			
 		} else {
-			response.sendError(HttpServletResponse.SC_FORBIDDEN);
+			response.sendError(HttpServletResponse.SC_FORBIDDEN,status.getMessage());
 		}
 		
 		
@@ -27,9 +36,11 @@
 	}
 %>
 
-<edutech:template css="secure/courses/topic">
+<edutech:template css="secure/courses/topic" js="secure/courses/topic">
 <input type="hidden" id="courseId" value="${course.getID()}"/>
-<div >
+<input type="hidden" id="topicId" value="${topic.getID()}"/>
+
+<div>
 	<div id="courseContentTopics">
 			<div class="panel panel-info">
 	  			<div class="panel-heading">
@@ -49,20 +60,41 @@
 	<div id="topicDetails">
 			<div class="panel panel-info">
 	  			<div class="panel-heading">
-	 		 		<h5 class="panel-title">${course.getName()} : ${course.getCategory()}</h5>
+	 		 		<h5 class="panel-title">${topic.getName()}</h5>
 	  			</div>
 	  				<div class="panel-body">
-						<object id="pdfViewer" data="${path}" type="application/pdf">
- 
-  					<p>No reader! sorry!</p>
-  
-	</object>
+	  				
+	  					<div class="descriptionDiv">
+	  						<p>${topic.getDescription()}</p>
+	  					</div>
+	  					<div class="dataPane">
+	  						<c:if test="${type==1}">
+	  						<object id="contentViewer" class="pdfViewer" data="${path}" type="application/pdf">
+	 
+	  							<p>No PDF reader available. Please download one from Adobe.</p>
+	  
+							</object>
+	  						</c:if>
+							
+							<c:if test="${type==2}">
+	  						<object id="contentViewer" class="textViewer" data="${path}" type="text/plain">
+	 
+	  							<p> Failed to display the silly thing correctly.</p>
+	  
+							</object>
+	  						</c:if>
+						</div>
 						
 					</div>
 			</div>
 		</div>
-
-	
+		
 </div>
-
+<c:if test="${isOwner}">
+			<fieldset class="actionField">
+				<legend>Actions</legend>
+				<button id="deleteButton">Delete Topic</button>
+				
+			</fieldset>
+</c:if>
 </edutech:template>

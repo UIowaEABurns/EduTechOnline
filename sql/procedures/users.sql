@@ -134,4 +134,10 @@ CREATE PROCEDURE updateUser(IN _id INT, IN _fname VARCHAR(32), IN  _lname VARCHA
 		UPDATE users SET first_name=_fname, last_name=_lname
 		WHERE id=_id;
 	END //
+	
+DROP PROCEDURE IF EXISTS getCoursesByUser;
+CREATE PROCEDURE getCoursesByUser(IN _u_id INT)
+	BEGIN
+		SELECT course_id FROM course_assoc WHERE user_id=_u_id;
+	END //
 DELIMITER ; --this must be at the end of the file

@@ -60,18 +60,49 @@ public class RESTServices {
 	}
 	
 	@POST
+	@Path("/enroll/course/{courseId}")
+	@Produces("application/json")	
+	public String enrollInCourse(@PathParam("courseId") int courseId, @Context HttpServletRequest request) {					
+		int userId = SessionFilter.getUserId(request);
+		ValidatorStatusCode status=CourseSecurity.canUserEnrollInCourse(courseId, userId);
+		if (!status.isSuccess()) {
+			log.debug("rejected attempt to enroll in a course");
+			return gson.toJson(status);
+		}
+		boolean success=Courses.enroll(userId, courseId);
+		return success ? gson.toJson(new ValidatorStatusCode(true, "course enrolled successfully")) :  gson.toJson(DATABASE_ERROR);
+	}
+	
+	@POST
 	@Path("/delete/course/{courseId}")
 	@Produces("application/json")	
 	public String deleteCourse(@PathParam("courseId") int courseId, @Context HttpServletRequest request) {					
 		int userId = SessionFilter.getUserId(request);
 		ValidatorStatusCode status=CourseSecurity.canUserModifyCourse(courseId, userId);
 		if (!status.isSuccess()) {
-			log.debug("rejected attempt to change the visibility of a course");
+			log.debug("rejected attempt to delete a course");
 			return gson.toJson(status);
 		}
 		boolean success=Courses.deleteCourse(courseId);
 		return success ? gson.toJson(new ValidatorStatusCode(true, "course deleted successfully")) :  gson.toJson(DATABASE_ERROR);
 	}
+	
+	@POST
+	@Path("/delete/topic/{topicId}")
+	@Produces("application/json")	
+	public String deleteTopic(@PathParam("topicId") int topicId, @Context HttpServletRequest request) {					
+		int userId = SessionFilter.getUserId(request);
+		
+		ValidatorStatusCode status=CourseSecurity.canUserModifyTopic(topicId, userId);
+		if (!status.isSuccess()) {
+			log.debug("rejected attempt to delete a content topic");
+			return gson.toJson(status);
+		}
+		boolean success=Courses.deleteContentTopic(topicId);
+		return success ? gson.toJson(new ValidatorStatusCode(true, "topic deleted successfully")) :  gson.toJson(DATABASE_ERROR);
+	}
+	
+	
 	
 	@POST
 	@Path("/course/open/{courseId}/{visible}")

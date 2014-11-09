@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import edutechonline.database.entity.Course;
 import edutechonline.database.entity.User;
 import edutechonline.util.Util;
 
@@ -467,5 +468,45 @@ public class Users {
 			return true;
 		}
 		return false;
+	}
+	
+	public static boolean isStudent(int userId) {
+		User u=Users.getUser(userId);
+		if (u!=null && u.getRole().equals("user")) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	/**
+	 * Gets the ID of every user enrolled in the given course
+	 * @param userId
+	 * @return
+	 */
+	public static List<Course> getCoursesByUser(int userId) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		ResultSet results=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL getCoursesByUser(?)}");
+			procedure.setInt(1,userId);
+			
+			results=procedure.executeQuery();
+			List<Course> answers=new ArrayList<Course>();
+			while (results.next()) {
+				answers.add(Courses.getCourse(results.getInt("course_id")));
+			}
+			
+			return answers;
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+			ConnectionPool.safeClose(results);
+		}
+		return null;
 	}
 }

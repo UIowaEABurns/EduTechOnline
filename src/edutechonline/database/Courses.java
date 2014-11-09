@@ -411,10 +411,20 @@ public class Courses {
 	 * @return
 	 */
 	
+	
+	//TODO: Continue updating these functions to handle different types
 	public static String getTopicURL(int topicId) {
 		ContentTopic c=Courses.getContentTopic(topicId);
 		String url=Util.getAbsoluteURL("jsp/secure/content/"+c.getCourseId()+"/"+c.getID());
-		url=url+"/"+c.getName()+".pdf"; //todo: change
+		url=url+"/"+c.getName();
+		if (c.getType()==ContentType.PDF) {
+			url=url+".pdf";
+		} else if (c.getType()==ContentType.TEXT) {
+			url=url+".txt";
+		}
+				
+		log.debug("returning the following url for topic id = "+topicId+" "+url);
+				
 		return url;
 	}
 	
@@ -432,8 +442,89 @@ public class Courses {
 			return null;
 		}
 		File f=new File(Constants.contentTopicDirectory,c.getCourseId()+"/"+c.getID());
-		f=new File(f, c.getName()+".pdf"); //todo: change based on type
+		if (c.getType()==ContentType.PDF) {
+			f=new File(f, c.getName()+".pdf");
+		} else if (c.getType()==ContentType.TEXT) {
+			f=new File(f, c.getName()+".txt");
+		}
+		 //todo: change based on type
 		return f.getAbsolutePath();
 	}
 	
+	/**
+	 * Enrolls the given user in the given course
+	 * @param userId
+	 * @param courseId
+	 * @return
+	 */
+	public static boolean enroll(int userId, int courseId) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL enroll(?,?)}");
+			procedure.setInt(1,userId);
+			procedure.setInt(2,courseId);
+			procedure.executeUpdate();
+			
+			
+			return true;
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+		}
+		return false;
+	}
+	
+	/**
+	 * Returns whether the given user is enrolled in the given course
+	 * @param userId
+	 * @param courseId
+	 * @return
+	 */
+	public static boolean isEnrolled(int userId, int courseId) {
+		List<Integer> users=getUserIdsInCourse(courseId);
+		if (users==null) {
+			return false;
+		}
+		for (Integer i : users) {
+			if (i==userId) {
+				return true;
+			}
+		}
+		return false;
+ 	}
+	
+	/**
+	 * Gets the ID of every user enrolled in the given course
+	 * @param courseId
+	 * @return
+	 */
+	public static List<Integer> getUserIdsInCourse(int courseId) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		ResultSet results=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL getUsersInCourse(?)}");
+			procedure.setInt(1,courseId);
+			
+			results=procedure.executeQuery();
+			List<Integer> answers=new ArrayList<Integer>();
+			while (results.next()) {
+				answers.add(results.getInt("user_id"));
+			}
+			
+			return answers;
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+			ConnectionPool.safeClose(results);
+		}
+		return null;
+	}
 }

@@ -79,7 +79,7 @@ import edutechonline.util.Validator;
 				log.debug("added the topic successfully");
 				if (id>0) {
 					//success, need to store the file somewhere if one exists
-					if (c.getType()==ContentType.PDF) {
+					if (c.getType()==ContentType.PDF || c.getType()==ContentType.TEXT) {
 						File outputFile=new File(Courses.getAbsolutePathForTopic(id));
 						outputFile.getParentFile().mkdirs();
 						log.debug(outputFile.getAbsolutePath());

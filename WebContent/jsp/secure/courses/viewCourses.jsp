@@ -4,7 +4,16 @@
 
 <%
 	try {
-		List<Course> courses=Courses.getAllOpenCourses();
+		int userId =SessionFilter.getUserId(request);
+		List<Course> courses=null;
+		String type=request.getParameter("type");
+		if (type.equals("all")) {
+			courses=Courses.getAllOpenCourses();
+
+		} else if (type.equals("enrolled")) {
+			courses=Users.getCoursesByUser(userId);
+		}
+				
 		
 		request.setAttribute("courses", courses);
 	} catch (Exception e) {
@@ -21,8 +30,9 @@
 				<th>Name</th>
 				<th>Description</th>
 				<th title="cost, in dollars and cents, of enrolling in this course">Cost</th>
-				<th title="has the course been marked as deprecated by the manager?">Category</th>
-				<th>Deprecated</th>
+				<th>Category</th>
+				<th title="has the course been marked as deprecated by the manager?">Deprecated</th>
+				<th title="Go to the home page for this course">View</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -33,6 +43,8 @@
 					<td>$ ${c.getCost()}</td>
 					<td>${c.getCategory()}</td>
 					<td>${c.isDeprecatedDisplay()}</td>
+					<td><a href="/EduTechOnline/jsp/secure/courses/details.jsp?cid=${c.getID()}"><button value="${c.getID()}" class="editButton">View</button></a></td>
+					
 				</tr>
 			</c:forEach>
 		
