@@ -84,7 +84,6 @@ CREATE TABLE answer(
 	correct boolean,
 	PRIMARY KEY(id),
 	CONSTRAINT answer_question_id FOREIGN KEY (question_id) REFERENCES question(id) ON DELETE CASCADE
-
 );
 
 -- represents a user taking a course
@@ -95,4 +94,12 @@ CREATE TABLE course_assoc (
 	PRIMARY KEY (user_id, course_id),-- one rating per student in a course
 	CONSTRAINT course_assoc_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
 	CONSTRAINT course_assoc_course_id FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+);
+
+CREATE TABLE quiz_scores (
+	quiz_id INT NOT NULL,
+	user_id INT NOT NULL,
+	score INT,
+	CONSTRAINT quiz_scores_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+	CONSTRAINT quiz_scores_quiz_id FOREIGN KEY (quiz_id) REFERENCES content_topics(id) ON DELETE CASCADE
 );
