@@ -72,7 +72,6 @@ CREATE TABLE question(
 	topic_id INT,
 	points INT,
 	text TEXT,
-	correctAnswer TEXT,
 	PRIMARY KEY(id),
 	CONSTRAINT qustion_topic_id FOREIGN KEY (topic_id) REFERENCES content_topics(id) ON DELETE CASCADE
 );
@@ -82,12 +81,11 @@ CREATE TABLE answer(
 	id INT AUTO_INCREMENT,
 	question_id INT,
 	text TEXT,
-	val TEXT,
+	correct boolean,
 	PRIMARY KEY(id),
 	CONSTRAINT answer_question_id FOREIGN KEY (question_id) REFERENCES question(id) ON DELETE CASCADE
 
 );
-
 
 -- represents a user taking a course
 CREATE TABLE course_assoc (
