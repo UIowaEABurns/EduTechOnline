@@ -24,17 +24,43 @@
 	}
 %>
 
-<edutech:template js="manager/editCourse">
+<edutech:template js="manager/editCourse, manager/addTopic">
 <input type="hidden" id="courseId" value="${course.getID()}"/>
 <div>
 <form enctype="multipart/form-data" role="form" method="post" action="/EduTechOnline/secure/addTopic" id="topicForm">
 	<input type="hidden" name="course" value="${course.getID()}"/>
 	<input type="hidden" name="type" value="0"/>
-	
+	<div class="hiddenQuestion">
+						
+							<edutech:question/>	
+						
+	</div>   
+	<div class="hiddenAnswer">
+						
+							<edutech:answer/>	
+						
+	</div>   
 	<div class="container">
 		<div class="row"></div>
 				<div class="col-lg-8">
 			 	
+			 			<div class="form-group">
+			 				<label for="quiz" class="col-md-5">File</label>
+				
+							<input checked="checked" type="radio"  name="topicType" id="file" class="formcontrol" value="quiz">
+						</div>	
+						<div class="form-group">
+						
+							<label for="quiz" class="col-md-5">Quiz</label>
+				
+							<input type="radio"  name="topicType" id="quiz" class="formcontrol" value="quiz">
+							</div>
+						<div class="form-group">
+							
+							<label for="quiz" class="col-md-5">URL</label>
+				
+							<input type="radio"  name="topicType" id="url" class="formcontrol" value="quiz">
+						</div>
 						<div class="form-group">
 							<label for="name" class="col-md-5">Topic Name</label>
 				
@@ -46,13 +72,20 @@
 							<textarea name="desc" id="desc" class="formcontrol descField" placeholder="Enter Description"></textarea>
 						</div>	
 				
-						<div class="form-group">
+						<div class="form-group topicFile">
 							<label for="description" class="col-md-5">File</label>
 				
 							<input name="file" class="formcontrol" type="file" id="typeFile"/>
 						</div>	
-					
-                		
+						
+						
+						<div class="topicQuiz">
+						
+							<edutech:question/>	
+						
+						</div>        
+						<button type="button" id="addQuestion">Add New Question</button>
+						        		
             			<input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-left">
              	</div>
             </div>

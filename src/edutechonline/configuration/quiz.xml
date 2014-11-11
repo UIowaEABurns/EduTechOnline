@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Quiz course="23" name="new quiz" description="this is a quiz with some questions and stuff">
+	<Question text="Who was the first President of the USA?">
+		<Answer correct="true">George Washington</Answer>
+		<Answer correct="false">Abraham Lincoln</Answer>
+	</Question>
+	<Question text="What is the right answer to this question?">
+		<Answer correct="false">False</Answer>
+		<Answer correct="true">True</Answer>
+	</Question>
+</Quiz>

@@ -105,4 +105,18 @@ CREATE PROCEDURE getUsersInCourse(IN _c_id INT)
 	BEGIN
 		SELECT user_id FROM course_assoc WHERE course_id=_c_id;
 	END //
+	
+DROP PROCEDURE IF EXISTS addQuestion;
+CREATE PROCEDURE addQuestion(IN _qid INT, IN _text TEXT, OUT _id INT)
+	BEGIN
+		INSERT INTO question (topic_id, points,text) VALUES (_qid,1,_text);
+		SELECT LAST_INSERT_ID() INTO _id;
+	END //
+	
+DROP PROCEDURE IF EXISTS addAnswer;
+CREATE PROCEDURE addAnswer(IN _qid INT, IN _text TEXT, IN _correct boolean, OUT _id INT)
+	BEGIN
+		INSERT INTO answer (question_id, text,correct) VALUES (_qid,_text,_correct);
+		SELECT LAST_INSERT_ID() INTO _id;
+	END //
 DELIMITER ; --this must be at the end of the file

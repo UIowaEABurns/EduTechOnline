@@ -6,6 +6,7 @@ import java.util.List;
 public class Question extends IDEntity {
 	private String text;
 	private List<Answer> answers;
+	private int quizId;
 	public Question() {
 		answers=new ArrayList<Answer>();
 	}
@@ -23,5 +24,11 @@ public class Question extends IDEntity {
 	}
 	public void addAnswer(Answer a) {
 		this.answers.add(a);
+	}
+	public int getQuizId() {
+		return quizId;
+	}
+	public void setQuizId(int quizId) {
+		this.quizId = quizId;
 	}
 }

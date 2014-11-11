@@ -14,10 +14,16 @@ import org.apache.log4j.Logger;
 
 
 
+
+
+
 import edutechonline.application.Constants;
+import edutechonline.database.entity.Answer;
 import edutechonline.database.entity.ContentTopic;
 import edutechonline.database.entity.ContentTopic.ContentType;
 import edutechonline.database.entity.Course;
+import edutechonline.database.entity.Question;
+import edutechonline.database.entity.Quiz;
 import edutechonline.util.Util;
 
 /**
@@ -526,5 +532,68 @@ public class Courses {
 			ConnectionPool.safeClose(results);
 		}
 		return null;
+	}
+	
+	private static int addAnswer(Answer a, Connection con) {
+		log.debug("trying to add an answer");
+		CallableStatement procedure=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL addAnswer(?,?,?,?)}");
+			procedure.setInt(1, a.getQuestionId());
+			procedure.setString(2,a.getText());
+			procedure.setBoolean(3, a.isCorrect());
+			procedure.registerOutParameter(4, java.sql.Types.INTEGER);
+			procedure.executeUpdate();
+			return procedure.getInt(4);
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(procedure);
+		}
+		return -1;
+	}
+	
+	public static int addQuestion(Question q) {
+		log.debug("trying to add a question");
+		Connection con=null;
+		CallableStatement procedure=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL addQuestion(?,?,?)}");
+			procedure.setInt(1, q.getQuizId());
+			procedure.setString(2,q.getText());
+			procedure.registerOutParameter(3, java.sql.Types.INTEGER);
+			procedure.executeUpdate();
+			int id=procedure.getInt(3);
+			q.setID(id);
+			for (Answer a : q.getAnswers()) {
+				a.setQuestionId(id);
+				addAnswer(a,con);
+			}
+			return id;
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+		}
+		return -1;
+	}
+	
+	public static int addQuiz(Quiz q) {
+		try {
+			int qid=Courses.addContentTopic(q); //first, add the quiz
+			log.debug("successfully added the quiz with new id = "+qid);
+			for (Question quest : q.getQuestions()) {
+				quest.setQuizId(qid);
+				addQuestion(quest);
+			}
+			return qid;
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		}
+		return -1;
 	}
 }

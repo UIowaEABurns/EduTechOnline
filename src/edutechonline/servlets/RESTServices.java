@@ -16,7 +16,11 @@ import javax.ws.rs.core.Context;
 
 
 
+
+
 import org.apache.log4j.Logger;
+
+
 
 
 
@@ -30,9 +34,11 @@ import com.google.gson.JsonObject;
 
 import edutechonline.database.Courses;
 import edutechonline.database.Users;
+import edutechonline.database.entity.Quiz;
 import edutechonline.security.CourseSecurity;
 import edutechonline.security.UserSecurity;
 import edutechonline.security.ValidatorStatusCode;
+import edutechonline.util.QuizXMLReader;
 
 /**
  * This class is responsible for handling all small requests to the server. In other words, this is the place
@@ -44,6 +50,23 @@ public class RESTServices {
 	private static Gson gson = new Gson();
 	
 	private static ValidatorStatusCode DATABASE_ERROR=new ValidatorStatusCode(false, "internal database error");
+	
+	@POST
+	@Path("/add/quiz")
+	@Produces("application/json")	
+	public String addQuiz(@Context HttpServletRequest request) {					
+		int requestUserId = SessionFilter.getUserId(request);
+		String xml=request.getParameter("xml");
+		Quiz q=QuizXMLReader.readQuizXML(xml);
+		ValidatorStatusCode status=CourseSecurity.canUserModifyCourse(q.getCourseId(), requestUserId);
+		if (!status.isSuccess()) {
+			return gson.toJson(status);
+		}
+		
+		boolean success=(Courses.addQuiz(q)>0);
+		return success ? gson.toJson(new ValidatorStatusCode(true, "quiz added successfully")) :  gson.toJson(DATABASE_ERROR);
+	}
+	
 	
 	@POST
 	@Path("/delete/user/{userId}")
