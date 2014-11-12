@@ -14,6 +14,7 @@ import edutechonline.test.suites.CourseTests;
 import edutechonline.test.suites.QuizTests;
 import edutechonline.test.suites.UserTests;
 import edutechonline.test.suites.ValidationTests;
+import edutechonline.test.suites.WebTests;
 
 /***
  * Originally written for the Starexec project
@@ -40,6 +41,7 @@ public class TestManager {
 		tests.add(new ValidationTests());
 		tests.add(new CourseTests());
 		tests.add(new QuizTests());
+		tests.add(new WebTests());
 	}
 	
 	public static boolean areTestsRunning() {

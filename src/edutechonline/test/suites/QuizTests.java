@@ -31,7 +31,7 @@ public class QuizTests extends TestSet {
 	
 	@Test 
 	private void tempTest() throws FileNotFoundException, DocumentException {
-		GenerateCertificate.makeCertificate(3, 23, new File("C:/users/eric/desktop/attemptingapdf.pdf"));
+		//GenerateCertificate.makeCertificate(3, 23, new File("C:/users/eric/desktop/attemptingapdf.pdf"));
 	}
 	@Override
 	protected String getTestName() {

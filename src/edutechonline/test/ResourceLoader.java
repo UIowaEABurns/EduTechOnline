@@ -1,6 +1,13 @@
 package edutechonline.test;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import edutechonline.database.Courses;
 import edutechonline.database.Users;
@@ -8,6 +15,7 @@ import edutechonline.database.entity.ContentTopic;
 import edutechonline.database.entity.ContentTopic.ContentType;
 import edutechonline.database.entity.Course;
 import edutechonline.database.entity.User;
+import edutechonline.util.Util;
 
 /**
  * This class is responsible for loading primitives into the database that can be used for testing
@@ -65,5 +73,27 @@ public class ResourceLoader {
 			return null;
 		}
 		return c;
+	}
+	
+	
+	/**
+	 * Returns a WebDriver for selenium testing. The driver we be logged into the website 
+	 * upon return
+	 * @param email The email address of the user to log in
+	 * @param password The password of the user to log in
+	 * @return
+	 */
+	public static WebDriver getWebDriver(String email, String password) {
+			//WebDriver driver=new FirefoxDriver();
+		    WebDriver driver = new FirefoxDriver();
+		  
+	        driver.get(Util.getAbsoluteURL("jsp/secure/index.jsp"));
+	        WebElement userName=driver.findElement(By.name("j_username"));
+	        userName.sendKeys(email);
+	        driver.findElement(By.name("j_password")).sendKeys(password);
+	        
+	        userName.submit();
+	       driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+	       return driver;
 	}
 }

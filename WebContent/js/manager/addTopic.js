@@ -9,10 +9,18 @@ $(document).ready(function() {
 	$("#quiz").click(function() {
 		$(".topicFile").hide();
 		$(".topicQuiz").show();
+		$(".topicUrl").hide();
+
 	});
 	$("#file").click(function() {
 		$(".topicFile").show();
 		$(".topicQuiz").hide();
+		$(".topicUrl").hide();
+	});
+	$("#url").click(function() {
+		$(".topicFile").hide();
+		$(".topicQuiz").hide();
+		$(".topicUrl").show();
 	});
 	
 	$("#addQuestion").click(function(e) {

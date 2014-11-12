@@ -48,7 +48,7 @@
 			<div class="collapse navbar-collapse" id="navbar-collapse-1">
       		<div id="headerli">
      				<ul class="navbar-nav nav nav-pills">
-      					<li><a href="/EduTechOnline/jsp/manager/addCourse.jsp">Add Course</a></li>
+      					<li><a id="addCourseFooter" href="/EduTechOnline/jsp/manager/addCourse.jsp">Add Course</a></li>
       					<li><a href="/EduTechOnline/jsp/manager/viewCourses.jsp">Manage Courses</a></li>
         			</ul>
         	</div>		

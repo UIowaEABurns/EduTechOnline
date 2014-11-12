@@ -38,7 +38,7 @@
 					<td>${c.isOpen()}</td>
 					<td>${c.isDeprecatedDisplay()}</td>
 					
-					<td><a href="/EduTechOnline/jsp/secure/courses/details.jsp?cid=${c.getID()}"><button value="${c.getID()}" class="editButton">View</button></a></td>
+					<td><a class="viewCourseLink" href="/EduTechOnline/jsp/secure/courses/details.jsp?cid=${c.getID()}"><button value="${c.getID()}" class="editButton">View</button></a></td>
 				</tr>
 			</c:forEach>
 		

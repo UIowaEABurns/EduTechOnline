@@ -47,7 +47,7 @@
 			 			<div class="form-group">
 			 				<label for="quiz" class="col-md-5">File</label>
 				
-							<input checked="checked" type="radio"  name="topicType" id="file" class="formcontrol" value="quiz">
+							<input checked="checked" type="radio"  name="topicType" id="file" class="formcontrol" value="file">
 						</div>	
 						<div class="form-group">
 						
@@ -59,7 +59,7 @@
 							
 							<label for="quiz" class="col-md-5">URL</label>
 				
-							<input type="radio"  name="topicType" id="url" class="formcontrol" value="quiz">
+							<input type="radio" id="url" name="topicType" id="url" class="formcontrol" value="url">
 						</div>
 						<div class="form-group">
 							<label for="name" class="col-md-5">Topic Name</label>
@@ -67,16 +67,23 @@
 							<input type="text"  name="name" id="name" class="formcontrol" placeholder="Enter topic Name">
 						</div>	
 						<div class="form-group">
-							<label for="description" class="col-md-5">Description</label>
+							<label for="desc" class="col-md-5">Description</label>
 				
 							<textarea name="desc" id="desc" class="formcontrol descField" placeholder="Enter Description"></textarea>
 						</div>	
 				
 						<div class="form-group topicFile">
-							<label for="description" class="col-md-5">File</label>
+							<label for="typeFile" class="col-md-5">File</label>
 				
 							<input name="file" class="formcontrol" type="file" id="typeFile"/>
 						</div>	
+						
+						<div class="form-group topicUrl">
+							<label for="typeUrl" class="col-md-5">URL</label>
+				
+							<input name="url" class="formcontrol" type="text" id="typeUrl"/>
+						</div>	
+						
 						
 						
 						<div class="topicQuiz">

@@ -26,6 +26,8 @@
 			} else if (topic.getType()==ContentType.QUIZ) {
 				request.setAttribute("type",3);
 				request.setAttribute("quiz",Courses.getQuiz(topicId));
+			} else {
+				request.setAttribute("type",4);
 			}
 			
 		} else {
@@ -53,7 +55,7 @@
 	  				<div class="panel-body">
 						<ul class="contentTopicList">
 							<c:forEach var="topic" items="${course.getTopics()}">
-								<ul><a href="/EduTechOnline/jsp/secure/courses/topic.jsp?tid=${topic.getID()}">${topic.getName()}</a></ul>
+								<ul><a class="contentTopicLink" href="/EduTechOnline/jsp/secure/courses/topic.jsp?tid=${topic.getID()}">${topic.getName()}</a></ul>
 							</c:forEach>  
 						</ul>
 						
@@ -88,6 +90,9 @@
 	  						</c:if>
 	  						<c:if test="${type==3}">
 	  							<edutech:quiz quiz="${quiz}"/>
+	  						</c:if>
+	  						<c:if test="${type==4}">
+	  							 <iframe id="contentViewer" src="${topic.getUrl()}"></iframe> 
 	  						</c:if>
 						</div>
 						

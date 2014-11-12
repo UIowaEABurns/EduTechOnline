@@ -49,7 +49,7 @@
 	  				<div class="panel-body">
 						<ul class="contentTopicList">
 							<c:forEach var="topic" items="${course.getTopics()}">
-								<ul><a href="/EduTechOnline/jsp/secure/courses/topic.jsp?tid=${topic.getID()}">${topic.getName()}</a></ul>
+								<ul><a class="contentTopicLink" href="/EduTechOnline/jsp/secure/courses/topic.jsp?tid=${topic.getID()}">${topic.getName()}</a></ul>
 							</c:forEach>  
 						</ul>
 						
@@ -98,7 +98,7 @@
 			<button id="deleteButton">Delete Course</button>
 			<button id="toggleVisible" value="${course.isOpen()}"></button>
 			<button id="toggleDeprecation" value="${course.isDeprecated()}"></button>
-			<a href="/EduTechOnline/jsp/manager/addTopic.jsp?cid=${course.getID()}"><button id="addContent">Add Content Topic</button></a>
+			<a id="addContentLink" href="/EduTechOnline/jsp/manager/addTopic.jsp?cid=${course.getID()}"><button id="addContent">Add Content Topic</button></a>
 		</fieldset>
 	</c:if>
 </div>

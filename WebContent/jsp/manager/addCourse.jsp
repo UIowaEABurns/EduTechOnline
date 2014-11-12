@@ -19,7 +19,7 @@
 						<div class="form-group">
 							<label for="category" class="col-md-5">Category</label>
 				
-							<input type="text"  name="category" id="lnamew" class="formcontrol" placeholder="Enter Category">
+							<input type="text"  name="category" id="category" class="formcontrol" placeholder="Enter Category">
 						</div>
 				
 					

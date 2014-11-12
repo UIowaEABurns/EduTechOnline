@@ -30,10 +30,6 @@ import edutechonline.util.Util;
 import edutechonline.util.Validator;
 
 
-/**
- * Servlet implementation class CoursesAdd
- */
-
 	public class AddTopic extends HttpServlet 
 	{
 	private static Logger log=Logger.getLogger(Registration.class);
@@ -43,9 +39,9 @@ import edutechonline.util.Validator;
 	private static final String NAME="name";
 	private static final String DESCRIPTION="desc";
 	private static final String  COURSE_ID="course";
-	//private static final String TYPE="type";
-	private static final String URL="url"; //TODO: actually use this
+	private static final String URL="url";
 	private static final String FILE="file";
+	private static final String UPLOAD_TYPE="topicType";
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
@@ -67,19 +63,27 @@ import edutechonline.util.Validator;
 					response.sendError(HttpServletResponse.SC_BAD_REQUEST, status.getMessage());
 					return;
 				}
+				boolean file=((String)form.get(UPLOAD_TYPE)).equals("file");
 				ContentTopic c=new ContentTopic();
 				c.setName((String)form.get(NAME));
 				c.setDescription((String)form.get(DESCRIPTION));
 				c.setCourseId(Integer.parseInt((String)form.get(COURSE_ID)));
-				FileItem topicFile = (FileItem)form.get(FILE);
-
-				c.setType(topicFile.getName());
+				FileItem topicFile=null;
+				if (file) {
+					topicFile = (FileItem)form.get(FILE);
+					
+					c.setType(topicFile.getName());
+				} else {
+					c.setType(ContentType.VIDEO);
+					c.setUrl((String)form.get(URL));
+				}
+				
 				//c.setType(ContentType.toStatusCode(Integer.parseInt((String)form.get(TYPE))));
 				int id= Courses.addContentTopic(c);
 				log.debug("added the topic successfully");
 				if (id>0) {
 					//success, need to store the file somewhere if one exists
-					if (c.getType()==ContentType.PDF || c.getType()==ContentType.TEXT) {
+					if (file) {
 						File outputFile=new File(Courses.getAbsolutePathForTopic(id));
 						outputFile.getParentFile().mkdirs();
 						log.debug(outputFile.getAbsolutePath());
@@ -87,7 +91,7 @@ import edutechonline.util.Validator;
 						log.debug(topicFile);
 						topicFile.write(outputFile);
 					}
-					response.sendRedirect("/EduTechOnline/jsp/manager/viewCourses.jsp");
+					response.sendRedirect("/EduTechOnline/jsp/secure/courses/details.jsp?cid="+c.getCourseId());
 					return;
 				} else {
 					//failure, internal error
@@ -134,17 +138,29 @@ import edutechonline.util.Validator;
 			return new ValidatorStatusCode(false, "you can only add topics to courses you own");
 		}
 		
-		if (request.containsKey(FILE)) {
+		//then it must have a url
+		String type=(String)request.get(UPLOAD_TYPE);
+		if (type==null) {
+			return new ValidatorStatusCode(false, "No type was specified");
+		} else if (type.equals("url")) {
+			String url=(String)request.get(URL);
+			if (url==null || url.isEmpty()) {
+				return new ValidatorStatusCode(false, "No URL or file was specified");
+			}
+		} else if (type.equals("file")) {
 			FileItem topicFile = (FileItem)request.get(FILE);
 			if (!Validator.isValidFileExtension(topicFile.getName())) {
 				return new ValidatorStatusCode(false, "The given file does not have a valid extension");
 			}
 
+		} else {
+			return new ValidatorStatusCode(false, "Invalid type");
 		}
 		
 		
 		log.debug("got all the way down here");
 		return new ValidatorStatusCode(true);
+	
 	}
 }
 
