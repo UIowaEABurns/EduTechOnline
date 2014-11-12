@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Quiz course="23" name="new quiz" description="this is a quiz with some questions and stuff">
+<Quiz course="23" name="DNA quiz" description="this is a quiz with some questions and stuff">
 	<Question text="Who was the first President of the USA?">
 		<Answer correct="true">George Washington</Answer>
 		<Answer correct="false">Abraham Lincoln</Answer>

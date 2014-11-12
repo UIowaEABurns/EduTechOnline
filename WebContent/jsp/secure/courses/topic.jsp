@@ -23,6 +23,9 @@
 				request.setAttribute("type", 1);
 			} else if (topic.getType()==ContentType.TEXT) {
 				request.setAttribute("type",2);
+			} else if (topic.getType()==ContentType.QUIZ) {
+				request.setAttribute("type",3);
+				request.setAttribute("quiz",Courses.getQuiz(topicId));
 			}
 			
 		} else {
@@ -32,6 +35,7 @@
 		
 		
 	} catch (Exception e) {
+		e.printStackTrace();
 		response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	}
 %>
@@ -79,9 +83,11 @@
 							<c:if test="${type==2}">
 	  						<object id="contentViewer" class="textViewer" data="${path}" type="text/plain">
 	 
-	  							<p> Failed to display the silly thing correctly.</p>
 	  
 							</object>
+	  						</c:if>
+	  						<c:if test="${type==3}">
+	  							<edutech:quiz quiz="${quiz}"/>
 	  						</c:if>
 						</div>
 						

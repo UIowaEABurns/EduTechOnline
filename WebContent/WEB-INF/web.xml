@@ -105,6 +105,25 @@
   	<url-pattern>/secure/addCourse</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  	<servlet-name>GradeQuiz</servlet-name>
+  	<servlet-class>edutechonline.servlets.GradeQuiz</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>GradeQuiz</servlet-name>
+  	<url-pattern>/secure/doQuiz</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+  	<servlet-name>GetCertificate</servlet-name>
+  	<servlet-class>edutechonline.servlets.GetCertificate</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>GetCertificate</servlet-name>
+  	<url-pattern>/secure/getCert</url-pattern>
+  </servlet-mapping>
+  
     <servlet>
   	<servlet-name>AddTopic</servlet-name>
   	<servlet-class>edutechonline.servlets.AddTopic</servlet-class>

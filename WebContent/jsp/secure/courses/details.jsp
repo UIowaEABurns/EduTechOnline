@@ -18,6 +18,7 @@
 			
 			request.setAttribute("isOwner",isOwner);
 			request.setAttribute("topicsVisible", isOwner || Courses.isEnrolled(userId,courseId));
+			request.setAttribute("completed", Courses.hasUserCompletedCourse(userId, courseId));
 		} else {
 			response.sendError(HttpServletResponse.SC_FORBIDDEN);
 		}
@@ -81,7 +82,16 @@
 					</div>
 			</div>
 		</div>
-
+	
+	<c:if test="${completed}">
+		<fieldset>
+			<legend>Actions</legend>
+			<form role="form" method="post" action="/EduTechOnline/secure/getCert" id="certForm">
+				<input type="hidden" name="course" value="${course.getID()}"/>
+				<button type="submit" id="downloadCert">Download Certificate</button>
+			</form>
+		</fieldset>
+	</c:if>
 	<c:if test="${isOwner}">
 		<fieldset>
 			<legend>Actions</legend>

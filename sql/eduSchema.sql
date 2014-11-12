@@ -86,6 +86,15 @@ CREATE TABLE answer(
 	CONSTRAINT answer_question_id FOREIGN KEY (question_id) REFERENCES question(id) ON DELETE CASCADE
 );
 
+-- stores the answers a student gave for quiz questions
+CREATE TABLE student_answers (
+	user_id INT NOT NULL,
+	answer_id INT NOT NULL,
+	PRIMARY KEY (user_id, answer_id),
+	CONSTRAINT student_answers_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+	CONSTRAINT student_answers_answer_id FOREIGN KEY (answer_id) REFERENCES answer(id) ON DELETE CASCADE
+);
+
 -- represents a user taking a course
 CREATE TABLE course_assoc (
 	user_id INT NOT NULL,

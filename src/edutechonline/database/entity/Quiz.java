@@ -19,5 +19,13 @@ public class Quiz extends ContentTopic {
 		this.questions.add(q);
 	}
 	
+	public Question getQuestion(int id) {
+		for (Question q : questions) {
+			if (q.getID()==id) {
+				return q;
+			}
+		}
+		return null;
+	}
 	
 }

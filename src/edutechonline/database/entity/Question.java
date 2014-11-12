@@ -31,4 +31,13 @@ public class Question extends IDEntity {
 	public void setQuizId(int quizId) {
 		this.quizId = quizId;
 	}
+	
+	public Answer getCorrectAnswer() {
+		for(Answer a : answers) {
+			if (a.isCorrect()) {
+				return a;
+			}
+		}
+		return null;
+	}
 }

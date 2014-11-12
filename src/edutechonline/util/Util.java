@@ -98,4 +98,50 @@ public class Util {
 			
 		return form;
     }
+    
+    /**
+     * Converts a decimal number into a string like A+, A, A-, and so on
+     * @param points
+     * @return
+     */
+    public static String pointsToGrade(Float points) {
+    	if (points>=.98) {
+    		return "A+";
+    	} else if (points>=.93) {
+    		return "A";
+    	} else if (points>=.90) {
+    		return "A-";
+    	} else if (points>=.88) {
+    		return "B+";
+    	} else if (points>=.83) {
+    		return "B";
+    	} else if (points >=.80 ) {
+    		return "B-";
+    	} else if (points >=.78) {
+    		return "C+";
+    	} else if (points >=.73) {
+    		return "C";
+    	} else if (points >= .70) {
+    		return "C-";
+    	} else if (points >= .68) {
+    		return "D+";
+    	} else if (points >= .63) {
+    		return "D";
+    	} else if (points >= .60) {
+    		return "D-";
+    	} else {
+    		return "F";
+    	}
+    }
+    
+    public static String pointsToPercent(Float points) {
+    	String percent=String.valueOf(points*100);
+    	if (percent.contains(".")) {
+    		int index=percent.indexOf(".");
+    		int endIndex=index+3;
+    		endIndex=Math.max(endIndex, percent.length());
+    		percent=percent.substring(0,endIndex); //round to 2 decimals;
+    	}
+    	return percent+"%";
+    }
 }

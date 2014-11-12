@@ -119,4 +119,34 @@ CREATE PROCEDURE addAnswer(IN _qid INT, IN _text TEXT, IN _correct boolean, OUT 
 		INSERT INTO answer (question_id, text,correct) VALUES (_qid,_text,_correct);
 		SELECT LAST_INSERT_ID() INTO _id;
 	END //
+	
+DROP PROCEDURE IF EXISTS getAnswersByQuestion;
+CREATE PROCEDURE getAnswersByQuestion(IN _qid INT)
+	BEGIN
+		SELECT * FROM answer WHERE question_id=_qid;
+	END //
+	
+DROP PROCEDURE IF EXISTS getQuestionsByQuiz;
+CREATE PROCEDURE getQuestionsByQuiz(IN _qid INT)
+	BEGIN
+		SELECT * FROM question WHERE topic_id=_qid;
+	END //
+	
+DROP PROCEDURE IF EXISTS getQuizScore;
+CREATE PROCEDURE getQuizScore(IN _u INT, IN _q INT)
+	BEGIN
+		SELECT * FROM quiz_scores WHERE user_id=_u AND quiz_id=_q;
+	END //
+	
+DROP PROCEDURE IF EXISTS addQuizScore;
+CREATE PROCEDURE addQuizScore(IN _u INT, IN _q INT, IN _s INT)
+	BEGIN
+		INSERT IGNORE INTO quiz_scores (user_id, quiz_id, score) VALUES (_u, _q, _s);
+	END //
+	
+DROP PROCEDURE IF EXISTS addQuizAnswer;
+CREATE PROCEDURE addQuizAnswer(IN _u INT, IN _a INT)
+	BEGIN
+		INSERT IGNORE INTO student_answers (user_id, answer_id) VALUES (_u, _a);
+	END //
 DELIMITER ; --this must be at the end of the file

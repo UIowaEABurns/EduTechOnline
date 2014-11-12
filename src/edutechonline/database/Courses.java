@@ -4,11 +4,13 @@ import java.io.File;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+
 
 
 
@@ -434,6 +436,17 @@ public class Courses {
 		return url;
 	}
 	
+	public static String getCertificateUrl(int userId, int courseId) {
+		String url=Util.getAbsoluteURL("jsp/secure/content/"+userId+"/"+courseId+"cert.pdf");
+		
+		return url;
+	}
+	
+	public static String getAbsolutePathForCertificate(int userId, int courseId) {
+		File f=new File(Constants.contentTopicDirectory,userId+"/"+courseId+"cert.pdf");
+		
+		return f.getAbsolutePath();
+	}
 	
 	
 	/**
@@ -582,6 +595,92 @@ public class Courses {
 		return -1;
 	}
 	
+	
+	private static Answer resultSetToAnswer(ResultSet results) throws SQLException {
+		Answer a=new Answer();
+		a.setID(results.getInt("id"));
+		a.setText(results.getString("text"));
+		a.setQuestionId(results.getInt("question_id"));
+		a.setCorrect(results.getBoolean("correct"));
+		return a;
+	}
+	
+	private static Question resultSetToQuestion(ResultSet results) throws SQLException {
+		Question a=new Question();
+		a.setID(results.getInt("id"));
+		a.setText(results.getString("text"));
+		a.setQuizId(results.getInt("topic_id"));
+	
+		return a;
+	}
+	
+	public static List<Question> getQuestionsForQuiz(int quizId) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		ResultSet results=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL getQuestionsByQuiz(?)}");
+			procedure.setInt(1,quizId);
+			results=procedure.executeQuery();
+			List<Question> questions=new ArrayList<Question>();
+			while (results.next()) {
+				Question q=resultSetToQuestion(results);
+				q.setAnswers(getAnswersForQuestion(q.getID()));
+				questions.add(q);
+				
+			}
+			return questions;
+				
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+			ConnectionPool.safeClose(results);
+		}
+		return null;
+	}
+	
+	public static List<Answer> getAnswersForQuestion(int questionId) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		ResultSet results=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL getAnswersByQuestion(?)}");
+			procedure.setInt(1,questionId);
+			results=procedure.executeQuery();
+			List<Answer> answers=new ArrayList<Answer>();
+			while (results.next()) {
+				answers.add(resultSetToAnswer(results));
+			}
+			return answers;
+				
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+			ConnectionPool.safeClose(results);
+		}
+		return null;
+	}
+	
+	public static Quiz getQuiz(int quizId) {
+		Quiz q=new Quiz();
+		ContentTopic c= Courses.getContentTopic(quizId);
+		q.setID(c.getID());
+		q.setCourseId(c.getCourseId());
+		q.setName(c.getName());
+		q.setDescription(c.getDescription());
+		q.setType(ContentType.QUIZ);
+		
+		q.setQuestions(getQuestionsForQuiz(quizId));
+		
+		return q;
+	}
+	
 	public static int addQuiz(Quiz q) {
 		try {
 			int qid=Courses.addContentTopic(q); //first, add the quiz
@@ -595,5 +694,106 @@ public class Courses {
 			log.error(e.getMessage(),e);
 		}
 		return -1;
+	}
+	
+	/**
+	 * 
+	 * @param quizId
+	 * @param userId
+	 * @return null if the user has not taken the quiz, -1 on error
+	 */
+	public static Float getQuizScore(int quizId, int userId) {
+		Quiz q=Courses.getQuiz(quizId);
+		Connection con=null;
+		CallableStatement procedure=null;
+		ResultSet results=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL getQuizScore(?,?)}");
+			procedure.setInt(1,userId);
+			procedure.setInt(2,quizId);
+			results=procedure.executeQuery();
+			if (results.next()) {
+				int points=results.getInt("score");
+				return (new Float(points) / q.getQuestions().size());
+			}
+			return null;
+		}  catch (Exception e) {
+			log.error(e.getMessage(),e);
+			return -1f;
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+			ConnectionPool.safeClose(results);
+		}
+	}
+	
+	/**
+	 * Returns whether the given user has completed every quiz
+	 * in the course
+	 * @param userId
+	 * @param courseId
+	 * @return
+	 */
+	public static boolean hasUserCompletedCourse(int userId, int courseId) {
+		List<ContentTopic> topics=Courses.getContentTopicsForCourse(courseId);
+		for (ContentTopic c : topics) {
+			if (c.getType()!=ContentType.QUIZ) {
+				continue;
+			}
+			if (!hasUserTakenQuiz(c.getID(),userId)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public static boolean hasUserTakenQuiz(int quizId, int userId) {
+		return getQuizScore(quizId,userId)!=null;
+	}
+	
+	public static boolean addAnswer(int userId, int answerId) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL addQuizAnswer(?,?)}");
+			procedure.setInt(1,userId);
+			procedure.setInt(2,answerId);
+			
+			procedure.executeUpdate();
+			
+			return true;
+		}  catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+		}
+		return false;
+	}
+	
+	public static boolean addQuizScores(int userId, int quizId, int score, List<Integer> answers) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL addQuizScore(?,?,?)}");
+			procedure.setInt(1,userId);
+			procedure.setInt(2,quizId);
+			procedure.setInt(3,score);
+			
+			procedure.executeUpdate();
+			for (Integer i : answers ){
+				addAnswer(userId, i);
+			}
+			return true;
+		}  catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+		}
+		return false;
 	}
 }
