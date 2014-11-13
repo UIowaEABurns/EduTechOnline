@@ -2,6 +2,9 @@ package edutechonline.database.entity;
 
 import java.util.List;
 
+import edutechonline.database.Courses;
+import edutechonline.util.Util;
+
 public class Course extends IDEntity {
 	
 	private String name=null;  //what is the name of this course
@@ -12,6 +15,7 @@ public class Course extends IDEntity {
 	private String category;
 	private List<ContentTopic> topics;
 	private boolean deprecated;
+	private int tempUserId;
 	public Course() {
 		
 	}
@@ -72,5 +76,25 @@ public class Course extends IDEntity {
 	}
 	public void setDeprecated(boolean deprecated) {
 		this.deprecated = deprecated;
+	}
+	
+	public String getGradeString(int userId) {
+		if (!Courses.hasUserCompletedCourse(userId, this.getID())) {
+			return "in progress";
+		} else {
+			Float grade=Courses.getCourseGrade(userId, this.getID());
+			if (grade==null) {
+				return "ungraded";
+			}
+			return Util.pointsToGrade(grade);
+		}
+	}
+	
+	public String getGradeString() {
+		return getGradeString(tempUserId);
+	}
+
+	public void setTempUserId(int tempUserId) {
+		this.tempUserId = tempUserId;
 	}
 }

@@ -40,19 +40,10 @@ public class GenerateCertificate {
 		sb.append("\n\n");
 		sb.append(c.getName());
 		sb.append("\n\n");
-		Float totalGrade=0f;
-		int quizCount=0;
-		for (ContentTopic topic : Courses.getContentTopicsForCourse(c.getID())) {
-			if (topic.getType()!=ContentType.QUIZ) {
-				continue;
-			}
-			System.out.println(topic.getID() + " "+userId);
-			totalGrade+=Courses.getQuizScore(topic.getID(), userId);
-			quizCount++;
-		}
+		Float totalGrade=Courses.getCourseGrade(userId, courseId);
 		
-		if (quizCount>0) {
-			totalGrade=totalGrade/quizCount;
+		
+		if (totalGrade!=null) {
 			sb.append("The overall grade obtained in this course is "+Util.pointsToGrade(totalGrade));
 			sb.append("\n\n");
 			sb.append("Individual quiz grades are below\n\n");

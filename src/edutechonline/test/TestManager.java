@@ -41,7 +41,7 @@ public class TestManager {
 		tests.add(new ValidationTests());
 		tests.add(new CourseTests());
 		tests.add(new QuizTests());
-		tests.add(new WebTests());
+		//tests.add(new WebTests());
 	}
 	
 	public static boolean areTestsRunning() {

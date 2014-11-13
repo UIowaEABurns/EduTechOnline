@@ -7,14 +7,20 @@
 		int userId =SessionFilter.getUserId(request);
 		List<Course> courses=null;
 		String type=request.getParameter("type");
+		boolean showGrades=false;
 		if (type.equals("all")) {
 			courses=Courses.getAllOpenCourses();
 
 		} else if (type.equals("enrolled")) {
 			courses=Users.getCoursesByUser(userId);
+			
+			showGrades=true;
 		}
-				
-		
+		for (Course cor : courses) {
+			cor.setTempUserId(userId);
+		}
+		request.setAttribute("user",userId);
+		request.setAttribute("grades",showGrades);
 		request.setAttribute("courses", courses);
 	} catch (Exception e) {
 		response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "error loading page");
@@ -32,6 +38,9 @@
 				<th title="cost, in dollars and cents, of enrolling in this course">Cost</th>
 				<th>Category</th>
 				<th title="has the course been marked as deprecated by the manager?">Deprecated</th>
+				<c:if test="${grades}">
+					<th>Grade</th>
+				</c:if>
 				<th title="Go to the home page for this course">View</th>
 			</tr>
 		</thead>
@@ -43,6 +52,9 @@
 					<td>$ ${c.getCost()}</td>
 					<td>${c.getCategory()}</td>
 					<td>${c.isDeprecatedDisplay()}</td>
+					<c:if test="${grades}">
+						<th>${c.getGradeString()}</th>
+					</c:if>
 					<td><a href="/EduTechOnline/jsp/secure/courses/details.jsp?cid=${c.getID()}"><button value="${c.getID()}" class="editButton">View</button></a></td>
 					
 				</tr>

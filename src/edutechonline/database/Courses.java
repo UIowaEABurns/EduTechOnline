@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 
 
 
+
 import edutechonline.application.Constants;
 import edutechonline.database.entity.Answer;
 import edutechonline.database.entity.ContentTopic;
@@ -736,6 +737,9 @@ public class Courses {
 	 * @return
 	 */
 	public static boolean hasUserCompletedCourse(int userId, int courseId) {
+		if (!Users.isStudent(userId)) {
+			return false; //only students have completed courses
+		}
 		List<ContentTopic> topics=Courses.getContentTopicsForCourse(courseId);
 		for (ContentTopic c : topics) {
 			if (c.getType()!=ContentType.QUIZ) {
@@ -795,5 +799,26 @@ public class Courses {
 			ConnectionPool.safeClose(procedure);
 		}
 		return false;
+	}
+	
+	public static Float getCourseGrade(int userId, int courseId) {
+		Float totalGrade=0f;
+		int quizCount=0;
+		for (ContentTopic topic : Courses.getContentTopicsForCourse(courseId)) {
+			if (topic.getType()!=ContentType.QUIZ) {
+				continue;
+			}
+			totalGrade+=Courses.getQuizScore(topic.getID(), userId);
+			quizCount++;
+		}
+		
+		if (quizCount>0) {
+			totalGrade=totalGrade/quizCount;
+			return totalGrade;
+			
+			
+		} else {
+			return null; //no quizzes in this course
+		}
 	}
 }

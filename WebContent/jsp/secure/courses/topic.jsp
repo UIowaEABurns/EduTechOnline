@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" import="edutechonline.security.*,edutechonline.database.entity.ContentTopic.ContentType, edutechonline.servlets.SessionFilter, edutechonline.database.*, edutechonline.database.entity.*"%>	
+<%@page contentType="text/html" pageEncoding="UTF-8" import="edutechonline.util.*, edutechonline.security.*,edutechonline.database.entity.ContentTopic.ContentType, edutechonline.servlets.SessionFilter, edutechonline.database.*, edutechonline.database.entity.*"%>	
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="edutech" tagdir="/WEB-INF/tags" %>
 
@@ -26,6 +26,12 @@
 			} else if (topic.getType()==ContentType.QUIZ) {
 				request.setAttribute("type",3);
 				request.setAttribute("quiz",Courses.getQuiz(topicId));
+				boolean takenQuiz=false;
+				if (Courses.hasUserTakenQuiz(topic.getID(), userId)) {
+					takenQuiz=true;
+					request.setAttribute("grade",Util.pointsToGrade(Courses.getQuizScore(topic.getID(),userId)));
+				}
+				request.setAttribute("taken",takenQuiz);
 			} else {
 				request.setAttribute("type",4);
 			}
@@ -89,7 +95,16 @@
 							</object>
 	  						</c:if>
 	  						<c:if test="${type==3}">
-	  							<edutech:quiz quiz="${quiz}"/>
+	  							<c:if test="${taken}">
+	  								<p>You have already taken this quiz. You received a grade of ${grade}. 
+	  								Your answers are shown below, along with the correct answers.</p>
+	  								<edutech:finishedQuiz quiz="${quiz}"/>
+	  								
+	  							</c:if>
+	  						
+	  							<c:if test="${!taken}">
+	  								<edutech:quiz quiz="${quiz}"/>
+	  							</c:if>
 	  						</c:if>
 	  						<c:if test="${type==4}">
 	  							 <iframe id="contentViewer" src="${topic.getUrl()}"></iframe> 
