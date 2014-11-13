@@ -103,3 +103,36 @@ function convertToXML() {
 	xml=xml+"</Quiz>"
 	return xml;
 }
+$(document).ready(function() {
+	// Set up form validation
+	$("addTopic").validate({
+		rules: {
+			name: {
+				required: true,
+				regex : getNameRegex()
+
+			},
+			desc: {
+				required: true,
+				regex : getNameRegex()
+			},
+			
+		},
+		messages: {
+			name: {
+				required: "enter the topic name",
+				regex: " topic names can contain only letters, hyphens, and spaces"
+			},
+			desc: {
+				required: "enter the description",
+				regex: "Description can contain only letters, hyphens, and spaces"
+
+			},
+			
+		}
+	});
+	
+	
+	
+});
+
