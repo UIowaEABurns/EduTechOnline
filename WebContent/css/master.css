@@ -148,5 +148,5 @@ box-sizing: content-box;
 
 .banner {
 	clear: both;
-	
+	border:1px solid black;
 }

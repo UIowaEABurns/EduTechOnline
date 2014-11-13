@@ -34,10 +34,9 @@
 <input type="hidden" id="courseId" value="${course.getID()}"/>
 <div >
 	<c:if test="${course.isDeprecated()}">
-		<div class="banner">
-			<p>This course is deprecated and may be removed at any time. Please take that under consideration
+			<p class="banner">This course is deprecated and may be removed at any time. Please take that under consideration
 			when deciding whether to enroll</p>
-		</div>
+		
 	
 	</c:if>
 	<c:if test="${topicsVisible}">

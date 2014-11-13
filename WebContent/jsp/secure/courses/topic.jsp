@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" import="edutechonline.util.*, edutechonline.security.*,edutechonline.database.entity.ContentTopic.ContentType, edutechonline.servlets.SessionFilter, edutechonline.database.*, edutechonline.database.entity.*"%>	
+<%@page contentType="text/html" pageEncoding="UTF-8" import="java.util.*,edutechonline.util.*, edutechonline.security.*,edutechonline.database.entity.ContentTopic.ContentType, edutechonline.servlets.SessionFilter, edutechonline.database.*, edutechonline.database.entity.*"%>	
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="edutech" tagdir="/WEB-INF/tags" %>
 
@@ -24,9 +24,21 @@
 			} else if (topic.getType()==ContentType.TEXT) {
 				request.setAttribute("type",2);
 			} else if (topic.getType()==ContentType.QUIZ) {
+				Quiz quiz=Courses.getQuiz(topicId);
 				request.setAttribute("type",3);
-				request.setAttribute("quiz",Courses.getQuiz(topicId));
+				request.setAttribute("quiz",quiz);
 				boolean takenQuiz=false;
+				List<Integer> answers = Courses.getStudentAnswersForQuiz(userId, topicId);
+			
+				for (Question q : quiz.getQuestions()) {
+					for (Answer a : q.getAnswers()) {
+						if (answers.contains(a.getID())) {
+							a.setBeingUsed(true);
+						} else {
+							a.setBeingUsed(false);
+						}
+					}
+				}
 				if (Courses.hasUserTakenQuiz(topic.getID(), userId)) {
 					takenQuiz=true;
 					request.setAttribute("grade",Util.pointsToGrade(Courses.getQuizScore(topic.getID(),userId)));
@@ -96,7 +108,7 @@
 	  						</c:if>
 	  						<c:if test="${type==3}">
 	  							<c:if test="${taken}">
-	  								<p>You have already taken this quiz. You received a grade of ${grade}. 
+	  								<p class="banner">You have already taken this quiz. You received a grade of ${grade}. 
 	  								Your answers are shown below, along with the correct answers.</p>
 	  								<edutech:finishedQuiz quiz="${quiz}"/>
 	  								

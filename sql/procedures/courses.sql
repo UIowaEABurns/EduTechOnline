@@ -149,4 +149,14 @@ CREATE PROCEDURE addQuizAnswer(IN _u INT, IN _a INT)
 	BEGIN
 		INSERT IGNORE INTO student_answers (user_id, answer_id) VALUES (_u, _a);
 	END //
+	
+DROP PROCEDURE IF EXISTS getStudentQuizAnswers;
+CREATE PROCEDURE getStudentQuizAnswers(IN _u INT, IN _q INT)
+	BEGIN
+		SELECT * from student_answers
+		JOIN answer ON student_answers.answer_id=answer.id
+		JOIN question ON question.id=answer.question_id
+		JOIN content_topics ON content_topics.id=question.topic_id
+		WHERE content_topics.id=_q AND student_answers.user_id=_u;
+	END //
 DELIMITER ; --this must be at the end of the file

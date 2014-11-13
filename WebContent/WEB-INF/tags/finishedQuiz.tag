@@ -3,9 +3,6 @@
 <%@taglib prefix="edutech" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<form role="form" method="post" action="/EduTechOnline/secure/doQuiz" id="quizForm">
-
-<input type="hidden" name="quiz" value="${quiz.getID()}"/>
 <c:forEach var="question" items="${quiz.getQuestions()}">
 	<div class="question panel panel-info">
 		
@@ -15,15 +12,16 @@
 				<c:forEach var="answer" items="${question.getAnswers()}">
 					
 					<div class="form-group">											
-						<p class="answerText">Answer: ${answer.getText()}</p>
+						<p class="answerText">Answer: ${answer.getText()} 
+						<c:if test="${answer.isCorrect()}"><span class="answerTag">Correct</span></c:if> 
+						<c:if test="${answer.isCorrect() && answer.isBeingUsed()}"><span class="answerTag"> / </span></c:if> 
+						
+						<c:if test="${answer.isBeingUsed()}"><span class="answerTag">Your Answer</span></c:if> 
+						</p>
 								
-						<input type="radio" name="question:${question.getID()}" value="${answer.getID()}" name="answerRadio" class="formcontrol answerRadio">
 													
 					</div>
 				</c:forEach>				
 		</div>						
 	</div>
 </c:forEach>
-<input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-left">
-
-</form>

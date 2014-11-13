@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import edutechonline.database.Courses;
 import edutechonline.test.ResourceLoader;
 import edutechonline.test.Test;
 import edutechonline.test.TestSet;
@@ -19,6 +20,7 @@ public class WebTests extends TestSet {
 	
 	@Test
 	private void addCourseTest() {
+		
 		WebElement link=driver.findElement(By.id("addCourseFooter"));
 		link.click();
 		String url = driver.getCurrentUrl();

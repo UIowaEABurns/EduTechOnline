@@ -56,6 +56,24 @@
 		
 	</user>
 	
+	<user>
+		<fname>User</fname>
+		<lname>User</lname>
+		<pass>test</pass>
+		<email>student2@uiowa.edu</email>
+		<!-- Role must be 'user' 'admin' or 'manager' -->
+		<role>user</role>
+		
+	</user>
+		<user>
+		<fname>User</fname>
+		<lname>User</lname>
+		<pass>test</pass>
+		<email>student3@uiowa.edu</email>
+		<!-- Role must be 'user' 'admin' or 'manager' -->
+		<role>user</role>
+		
+	</user>
 	
 
 </edutech-configuration>

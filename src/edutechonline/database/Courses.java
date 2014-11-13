@@ -729,6 +729,31 @@ public class Courses {
 		}
 	}
 	
+	public static List<Integer> getStudentAnswersForQuiz(int userId, int quizId) {
+		Connection con=null;
+		CallableStatement procedure=null;
+		ResultSet results=null;
+		try {
+			con=ConnectionPool.getConnection();
+			procedure=con.prepareCall("{CALL getStudentQuizAnswers(?,?)}");
+			procedure.setInt(1,userId);
+			procedure.setInt(2,quizId);
+			results=procedure.executeQuery();
+			List<Integer> answers=new ArrayList<Integer>();
+			while (results.next()) {
+				answers.add(results.getInt("student_answers.answer_id"));
+			}
+			return answers;
+		}  catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally {
+			ConnectionPool.safeClose(con);
+			ConnectionPool.safeClose(procedure);
+			ConnectionPool.safeClose(results);
+		}
+		return null;
+	}
+	
 	/**
 	 * Returns whether the given user has completed every quiz
 	 * in the course

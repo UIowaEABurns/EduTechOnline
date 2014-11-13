@@ -4,6 +4,7 @@ public class Answer extends IDEntity {
 	private String text;
 	private boolean correct;
 	private int questionId;
+	private boolean beingUsed; // only used in topic JSP page
 	public Answer() {
 		
 	}
@@ -24,5 +25,11 @@ public class Answer extends IDEntity {
 	}
 	public void setQuestionId(int questionId) {
 		this.questionId = questionId;
+	}
+	public boolean isBeingUsed() {
+		return beingUsed;
+	}
+	public void setBeingUsed(boolean beingUsed) {
+		this.beingUsed = beingUsed;
 	}
 }
