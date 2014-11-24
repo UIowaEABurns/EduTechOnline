@@ -16,8 +16,6 @@ public class WebTests extends TestSet {
 
 	private WebDriver driver=null;
 	
-	
-	
 	@Test
 	private void addCourseTest() {
 		
@@ -59,6 +57,25 @@ public class WebTests extends TestSet {
 		urlField.sendKeys("https://www.youtube.com/embed/vo4pMVb0R6M");
 		topicName.submit();
 		driver.findElement(By.className("contentTopicLink")).click();
+	}
+	
+	
+	
+	
+	
+	@Test
+	
+	private void deleteCourseTest()
+	{
+		
+		WebElement link=driver.findElement(By.id("managecourses"));
+		link.click();
+		
+		List<WebElement> links=driver.findElements(By.className("viewCourseLink"));
+		links.get(links.size()-1).click(); //navigate to the course details page
+				
+		WebElement deleteCourseLink =driver.findElement(By.id("deleteButton"));
+		deleteCourseLink.click();
 	}
 	
 	@Override
