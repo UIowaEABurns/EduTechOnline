@@ -8,13 +8,18 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
+import edutechonline.application.Constants;
+import edutechonline.configuration.ConfigUtil;
+import edutechonline.database.ConnectionPool;
 import edutechonline.test.TestStatus.TestStatusCode;
 import edutechonline.test.suites.CourseTests;
 import edutechonline.test.suites.QuizTests;
 import edutechonline.test.suites.UserTests;
 import edutechonline.test.suites.ValidationTests;
 import edutechonline.test.suites.WebTests;
+import edutechonline.util.Validator;
 
 /***
  * Originally written for the Starexec project
@@ -29,6 +34,11 @@ import edutechonline.test.suites.WebTests;
  *
  */
 public class TestManager {
+	
+public static File getResource(String name) {
+		
+		return new File(TestManager.class.getResource(name).getFile());
+	}	
 	private static final Logger log = Logger.getLogger(TestManager.class);
 	private final static AtomicBoolean isRunning=new AtomicBoolean(false);
 	private final static AtomicBoolean isRunningStress=new AtomicBoolean(false);
@@ -50,6 +60,24 @@ public class TestManager {
 	
 	public static boolean isStressTestRunning() {
 		return isRunningStress.get();
+	}
+	
+	/**
+	 * Executes every test sequence in tests
+	 * @return True if the tests were started, and false if they were not for some reason
+	 */
+	public static void executeAllTestSequencesNoThread() {
+		
+		
+				//we want to clear all the results first, so it's obvious to the user what is left to be run
+				for (TestSet t : tests) {
+					t.clearResults();
+				}
+				
+				for (TestSet t : tests) {
+					t.execute();
+				}
+				
 	}
 	
 	/**
@@ -226,5 +254,18 @@ public class TestManager {
 		for (TestSet s : tests) {
 			logTestSet(s);
 		}
+	}
+	
+	public static void main(String [] args)
+	{
+		PropertyConfigurator.configure(getResource("/edutechonline/configuration/log4j.properties").getAbsolutePath());
+		//Constants.contentTopicDirectory=new File(root, "jsp/secure/content");
+
+		  ConfigUtil.loadProperties(getResource("/edutechonline/configuration/config.xml"));
+		  Validator.compilePatterns();
+	      initializeTests();
+	      ConnectionPool.initialize();
+	      executeAllTestSequencesNoThread();
+	      ConnectionPool.release();
 	}
 }

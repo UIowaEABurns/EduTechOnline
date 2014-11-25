@@ -74,8 +74,7 @@ public class WebTests extends TestSet {
 
 	@Override
 	protected void teardown() throws Exception {
-		// TODO Auto-generated method stub
-		
+		driver.quit();
 	}
 
 }

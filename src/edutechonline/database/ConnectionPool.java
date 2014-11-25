@@ -96,9 +96,9 @@ public class ConnectionPool {
 				poolProp.setTestOnBorrow(true);								// True to check if a connection is live every time we take one from the pool
 				poolProp.setValidationQuery("SELECT 1");					// The query to execute to check if a connection is live
 				poolProp.setValidationInterval(20000);						// Only check live connection every so often when borrowing (milliseconds)
-				poolProp.setMaxActive(100);				// How many active connections can we have in the pool
-				poolProp.setInitialSize(100);				// How many connections the pool will start out with
-				poolProp.setMinIdle(100);					// The minimum number of connections to keep "ready to go"
+				poolProp.setMaxActive(50);				// How many active connections can we have in the pool
+				poolProp.setInitialSize(50);				// How many connections the pool will start out with
+				poolProp.setMinIdle(50);					// The minimum number of connections to keep "ready to go"
 				poolProp.setDefaultAutoCommit(true);						// Turn autocommit on (turn transactions off by default)
 				poolProp.setJmxEnabled(false);								// Turn JMX off (we don't use it so we don't need it)
 				poolProp.setRemoveAbandonedTimeout(300);						// How int to wait (seconds) before reclaiming an open connection (should be the time of intest query)
