@@ -40,14 +40,14 @@
             			<div class="form-group">
 							<label for="passw"class="col-md-5">Enter Password</label>
 				
-							<input type="password" name="pass" id="passw" class="formcontrol" placeholder="Enter password" required>
+							<input type="password" name="pass" id="pass" class="formcontrol" placeholder="Enter password" required>
 						</div>	
 				
 					
 						<div class="form-group">
 							<label for="confpwd"class="col-md-5">Confirm Password </label>
 				
-							<input type="password" name="password" id="confpwd" class="formcontrol" placeholder="Confirm Password" required>
+							<input type="password" name="passConfirm" id="confpwd" class="formcontrol" placeholder="Confirm Password" required>
             			</div>
             
             			<input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-left">
