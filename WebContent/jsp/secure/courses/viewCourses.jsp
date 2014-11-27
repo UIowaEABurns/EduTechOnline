@@ -55,7 +55,7 @@
 					<c:if test="${grades}">
 						<th>${c.getGradeString()}</th>
 					</c:if>
-					<td><a href="/EduTechOnline/jsp/secure/courses/details.jsp?cid=${c.getID()}"><button value="${c.getID()}" class="editButton">View</button></a></td>
+					<td><a href="/EduTechOnline/jsp/secure/courses/details.jsp?cid=${c.getID()}"><button id="viewb" value="${c.getID()}" class="editButton">View</button></a></td>
 					
 				</tr>
 			</c:forEach>

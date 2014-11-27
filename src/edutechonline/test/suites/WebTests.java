@@ -114,6 +114,21 @@ public class WebTests extends TestSet {
 			
 	}
 	
+   	
+	
+	
+	
+	
+@Test
+
+private void enrollCourseTest()
+{
+	WebElement link=driver.findElement(By.id("searchcourse"));
+	link.click();
+	driver.findElement(By.id("viewb")).click();
+	driver.findElement(By.id("enrollButton")).click();
+	
+}
 	
 	
 	
@@ -125,7 +140,7 @@ public class WebTests extends TestSet {
 
 	@Override
 	protected void setup() throws Exception {
-		driver=ResourceLoader.getWebDriver("eric-burns@uiowa.edu", "test");
+		driver=ResourceLoader.getWebDriver("student@uiowa.edu", "test");
 		
 	}
 
