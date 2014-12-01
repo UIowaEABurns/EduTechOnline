@@ -23,7 +23,6 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 public class GenerateCertificate {
 	private static Logger log=Logger.getLogger(GenerateCertificate.class);
-	//TODO: Maybe make the certificates lok nicer
 	public static void makeCertificate(int userId, int courseId, File outputPath) throws FileNotFoundException, DocumentException {
 		outputPath.getParentFile().mkdirs();
 		log.debug("making a pdf to put at "+outputPath.getAbsolutePath());
@@ -69,7 +68,6 @@ public class GenerateCertificate {
 		document.close();
 		//w.flush();
 		//w.close();
-		System.out.println(sb.toString());
 		
 	}
 }

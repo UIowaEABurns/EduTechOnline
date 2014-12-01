@@ -6,6 +6,7 @@ import edutechonline.application.Constants;
 import edutechonline.test.Test;
 import edutechonline.test.TestSet;
 import edutechonline.test.TestUtil;
+import edutechonline.util.HttpRequestHelper;
 import edutechonline.util.Validator;
 
 public class ValidationTests extends TestSet {
@@ -104,6 +105,20 @@ public class ValidationTests extends TestSet {
 		Assert.assertFalse(Validator.isValidDescription(TestUtil.getRandomAlphaString(Constants.DESC_LENGTH+1)));
 		Assert.assertFalse(Validator.isValidDescription(null));
 		
+	}
+	@Test
+	private void isValidExtensionTest() {
+		Assert.assertTrue(Validator.isValidFileExtension("this.pdf"));
+		Assert.assertTrue(Validator.isValidFileExtension("this.txt"));
+		Assert.assertFalse(Validator.isValidFileExtension("this.that"));
+	}
+	
+	@Test
+	private void isNullOrEmptyTest() {
+		Assert.assertTrue(HttpRequestHelper.isNullOrEmpty(null));
+		Assert.assertTrue(HttpRequestHelper.isNullOrEmpty(""));
+		Assert.assertFalse(HttpRequestHelper.isNullOrEmpty("null"));
+
 	}
 	
 	@Override

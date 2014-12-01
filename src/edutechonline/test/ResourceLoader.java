@@ -44,6 +44,11 @@ public class ResourceLoader {
 		return loadUserIntoDatabase("test");
 	}
 	
+	/**
+	 * The user is the owner of the course
+	 * @param userId
+	 * @return
+	 */
 	public static Course loadCourseIntoDatabase(int userId) {
 		Random rand=new Random();
 		Course c=new Course();

@@ -42,7 +42,8 @@ public class WebTests extends TestSet {
 		
 		WebElement releaseCourse =driver.findElement(By.id("toggleVisible"));
 		releaseCourse.click();
-		
+		WebElement deprecateCourse=driver.findElement(By.id("toggleDeprecation"));
+		deprecateCourse.click();
 		WebElement addTopicLink =driver.findElement(By.id("addContentLink"));
 		addTopicLink.click();
 		
@@ -64,7 +65,6 @@ public class WebTests extends TestSet {
 	
 	
 	@Test
-	
 	private void deleteCourseTest()
 	{
 		

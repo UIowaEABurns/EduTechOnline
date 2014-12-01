@@ -559,7 +559,8 @@ public class Courses {
 			procedure.setBoolean(3, a.isCorrect());
 			procedure.registerOutParameter(4, java.sql.Types.INTEGER);
 			procedure.executeUpdate();
-			return procedure.getInt(4);
+			a.setID(procedure.getInt(4));
+			return a.getID();
 			
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
@@ -763,6 +764,7 @@ public class Courses {
 	 */
 	public static boolean hasUserCompletedCourse(int userId, int courseId) {
 		if (!Users.isStudent(userId)) {
+			log.debug("not a student, so the quiz has not been completed");
 			return false; //only students have completed courses
 		}
 		List<ContentTopic> topics=Courses.getContentTopicsForCourse(courseId);

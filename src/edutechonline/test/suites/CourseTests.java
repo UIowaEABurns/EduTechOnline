@@ -1,5 +1,7 @@
 package edutechonline.test.suites;
 
+import java.util.List;
+
 import org.junit.Assert;
 
 import edutechonline.database.Courses;
@@ -17,6 +19,7 @@ public class CourseTests extends TestSet {
 	Course course=null;
 	ContentTopic c1=null;
 	ContentTopic c2=null;
+	User student=null;
 	@Override
 	protected String getTestName() {
 		return "CourseTests";
@@ -41,6 +44,11 @@ public class CourseTests extends TestSet {
 	}
 	
 	@Test
+	private void getAllCoursesTest() {
+		Assert.assertNotNull(Courses.getAllCourses());
+	}
+	
+	@Test
 	private void deleteCourseTest() {
 		Course testCourse=ResourceLoader.loadCourseIntoDatabase(manager.getID());
 		
@@ -53,11 +61,6 @@ public class CourseTests extends TestSet {
 		Assert.assertNull(Courses.getCourse(testCourse.getID()));
 		
 
-	}
-	
-	@Test
-	private void getContentTopicTests() {
-		
 	}
 	
 	@Test 
@@ -81,6 +84,37 @@ public class CourseTests extends TestSet {
 		Assert.assertTrue(Courses.openCourse(course.getID()));
 		Assert.assertEquals(true,Courses.getCourse(course.getID()).isOpen()); //try it again to cover both cases
 	}
+	@Test
+	private void getAllOpenCoursesTest() {
+		List<Course> courses=Courses.getAllOpenCourses();
+		for (Course c : courses) {
+			Assert.assertTrue(c.isOpen());
+		}
+	}
+	@Test
+	private void isEnrolledTest() {
+		Assert.assertTrue(Courses.isEnrolled(student.getID(), course.getID()));
+		Assert.assertFalse(Courses.isEnrolled(manager.getID(), course.getID()));
+	}
+	@Test
+	private void isCompleteTest() {
+		Assert.assertTrue(Courses.hasUserCompletedCourse(student.getID(), course.getID()));
+	}
+	@Test
+	private void getUserIdsByCourseTest() {
+		Assert.assertEquals(1,Courses.getUserIdsInCourse(course.getID()).size());
+	}
+	@Test
+	private void getCertURLTest() {
+		Assert.assertNotNull(Courses.getCertificateUrl(student.getID(), course.getID()));
+	}
+	@Test
+	private void editCourseDeprecationTest() {
+		Assert.assertTrue(Courses.editCourseDeprecation(course.getID(), true));
+		Assert.assertTrue(Courses.getCourse(course.getID()).isDeprecated());
+		Assert.assertTrue(Courses.editCourseDeprecation(course.getID(), false));
+		Assert.assertFalse(Courses.getCourse(course.getID()).isDeprecated());
+	}
 	
 	@Test
 	private void closeCourseTest() {
@@ -103,6 +137,12 @@ public class CourseTests extends TestSet {
 		Assert.assertEquals(open, Courses.getCourse(course.getID()).isOpen()); // should have flipped back to original
 	}
 	
+	@Test
+	private void getCoursesByUserTest() {
+		List<Course> courses=Users.getCoursesByUser(student.getID());
+		Assert.assertEquals(1,courses.size());
+	}
+	
 	@Test 
 	private void getContentTopicTest() {
 		ContentTopic temp=Courses.getContentTopic(c1.getID());
@@ -118,8 +158,12 @@ public class CourseTests extends TestSet {
 	protected void setup() throws Exception {
 		manager=ResourceLoader.loadUserIntoDatabase();
 		course=ResourceLoader.loadCourseIntoDatabase(manager.getID());
+		course.setTempUserId(-1);
+
 		c1=ResourceLoader.loadTopicIntoDatabase(course.getID());
 		c2=ResourceLoader.loadTopicIntoDatabase(course.getID());
+		student=ResourceLoader.loadUserIntoDatabase("user");
+		Courses.enroll(student.getID(),course.getID());
 
 	}
 
@@ -129,6 +173,7 @@ public class CourseTests extends TestSet {
 		Assert.assertTrue(Courses.deleteContentTopic(c2.getID()));
 		Assert.assertTrue(Courses.deleteCourse(course.getID()));
 		Assert.assertTrue(Users.deleteUser(manager.getID()));
+		Assert.assertTrue(Users.deleteUser(student.getID()));
 	}
 
 }

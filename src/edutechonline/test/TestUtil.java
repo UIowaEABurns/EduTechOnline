@@ -47,6 +47,7 @@ public class TestUtil {
 			return "no error";
 		}
 		StringBuilder sb=new StringBuilder();
+		sb.append(error.getMessage()+"\n");
 		StackTraceElement[] trace=error.getStackTrace();
 		for (StackTraceElement te : trace) {
 			sb.append(te.toString()+"\n");

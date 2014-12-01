@@ -23,12 +23,6 @@ public class ValidatorStatusCode {
 	@Expose private String message;
 	@Expose private int statusCode;
 	
-	public ValidatorStatusCode(boolean s, String m, int sc) {
-		setSuccess(s);
-		setMessage(m);
-		setStatusCode(sc);
-	}
-	
 	public ValidatorStatusCode(boolean s, String m) {
 		setSuccess(s);
 		setMessage(m);
@@ -71,13 +65,6 @@ public class ValidatorStatusCode {
 	 */
 	public void setStatusCode(int statusCode) {
 		this.statusCode = statusCode;
-	}
-
-	/**
-	 * @return the statusCode
-	 */
-	public int getStatusCode() {
-		return statusCode;
 	}
 
 }

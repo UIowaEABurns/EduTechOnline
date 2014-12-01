@@ -53,7 +53,6 @@ public class Mail {
 	 * @param u
 	 * @param tempPass
 	 */
-	//TODO: insert the URL to the password reset page
 	public static void sendPasswordResetEmail(User u, String tempPass) {
 		try {
 			String message=FileUtils.readFileToString(new File(Constants.APP_ROOT,Constants.PASSWORD_RESET_EMAIL_PATH));
