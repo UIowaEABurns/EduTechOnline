@@ -78,6 +78,61 @@ public class WebTests extends TestSet {
 		deleteCourseLink.click();
 	}
 	
+	
+	
+	
+	
+	
+	@Test
+	
+	private void releaseCourseTest()
+	{
+		WebElement link=driver.findElement(By.id("managecourses"));
+		link.click();
+		
+		List<WebElement> links=driver.findElements(By.className("viewCourseLink"));
+		links.get(links.size()-1).click();
+		WebElement releaseCourseLink =driver.findElement(By.id("toggleVisible"));
+		releaseCourseLink.click();
+	
+			
+	}
+	
+	
+@Test
+	
+	private void deprecateCourseTest()
+	{
+		WebElement link=driver.findElement(By.id("managecourses"));
+		link.click();
+		
+		List<WebElement> links=driver.findElements(By.className("viewCourseLink"));
+		links.get(links.size()-1).click();
+		WebElement deprecateCourseLink =driver.findElement(By.id("toggleDeprecation"));
+		deprecateCourseLink.click();
+	
+			
+	}
+	
+   	
+	
+	
+	
+	
+@Test
+
+private void enrollCourseTest()
+{
+	WebElement link=driver.findElement(By.id("searchcourse"));
+	link.click();
+	driver.findElement(By.id("viewb")).click();
+	driver.findElement(By.id("enrollButton")).click();
+	
+}
+	
+	
+	
+	
 	@Override
 	protected String getTestName() {
 		return "WebTests";
@@ -85,10 +140,12 @@ public class WebTests extends TestSet {
 
 	@Override
 	protected void setup() throws Exception {
-		driver=ResourceLoader.getWebDriver("eric-burns@uiowa.edu", "test");
+		driver=ResourceLoader.getWebDriver("student@uiowa.edu", "test");
 		
 	}
 
+	
+		
 	@Override
 	protected void teardown() throws Exception {
 		driver.quit();
