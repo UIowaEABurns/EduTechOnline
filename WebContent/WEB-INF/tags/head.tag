@@ -54,6 +54,8 @@
 		<script src="/EduTechOnline/js/lib/jquery.qtip.min.js"></script>
 		<script src="/EduTechOnline/js/lib/jquery.validate.min.js"></script>
 		<script src="/EduTechOnline/js/lib/jquery.dataTables.min.js"></script>
+		<script src="/EduTechOnline/js/bootstrap.min.js"></script>
+		<script src="/EduTechOnline/js/jquery-1.11.1.min.js"></script>
 	
 		    <script src="/EduTechOnline/js/master.js"></script>
 	
