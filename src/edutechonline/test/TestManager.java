@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import edutechonline.test.TestStatus.TestStatusCode;
 import edutechonline.test.suites.CourseTests;
 import edutechonline.test.suites.QuizTests;
+import edutechonline.test.suites.StudentWebTests;
 import edutechonline.test.suites.UserTests;
 import edutechonline.test.suites.ValidationTests;
 import edutechonline.test.suites.WebTests;
@@ -50,6 +51,7 @@ public static File getResource(String name) {
 		tests.add(new WebTests());
 		tests.add(new UserSecurityTests());
 		tests.add(new CourseSecurityTests());
+		tests.add(new StudentWebTests());
 	}
 	
 	

@@ -96,7 +96,11 @@ public class ResourceLoader {
 	        WebElement userName=driver.findElement(By.name("j_username"));
 	        userName.sendKeys(email);
 	        driver.findElement(By.name("j_password")).sendKeys(password);
-	        
+	        try {
+	        	//Thread.sleep(2000);
+	        } catch (Exception e) {
+	        	// pass
+	        }
 	        userName.submit();
 	       driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	       return driver;

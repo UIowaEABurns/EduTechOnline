@@ -105,6 +105,25 @@
   	<url-pattern>/secure/addCourse</url-pattern>
   </servlet-mapping>
   
+  
+    <servlet>
+  	<servlet-name>EditAccount</servlet-name>
+  	<servlet-class>edutechonline.servlets.EditAccount</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>EditAccount</servlet-name>
+  	<url-pattern>/secure/editAccount</url-pattern>
+  </servlet-mapping>
+  
+      <servlet>
+  	<servlet-name>EditPassword</servlet-name>
+  	<servlet-class>edutechonline.servlets.EditPassword</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>EditPassword</servlet-name>
+  	<url-pattern>/secure/editPassword</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
   	<servlet-name>GradeQuiz</servlet-name>
   	<servlet-class>edutechonline.servlets.GradeQuiz</servlet-class>

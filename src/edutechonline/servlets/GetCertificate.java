@@ -32,7 +32,6 @@ public class GetCertificate extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		log.debug("incoming registration request");
 		try {
 			int userId=SessionFilter.getUserId(request);
 

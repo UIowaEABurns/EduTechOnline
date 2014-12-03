@@ -475,6 +475,9 @@ public class Users {
 		if (u!=null && u.getRole().equals("user")) {
 			return true;
 		}
+		if (u!=null) {
+			log.debug("the role of user ID = "+userId+" is "+u.getRole());
+		}
 		return false;
 	}
 	

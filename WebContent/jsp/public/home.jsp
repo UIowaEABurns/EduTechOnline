@@ -104,7 +104,7 @@
 		  			
 		        	<p>Hello, ${user.getFullName()}</p>
 		        	<ul>
-		        		<li><a href="/EduTechOnline/jsp/secure/accounts/details.jsp">view account details</a></li>
+		        		<li><a id="viewAccount" href="/EduTechOnline/jsp/secure/accounts/details.jsp">view account details</a></li>
 		        		<li><a href="#" onclick="javascript:logout();">logout</a></li>
 		        	</ul>
 		        </div>

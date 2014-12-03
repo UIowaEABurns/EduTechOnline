@@ -8,6 +8,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import edutechonline.database.Courses;
+import edutechonline.database.Users;
+import edutechonline.database.entity.Course;
+import edutechonline.database.entity.User;
 import edutechonline.test.ResourceLoader;
 import edutechonline.test.Test;
 import edutechonline.test.TestSet;
@@ -15,7 +18,7 @@ import edutechonline.test.TestSet;
 public class WebTests extends TestSet {
 
 	private WebDriver driver=null;
-	
+	User manager=null;
 	@Test
 	private void addCourseTest() {
 		
@@ -67,7 +70,7 @@ public class WebTests extends TestSet {
 	@Test
 	private void deleteCourseTest()
 	{
-		
+		Course c=ResourceLoader.loadCourseIntoDatabase(manager.getID());
 		WebElement link=driver.findElement(By.id("managecourses"));
 		link.click();
 		
@@ -83,8 +86,7 @@ public class WebTests extends TestSet {
 	
 	
 	
-	@Test
-	
+	//@Test
 	private void releaseCourseTest()
 	{
 		WebElement link=driver.findElement(By.id("managecourses"));
@@ -93,14 +95,11 @@ public class WebTests extends TestSet {
 		List<WebElement> links=driver.findElements(By.className("viewCourseLink"));
 		links.get(links.size()-1).click();
 		WebElement releaseCourseLink =driver.findElement(By.id("toggleVisible"));
-		releaseCourseLink.click();
-	
-			
+		releaseCourseLink.click();	
 	}
 	
 	
-@Test
-	
+	//@Test
 	private void deprecateCourseTest()
 	{
 		WebElement link=driver.findElement(By.id("managecourses"));
@@ -109,29 +108,8 @@ public class WebTests extends TestSet {
 		List<WebElement> links=driver.findElements(By.className("viewCourseLink"));
 		links.get(links.size()-1).click();
 		WebElement deprecateCourseLink =driver.findElement(By.id("toggleDeprecation"));
-		deprecateCourseLink.click();
-	
-			
-	}
-	
-   	
-	
-	
-	
-	
-@Test
-
-private void enrollCourseTest()
-{
-	WebElement link=driver.findElement(By.id("searchcourse"));
-	link.click();
-	driver.findElement(By.id("viewb")).click();
-	driver.findElement(By.id("enrollButton")).click();
-	
-}
-	
-	
-	
+		deprecateCourseLink.click();	
+	}	
 	
 	@Override
 	protected String getTestName() {
@@ -140,8 +118,8 @@ private void enrollCourseTest()
 
 	@Override
 	protected void setup() throws Exception {
-		driver=ResourceLoader.getWebDriver("student@uiowa.edu", "test");
-		
+		driver=ResourceLoader.getWebDriver("eric-burns@uiowa.edu", "test");
+		manager=ResourceLoader.loadUserIntoDatabase("manager");
 	}
 
 	
@@ -149,6 +127,7 @@ private void enrollCourseTest()
 	@Override
 	protected void teardown() throws Exception {
 		driver.quit();
+		Users.deleteUser(manager.getID());
 	}
 
 }
