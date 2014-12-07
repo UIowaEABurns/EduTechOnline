@@ -69,7 +69,7 @@ public class EduTechOnline implements ServletContextListener {
 			
 			schedule.scheduleAtFixedRate(clearOldPassResetRequests, 0, 8, TimeUnit.HOURS);
 			TestManager.initializeTests();
-			TestManager.executeAllTestSequences();
+			//TestManager.executeAllTestSequences();
 
 			
 		}	

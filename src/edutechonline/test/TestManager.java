@@ -44,14 +44,14 @@ public static File getResource(String name) {
 	//all test sequences need to be initialized here
 	public static void initializeTests() {
 		
-		tests.add(new UserTests());
-		tests.add(new ValidationTests());
-		tests.add(new CourseTests());
-		tests.add(new QuizTests());
+		//tests.add(new UserTests());
+		//tests.add(new ValidationTests());
+		//tests.add(new CourseTests());
+		//tests.add(new QuizTests());
 		tests.add(new WebTests());
-		tests.add(new UserSecurityTests());
-		tests.add(new CourseSecurityTests());
-		tests.add(new StudentWebTests());
+		//tests.add(new UserSecurityTests());
+		//tests.add(new CourseSecurityTests());
+		//tests.add(new StudentWebTests());
 	}
 	
 	

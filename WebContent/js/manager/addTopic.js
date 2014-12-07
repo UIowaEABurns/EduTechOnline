@@ -4,6 +4,7 @@ $(document).ready(function() {
 	$(".topicQuiz").hide();
 	$(".hiddenQuestion").hide();
 	$(".hiddenAnswer").hide();
+	$(".topicUrl").hide();
 	attachClicks();
 
 	$("#quiz").click(function() {

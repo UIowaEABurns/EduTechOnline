@@ -3,7 +3,7 @@
 <%@taglib prefix="edutech" tagdir="/WEB-INF/tags" %>
 	
 	
-<edutech:template title="EduTechOnline" css="public/home" js="">
+<edutech:template title="EduTechOnline" css="public/home" js="bootstrap.min">
 
 <div class="row equal">
  <div class="col-md-7">
@@ -73,18 +73,7 @@ $(function(){
 	                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 	                                        <input id="login-password" type="password" class="form-control" name="j_password" value="" placeholder="password">
 	                                    </div>
-	                                    
-	
-	                                
-	                            		<div class="input-group">
-	                                      	<div class="checkbox">
-	                                        	<label>
-	                                          		<input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
-	                                        	</label>
-	                                      	</div>
-	                                    </div>
-	
-	
+	        
 	                                	<div style="margin-top:10px" class="form-group">
 	                                   
 	                                    	<div class="col-sm-12 controls">
@@ -135,5 +124,29 @@ $(function(){
 	        </c:if>
 	    
 	  </div> 
+	  
+	  <div class="row equal">
+	  	
+	
+		<div id="whatsNew">
+			<div class="panel panel-info">
+	  			<div class="panel-heading">
+	 		 		<h5 class="panel-title">What's New</h5>
+	  			</div>
+	  				<div class="panel-body">
+			<ul>
+				<li>New course on Linux- Introduction to Linux</li>
+				<li>New courses on Verification - Formal methods in software engineering.</li>
+				<li>Trouble in finding the formula in Microsoft excel- Excel in Microsoft excel</li>
+				<li>Interested in photoediting !!- Introduction to adobe photoshop</li>
+				<li>Website designing - Introduction to HTML and CSS</li>
+				<li>New course on Animation</li>
+			
+			
+			</ul>
+					</div>
+			</div>
+		</div>
+		</div>
 	
 	</edutech:template>

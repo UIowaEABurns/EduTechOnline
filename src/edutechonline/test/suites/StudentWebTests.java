@@ -68,7 +68,7 @@ public class StudentWebTests extends TestSet {
 		download.click();
 	}
 	
-	//@Test
+	@Test
 	private void enrollCourseTest()
 	{
 		WebElement link=driver.findElement(By.id("searchcourse"));

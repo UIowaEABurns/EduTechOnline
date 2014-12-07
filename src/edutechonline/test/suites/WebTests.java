@@ -67,7 +67,7 @@ public class WebTests extends TestSet {
 	
 	
 	
-	@Test
+	//@Test
 	private void deleteCourseTest()
 	{
 		Course c=ResourceLoader.loadCourseIntoDatabase(manager.getID());

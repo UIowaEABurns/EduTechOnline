@@ -89,9 +89,9 @@
 						<div class="topicQuiz">
 						
 							<edutech:question/>	
-						
+							<button type="button" id="addQuestion">Add New Question</button>
+							
 						</div>        
-						<button type="button" id="addQuestion">Add New Question</button>
 						        		
             			<input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-left">
              	</div>

@@ -72,6 +72,8 @@
 	  			</div>
 	  				<div class="panel-body">
 						<ul class="contentTopicList">
+							<ul><a class="contentTopicLink" href="/EduTechOnline/jsp/secure/courses/details.jsp?cid=${course.getID()}">course home</a></ul>
+						
 							<c:forEach var="topic" items="${course.getTopics()}">
 								<ul><a class="contentTopicLink" href="/EduTechOnline/jsp/secure/courses/topic.jsp?tid=${topic.getID()}">${topic.getName()}</a></ul>
 							</c:forEach>  
