@@ -3,10 +3,8 @@
 
 
 <edutech:template css="public/home" js="">
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-	incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-	 exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-	  dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-	  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	<h2>EduTechOnline is an educational website to offer the world's best online courses
+	for a nominal fee. choose from hundred of courses from top instructor's and get an instant
+	certificate upon completion of the course. For any other further info, Please contact info@edutechonline.com</h2>
 	
 </edutech:template>
